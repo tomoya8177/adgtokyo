@@ -48,7 +48,7 @@
 				<a
 					href={'#'}
 					on:click={() => {
-						auth0.login();
+						$auth0.login();
 					}}>Login</a
 				>
 			</li>
@@ -59,5 +59,9 @@
 <style>
 	details[role='list'] summary::after {
 		display: none;
+	}
+	nav {
+		margin-right: var(--spacing);
+		margin-left: var(--spacing);
 	}
 </style>

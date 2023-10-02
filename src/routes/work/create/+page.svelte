@@ -3,13 +3,22 @@
 
 	import { Work } from '$lib/frontend/class/Work';
 	import { _ } from '$lib/frontend/i18n';
-	import { User, auth0 } from '$lib/frontend/store';
+	import { User, auth0, onBottomNavButtonClicked } from '$lib/frontend/store';
 	import Button from '../../../components/atoms/Button.svelte';
 	import { Entity } from '$lib/frontend/class/Entity';
 	import { PropertyHasEntity } from '$lib/frontend/class/PropertyHasEntity';
 	import { Property } from '$lib/frontend/class/Property';
 	import { Department } from '$lib/frontend/class/Department';
+	import { onMount } from 'svelte';
+	import { goto } from '$app/navigation';
 	let work = new Work({});
+	onMount(() => {
+		onBottomNavButtonClicked.set(async () => {
+			console.log(work);
+			await work.create();
+			goto('/work/' + work.id + '/edit');
+		});
+	});
 </script>
 
 {#if $User.authenticated}
@@ -25,58 +34,6 @@
 		({_('English')})
 		<input type="text" bind:value={work.titleEn} />
 	</label>
-	<h3>
-		{_('Departments')}
-	</h3>
-	{#each work.departments as department}
-		<div class="box">
-			<div style="display:flex">
-				<div>
-					{department.weight}
-				</div>
-				<label>
-					{_('Department')}
-					({_('Local')})
-
-					<input type="text" bind:value={department.titleLocal} />
-				</label>
-				<label>
-					{_('Department')}
-					({_('Local')})
-					<input type="text" bind:value={department.titleEn} />
-				</label>
-			</div>
-			<div style="padding-left:2rem">
-				{#each department.properties as property}
-					<div class="box">
-						<PropertyRowEdit bind:property />
-					</div>
-				{/each}
-				<Button
-					className="secondary"
-					icon="add"
-					label={_('Add A Parameter')}
-					onclick={() => {
-						department.properties = [
-							...department.properties,
-							new Property({ weight: department.properties.length + 1 })
-						];
-					}}
-				/>
-			</div>
-		</div>
-	{/each}
-	<Button
-		className="secondary"
-		icon="add"
-		label={_('Add A Department')}
-		onclick={() => {
-			work.departments = [
-				...work.departments,
-				new Department({ weight: work.departments.length + 1 })
-			];
-		}}
-	/>
 {:else if $User.authenticated === false}
 	{_('You need to be logged in to create a work.')}
 	<button

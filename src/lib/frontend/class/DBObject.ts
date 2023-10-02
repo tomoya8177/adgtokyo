@@ -8,12 +8,12 @@ export class DBObject {
 		this.id = data.id || crypto.randomUUID();
 	}
 	update: (data: any) => Promise<any> = async (data) => {
-		return await api.put(`/${this.table}/${this.id}`, data).then((res) => res.data);
+		return await api.put(`/api/${this.table}/${this.id}`, data).then((res) => res.data);
 	};
 	delete: () => Promise<any> = async () => {
-		return await api.delete(`/${this.table}/${this.id}`).then((res) => res.data);
+		return await api.delete(`/api/${this.table}/${this.id}`).then((res) => res.data);
 	};
-	create: (data: any) => Promise<any> = async (data) => {
-		return await api.post(`/${this.table}`, data).then((res) => res.data);
+	create: () => Promise<any> = async () => {
+		return await api.post(`/api/${this.table}`, this).then((res) => res.data);
 	};
 }
