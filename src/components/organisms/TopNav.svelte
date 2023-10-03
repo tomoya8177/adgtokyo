@@ -25,6 +25,7 @@
 								href={'#'}
 								on:click={async () => {
 									const email = prompt('Enter new email');
+									if (!email) return;
 									const response = await api.put('/users/' + $User.profile?.sub, { email });
 									console.log(response);
 								}}
