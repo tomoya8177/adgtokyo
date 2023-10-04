@@ -1,0 +1,76 @@
+<script lang="ts">
+	import type { PropertyHasEntity } from '$lib/frontend/class/PropertyHasEntity';
+	import { _ } from '$lib/frontend/i18n';
+	import { LocalEnSwitch } from '$lib/frontend/store';
+	import HasEntityEdit from './HasEntityEdit.svelte';
+	import Button from '../atoms/Button.svelte';
+	import EditControlButtons from '../molecules/EditControlButtons.svelte';
+	import HasEntityStatic from '../molecules/HasEntityStatic.svelte';
+	import HasEntitySubtextInput from '../molecules/HasEntitySubtextInput.svelte';
+
+	export let hasEntity: PropertyHasEntity;
+	export let onDelete: () => void;
+	export let onUp: (() => void) | false;
+	export let onDown: (() => void) | false;
+</script>
+
+<article style="display:flex;gap:0.3rem">
+	<div class="flex" style="flex:1">
+		{#if hasEntity.editing}
+			<div class="flex">
+				<div>
+					{#if hasEntity.entityId && hasEntity.entity}
+						<div class="flex">
+							<div>
+								{#if $LocalEnSwitch == 'local'}
+									{hasEntity.entity.nameLocal}
+								{:else}
+									{hasEntity.entity.nameEn}
+								{/if}
+							</div>
+						</div>
+						<div>
+							<HasEntitySubtextInput bind:hasEntity />
+						</div>
+					{:else}
+						<HasEntityEdit bind:hasEntity />
+					{/if}
+				</div>
+			</div>
+		{:else}
+			<div class="flex">
+				<div class="flex">
+					<HasEntityStatic {hasEntity} />
+				</div>
+			</div>
+		{/if}
+		<div>
+			<EditControlButtons
+				{onUp}
+				{onDown}
+				bind:editing={hasEntity.editing}
+				onSave={() => {
+					if (!hasEntity.validate()) return;
+					hasEntity.update({
+						entityId: hasEntity.entityId,
+						subtextLocal: hasEntity.subtextLocal,
+						subtextEn: hasEntity.subtextEn
+					});
+					hasEntity.editing = false;
+				}}
+				onDelete={async () => {
+					if (!confirm(_('Are you sure?'))) return;
+					await hasEntity.delete();
+					onDelete();
+				}}
+			/>
+		</div>
+	</div>
+</article>
+
+<style>
+	.flex {
+		display: flex;
+		justify-content: space-between;
+	}
+</style>

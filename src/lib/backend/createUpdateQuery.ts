@@ -32,6 +32,7 @@ export const createUpdateQuery = async (request: Request, params: any): Promise<
 		if (key == 'id' || key == 'ai') continue;
 		if (value === null || typeof value === 'undefined') continue;
 		if (value.toString().includes('.000Z')) value = value.toString().replace('.000Z', '');
+		if (typeof value == 'string') value = value.replace(/(?<!\\)'/g, "\\'");
 		updates.push(`${key}='${value}'`);
 	}
 	return updates.join(',');

@@ -11,5 +11,10 @@ export const User = writable({
 export const auth0 = writable(null as any);
 
 export const onBottomNavButtonClicked = writable(null as any);
+export const BottomNavButton = writable({
+	label: '',
+	onClick: () => {}
+});
 
 export const LocalEnSwitch = writable('local' as 'local' | 'en');
+export const Toasts = writable([] as any[]);

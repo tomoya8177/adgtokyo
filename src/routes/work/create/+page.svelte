@@ -1,39 +1,50 @@
 <script lang="ts">
-	import PropertyRowEdit from './PropertyRowEdit.svelte';
-
+	import WorkInitialInput from './WorkInitialInput.svelte';
 	import { Work } from '$lib/frontend/class/Work';
 	import { _ } from '$lib/frontend/i18n';
-	import { User, auth0, onBottomNavButtonClicked } from '$lib/frontend/store';
-	import Button from '../../../components/atoms/Button.svelte';
-	import { Entity } from '$lib/frontend/class/Entity';
-	import { PropertyHasEntity } from '$lib/frontend/class/PropertyHasEntity';
-	import { Property } from '$lib/frontend/class/Property';
+	import { BottomNavButton, User, auth0 } from '$lib/frontend/store';
 	import { Department } from '$lib/frontend/class/Department';
 	import { onMount } from 'svelte';
 	import { goto } from '$app/navigation';
+	import { History } from '$lib/frontend/class/History';
 	let work = new Work({});
 	onMount(() => {
-		onBottomNavButtonClicked.set(async () => {
-			console.log(work);
-			await work.create();
-			goto('/work/' + work.id + '/edit');
+		BottomNavButton.set({
+			label: _('Proceed'),
+			onClick: async () => {
+				if (!work.validate()) {
+					return;
+				}
+				const response = await work.create();
+				console.log({ response }, work.id);
+				await new History({
+					userId: $User.profile.sub,
+					action: 'create',
+					target: 'work',
+					workId: work.id
+				}).create();
+				await new Department({
+					titleLocal: _('Art Department'),
+					titleEn: 'Art Department',
+					weight: 1,
+					workId: work.id
+				}).create();
+				await new Department({
+					titleLocal: _('Other Department'),
+					titleEn: 'Other Department',
+					weight: 2,
+					workId: work.id
+				}).create();
+
+				goto('/work/' + work.id + '/edit');
+			}
 		});
 	});
 </script>
 
 {#if $User.authenticated}
 	<h2>{_('Create New Work')}</h2>
-	<label>
-		{_('Title')}
-		({_('Local')})
-
-		<input type="text" bind:value={work.titleLocal} />
-	</label>
-	<label>
-		{_('Title')}
-		({_('English')})
-		<input type="text" bind:value={work.titleEn} />
-	</label>
+	<WorkInitialInput bind:work />
 {:else if $User.authenticated === false}
 	{_('You need to be logged in to create a work.')}
 	<button
@@ -44,12 +55,3 @@
 		{_('Login')}
 	</button>
 {/if}
-
-<style>
-	.box {
-		border: 1px solid rgba(100, 100, 100, 0.5);
-		padding: var(--spacing);
-		margin-bottom: var(--spacing);
-		border-radius: var(--border-radius);
-	}
-</style>

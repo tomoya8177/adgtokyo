@@ -1,8 +1,8 @@
-import { PUBLIC_API_KEY } from '$env/static/public';
+import { PUBLIC_API_ENDPOINT, PUBLIC_API_KEY } from '$env/static/public';
 import axios from 'axios';
 
 const api = axios.create({
-	baseURL: 'http://localhost:5173',
+	baseURL: PUBLIC_API_ENDPOINT,
 	headers: {
 		Authorization: `Bearer ${PUBLIC_API_KEY}`
 	}

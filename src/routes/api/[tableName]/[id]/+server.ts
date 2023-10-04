@@ -3,8 +3,8 @@ import { createUpdateQuery } from '$lib/backend/createUpdateQuery.js';
 import { db } from '$lib/backend/db.js';
 
 export async function GET({ params, cookies, request }) {
-	// if (!(await checkApiKey(request.headers.get('Authorization')?.replace('Bearer ', '') || '')))
-	// 	return new Response('not authorized', { status: 401 });
+	if (!(await checkApiKey(request.headers.get('Authorization')?.replace('Bearer ', '') || '')))
+		return new Response('not authorized', { status: 401 });
 
 	const rows = await db.query(`select * from ${params.tableName} where id='${params.id}'`);
 

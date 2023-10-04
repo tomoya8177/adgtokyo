@@ -14,6 +14,8 @@ export class DBObject {
 		return await api.delete(`/api/${this.table}/${this.id}`).then((res) => res.data);
 	};
 	create: () => Promise<any> = async () => {
-		return await api.post(`/api/${this.table}`, this).then((res) => res.data);
+		const created = await api.post(`/api/${this.table}`, this).then((res) => res.data);
+		this.id = created.id;
+		return this;
 	};
 }

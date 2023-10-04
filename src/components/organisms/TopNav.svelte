@@ -1,25 +1,42 @@
 <script lang="ts">
 	import { api } from '$lib/frontend/class/API';
 	import { User, auth0 } from '$lib/frontend/store';
+	import { slide } from 'svelte/transition';
 	import Icon from '../atoms/Icon.svelte';
+	import SearchBox from '../molecules/SearchBox.svelte';
+	import Logo from '../atoms/Logo.svelte';
+	import { _ } from '$lib/frontend/i18n';
+	export let searchKeywords: string;
+	export let onKeywordsChange: (value: string) => void;
+	let searching = false;
 </script>
 
 <nav>
 	<ul>
-		<li><a href="#" class="secondary">A</a></li>
+		<li>
+			<Logo />
+		</li>
 	</ul>
 	<ul>
-		<li><strong>ADG Tokyo</strong></li>
+		<li style="padding:0rem">
+			<SearchBox bind:value={searchKeywords} onchange={onKeywordsChange} />
+		</li>
 	</ul>
 	<ul>
 		{#if $User.authenticated}
 			<li>
-				<details role="list" dir="rtl">
-					<summary aria-haspopup="listbox" role="link">
-						{$User.profile?.nickname}
+				<details class="dropdown">
+					<summary role="link">
+						<span class="hiddenWithMobile">
+							{$User.profile?.nickname}
+						</span>
 						<Icon icon="menu" /></summary
 					>
-					<ul role="listbox">
+					<ul dir="rtl">
+						<li>
+							{_('Logged in as:')}
+							{$User.profile?.nickname}
+						</li>
 						<li>
 							<a
 								href={'#'}
@@ -30,7 +47,7 @@
 									console.log(response);
 								}}
 							>
-								Chang Email
+								{_('Change Email')}
 							</a>
 						</li>
 						<li>
@@ -38,7 +55,7 @@
 								href={'#'}
 								on:click={() => {
 									$auth0.logout();
-								}}>Logout</a
+								}}>{_('Logout')}</a
 							>
 						</li>
 					</ul>
@@ -50,7 +67,7 @@
 					href={'#'}
 					on:click={() => {
 						$auth0.login();
-					}}>Login</a
+					}}>{_('Login')}</a
 				>
 			</li>
 		{/if}
@@ -58,11 +75,17 @@
 </nav>
 
 <style>
-	details[role='list'] summary::after {
+	summary {
+		display: flex;
+		gap: 0.2rem;
+		align-items: center;
+		text-decoration: none;
+	}
+	details summary::after {
 		display: none;
 	}
 	nav {
-		margin-right: var(--spacing);
-		margin-left: var(--spacing);
+		margin-right: var(--pico-spacing);
+		margin-left: var(--pico-spacing);
 	}
 </style>

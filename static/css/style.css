@@ -1,65 +1,96 @@
-/* Pink Light scheme (Default) */
+/* Slate color for light color scheme (Default) */
 /* Can be forced with data-theme="light" */
 [data-theme='light'],
 :root:not([data-theme='dark']) {
-	--primary: #d81b60;
-	--primary-hover: #c2185b;
-	--primary-focus: rgba(216, 27, 96, 0.125);
-	--primary-inverse: #fff;
+	--pico-text-selection-color: rgba(129, 145, 181, 0.25);
+	--pico-primary: #5d6b89;
+	--pico-primary-background: #525f7a;
+	--pico-primary-underline: rgba(93, 107, 137, 0.5);
+	--pico-primary-hover: #48536b;
+	--pico-primary-hover-background: #48536b;
+	--pico-primary-focus: rgba(129, 145, 181, 0.25);
+	--pico-primary-inverse: #fff;
 }
 
-/* Pink Dark scheme (Auto) */
+/* Slate color for dark color scheme (Auto) */
 /* Automatically enabled if user has Dark mode enabled */
 @media only screen and (prefers-color-scheme: dark) {
 	:root:not([data-theme]) {
-		--primary: #d81b60;
-		--primary-hover: #e91e63;
-		--primary-focus: rgba(216, 27, 96, 0.25);
-		--primary-inverse: #fff;
+		--pico-text-selection-color: rgba(144, 158, 190, 0.1875);
+		--pico-primary: #909ebe;
+		--pico-primary-background: #525f7a;
+		--pico-primary-underline: rgba(144, 158, 190, 0.5);
+		--pico-primary-hover: #b0b9d0;
+		--pico-primary-hover-background: #5d6b89;
+		--pico-primary-focus: rgba(144, 158, 190, 0.25);
+		--pico-primary-inverse: #fff;
 	}
 }
 
-/* Pink Dark scheme (Forced) */
+/* Slate color for dark color scheme (Forced) */
 /* Enabled if forced with data-theme="dark" */
 [data-theme='dark'] {
-	--primary: #d81b60;
-	--primary-hover: #e91e63;
-	--primary-focus: rgba(216, 27, 96, 0.25);
-	--primary-inverse: #fff;
+	--pico-text-selection-color: rgba(144, 158, 190, 0.1875);
+	--pico-primary: #909ebe;
+	--pico-primary-background: #525f7a;
+	--pico-primary-underline: rgba(144, 158, 190, 0.5);
+	--pico-primary-hover: #b0b9d0;
+	--pico-primary-hover-background: #5d6b89;
+	--pico-primary-focus: rgba(144, 158, 190, 0.25);
+	--pico-primary-inverse: #fff;
 }
 
-/* Pink (Common styles) */
 :root {
-	--form-element-active-border-color: var(--primary);
-	--form-element-focus-color: var(--primary-focus);
-	--switch-color: var(--primary-inverse);
-	--switch-checked-background-color: var(--primary);
-}
-:root {
-	--font-size: 14px;
-	--border-radius: 0.25rem;
-	--spacing: 0.5rem;
-	--form-element-spacing-vertical: 0.5rem;
-	--form-element-spacing-horizontal: 0.5rem;
+	/* --font-size: 14px; */
+	--pico-spacing: 0.4rem;
+	--pico-form-element-spacing-vertical: 0.5rem;
+	--pico-form-element-spacing-horizontal: 0.5rem;
+	/*
+	--pico-border-radius: 0.25rem;
+	*/
 }
 
+body {
+	overflow-x: hidden;
+}
 @media (min-width: 576px) {
 	:root {
-		--font-size: 15px;
+		--pico-font-size: 106.25%;
 	}
 }
 @media (min-width: 768px) {
 	:root {
-		--font-size: 16px;
+		--pico-font-size: 112.5%;
 	}
 }
-@media (min-width: 992px) {
+@media (min-width: 1024px) {
 	:root {
-		--font-size: 17px;
+		--pico-font-size: 118.75%;
 	}
 }
-@media (min-width: 1200px) {
+@media (min-width: 1280px) {
 	:root {
-		--font-size: 18px;
+		--pico-font-size: 125%;
+	}
+}
+@media (min-width: 1536px) {
+	:root {
+		--pico-font-size: 131.25%;
+	}
+}
+.justified-flex {
+	gap: 0.4rem;
+	display: flex;
+	justify-content: space-between;
+}
+.justified-flex > div:first-child {
+	flex: 1;
+}
+.hiddenWithMobile {
+	display: block;
+}
+@media (max-width: 450px) {
+	.hiddenWithMobile {
+		display: none;
 	}
 }
