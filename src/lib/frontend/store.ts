@@ -1,4 +1,5 @@
 import { writable } from 'svelte/store';
+import { cookies } from './cookies';
 
 export const User = writable({
 	authenticated: undefined,
@@ -16,7 +17,7 @@ export const BottomNavButton = writable({
 	onClick: () => {}
 });
 
-export const LocalEnSwitch = writable('local' as 'local' | 'en');
+export const LocalEnSwitch = writable(cookies.get('localEng') || ('local' as 'local' | 'en'));
 export const Toasts = writable([] as any[]);
 export const ConfirmMessage = writable({
 	open: false,

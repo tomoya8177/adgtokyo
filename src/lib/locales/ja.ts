@@ -44,5 +44,6 @@ export default {
 	Filmography: 'フィルモグラフィー',
 	Register: '登録',
 	'Are you sure?': 'よろしいですか？',
-	Support: 'サポート'
+	Support: 'サポート',
+	Japanese: '日本語'
 };

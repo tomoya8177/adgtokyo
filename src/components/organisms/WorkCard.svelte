@@ -58,12 +58,6 @@
 			</div>
 		{/if}
 	</main>
-	<footer>
-		<small>
-			{_('Posted')}:
-			{DateTime.fromISO(work.createdAt).toLocaleString()}
-		</small>
-	</footer>
 </article>
 
 <style>

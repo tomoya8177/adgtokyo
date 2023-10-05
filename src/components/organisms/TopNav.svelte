@@ -1,4 +1,6 @@
 <script lang="ts">
+	import LocaleSwitch from './LocaleSwitch.svelte';
+
 	import { api } from '$lib/frontend/class/API';
 	import { User, auth0 } from '$lib/frontend/store';
 	import { page } from '$app/stores';
@@ -7,6 +9,8 @@
 	import SearchBox from '../molecules/SearchBox.svelte';
 	import Logo from '../atoms/Logo.svelte';
 	import { _ } from '$lib/frontend/i18n';
+	import { myPrompt } from '$lib/frontend/class/Prompt';
+	import { toast } from '$lib/frontend/toast';
 	export let searchKeywords: string;
 	export let onKeywordsChange: (value: string) => void;
 	let searching = false;
@@ -44,27 +48,69 @@
 							{_('Logged in as:')}
 							{$User.profile?.nickname}
 						</li>
+						<hr />
 						<li>
 							<a
 								style="display:flex"
 								href={'#'}
 								on:click={async () => {
-									const email = prompt('Enter new email');
-									if (!email) return;
-									const response = await api.put('/users/' + $User.profile?.sub, { email });
-									console.log(response);
+									const nickname = await myPrompt(
+										_('Enter new nickname. current nickname is :') + $User.profile?.nickname
+									);
+									if (!nickname) return;
+									const response = await api.put('/users/' + $User.profile?.sub, { nickname });
+									toast(_('Nickname updated'));
+									setTimeout(() => {
+										location.reload();
+									}, 1000);
 								}}
 							>
-								{_('Change Email')}
-								<Icon icon="email" />
+								{_('Update Nickname')}
+								<Icon icon="person" />
 							</a>
 						</li>
+						{#if $User.profile.email}
+							<li>
+								<a
+									style="display:flex"
+									href={'#'}
+									on:click={async () => {
+										const email = await myPrompt(
+											'Enter new email. Current email is :' + $User.profile?.email
+										);
+										if (!email) return;
+										const response = await api
+											.put('/users/' + $User.profile?.sub, { email })
+											.then((res) => res.data);
+										console.log(response);
+										if (response.error) {
+											toast(response.msg);
+											return;
+										}
+										toast(_('Email updated'));
+										setTimeout(() => {
+											//location.reload();
+										}, 1000);
+									}}
+								>
+									{_('Change Email')}
+									<Icon icon="email" />
+								</a>
+							</li>
+						{/if}
+
 						<li>
 							<a style="display:flex" href="https://adgtokyo.channel.io/home">
 								{_('Support')}
 								<Icon icon="support_agent" />
 							</a>
 						</li>
+						<hr />
+						<li>
+							{_('Select UI Language')}<br />
+							<LocaleSwitch />
+						</li>
+						<hr />
 						<li>
 							<button
 								style="width:100%"
@@ -85,11 +131,18 @@
 					}}>{_('Login')}</a
 				>
 			</li>
+			<li class="padding-small">
+				<LocaleSwitch />
+			</li>
 		{/if}
 	</ul>
 </nav>
 
 <style>
+	.padding-small {
+		padding-top: var(--pico-spacing);
+		padding-bottom: var(--pico-spacing);
+	}
 	summary {
 		display: flex;
 		gap: 0.2rem;

@@ -31,9 +31,7 @@
 	<figure class="slider" {id}>
 		<div style="text-wrap:nowrap">
 			{#each images as attachment, index}
-				<div
-					style="display:inline-block;margin-right: var(--pico-spacing); cursor: pointer; border-radius: var(--pico-border-radius); overflow: hidden;position:relative;"
-				>
+				<div class="image">
 					<img
 						style="height:200px;width:auto;"
 						on:click={() => {
@@ -88,7 +86,6 @@
 	<div style="position:absolute;left:0;top:100px">
 		<Button
 			white
-			className="secondary"
 			icon="chevron_left"
 			onclick={() => {
 				const slider = document.getElementById(id);
@@ -100,7 +97,6 @@
 	<div style="position:absolute;right:0;top:100px">
 		<Button
 			white
-			className="secondary"
 			icon="chevron_right"
 			onclick={() => {
 				const slider = document.getElementById(id);
@@ -119,5 +115,13 @@
 
 	.slider::-webkit-scrollbar {
 		display: none;
+	}
+	.image {
+		display: inline-block;
+		margin-right: calc(var(--pico-spacing) / 2);
+		cursor: pointer;
+		border-radius: var(--pico-border-radius);
+		overflow: hidden;
+		position: relative;
 	}
 </style>

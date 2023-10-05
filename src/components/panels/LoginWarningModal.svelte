@@ -1,26 +1,27 @@
 <script lang="ts">
 	import { _ } from '$lib/frontend/i18n';
-	import { ConfirmMessage } from '$lib/frontend/store';
+	import { auth0 } from '$lib/frontend/store';
 </script>
 
-<dialog open={$ConfirmMessage.open}>
+<dialog open>
 	<article>
-		{$ConfirmMessage.message}
+		{_('You need to be logged in.')}
 		<footer>
 			<button
 				class="outline"
 				on:click={() => {
-					$ConfirmMessage.result = false;
+					//go back
+					history.back();
 				}}
 			>
 				{_('Cancel')}
 			</button>
 			<button
 				on:click={() => {
-					$ConfirmMessage.result = true;
+					$auth0.login();
 				}}
 			>
-				{_('OK')}
+				{_('Login')}
 			</button>
 		</footer>
 	</article>

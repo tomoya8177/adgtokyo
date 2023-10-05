@@ -7,6 +7,7 @@
 	import { onMount } from 'svelte';
 	import { goto } from '$app/navigation';
 	import { History } from '$lib/frontend/class/History';
+	import LoginWarningModal from '../../../components/panels/LoginWarningModal.svelte';
 	let work = new Work({});
 	onMount(() => {
 		BottomNavButton.set({
@@ -46,12 +47,5 @@
 	<h2>{_('Create New Work')}</h2>
 	<WorkInitialInput bind:work />
 {:else if $User.authenticated === false}
-	{_('You need to be logged in to create a work.')}
-	<button
-		on:click={() => {
-			$auth0.login();
-		}}
-	>
-		{_('Login')}
-	</button>
+	<LoginWarningModal />
 {/if}

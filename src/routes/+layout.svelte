@@ -10,6 +10,7 @@
 	import ConfirmModal from '../components/panels/ConfirmModal.svelte';
 	import type { PageData } from './$types';
 	import axios from 'axios';
+	import PromptModal from '../components/panels/PromptModal.svelte';
 	let loggingIn = true;
 
 	onMount(async () => {
@@ -19,6 +20,7 @@
 		if ($User.authenticated) {
 			$User.profile = await $auth0.getUser();
 		}
+		console.log($User);
 		loggingIn = false;
 	});
 	let searchKeywords = '';
@@ -70,6 +72,7 @@
 {/if}
 <Toasts />
 <ConfirmModal />
+<PromptModal />
 
 <style>
 	.height {

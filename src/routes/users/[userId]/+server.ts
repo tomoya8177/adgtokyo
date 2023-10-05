@@ -13,8 +13,21 @@ export const PUT = async ({ request, params, cookies }) => {
 	if (!(await checkApiKey(request.headers.get('Authorization')?.replace('Bearer ', '') || '')))
 		return new Response('not authorized', { status: 401 });
 	const body = await request.json();
-	const user = await auth0Management.users
-		.update({ id: params.userId }, body)
-		.then((res) => res.data);
+	try {
+		const user = await auth0Management.users
+			.update({ id: params.userId }, body)
+			.then((res) => res.data);
+		return new Response(JSON.stringify(user));
+	} catch (e) {
+		return new Response(JSON.stringify(e));
+	}
+};
+
+export const POST = async ({ request, params, cookies }) => {
+	//add user an email
+	if (!(await checkApiKey(request.headers.get('Authorization')?.replace('Bearer ', '') || '')))
+		return new Response('not authorized', { status: 401 });
+	const body = await request.json();
+	const user = await auth0Management.users.create(body).then((res) => res.data);
 	return new Response(JSON.stringify(user));
 };

@@ -1,23 +1,25 @@
 <script lang="ts">
+	import { PromptMessage } from '$lib/frontend/class/Prompt';
 	import { _ } from '$lib/frontend/i18n';
-	import { ConfirmMessage } from '$lib/frontend/store';
+	let value: string;
 </script>
 
-<dialog open={$ConfirmMessage.open}>
+<dialog open={$PromptMessage.open}>
 	<article>
-		{$ConfirmMessage.message}
+		{$PromptMessage.message}
+		<input type="text" bind:value />
 		<footer>
 			<button
 				class="outline"
 				on:click={() => {
-					$ConfirmMessage.result = false;
+					$PromptMessage.value = '';
 				}}
 			>
 				{_('Cancel')}
 			</button>
 			<button
 				on:click={() => {
-					$ConfirmMessage.result = true;
+					$PromptMessage.value = value;
 				}}
 			>
 				{_('OK')}
