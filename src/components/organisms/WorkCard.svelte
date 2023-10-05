@@ -13,7 +13,7 @@
 	<main>
 		<div class="justified-flex">
 			<div>
-				<a href={'/work/' + work.id}>
+				<a href={'/work/' + work.id} style="text-decoration:none">
 					<strong>
 						{#if $LocalEnSwitch == 'local'}
 							{work.titleLocal}
@@ -50,7 +50,9 @@
 				</div>
 				<div>
 					{#if attachment}
-						<SquareThumbnail url={attachment.thumbnailURL} />
+						<a href={'/work/' + work.id} style="text-decoration:none">
+							<SquareThumbnail url={attachment.thumbnailURL} />
+						</a>
 					{/if}
 				</div>
 			</div>

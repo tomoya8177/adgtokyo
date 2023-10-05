@@ -1,7 +1,11 @@
 import { db } from '$lib/backend/db.js';
 
 export const POST = async ({ request }) => {
-	const { category, keywords } = (await request.json()) as { category: string; keywords: string };
+	const { category, keywords, AND } = (await request.json()) as {
+		category: string;
+		keywords: string;
+		AND: any;
+	};
 	let data: any[] = [];
 	switch (category) {
 		case 'work':
@@ -22,18 +26,22 @@ export const POST = async ({ request }) => {
 		.replace(/\+/g, ' ')
 		.split(' ')
 		.forEach((keyword: string) => {
-			data = data.map((record) => {
-				if (
-					Object.values(record).some((value: any) => {
-						if (typeof value !== 'string') return false;
-						// console.log({ value, keyword });
-						return value.includes(keyword);
-					})
-				) {
-					record.matchPoint += 1;
-				}
-				return record;
-			});
+			data = data
+				.map((record) => {
+					if (
+						Object.values(record).some((value: any) => {
+							if (typeof value !== 'string') return false;
+							// console.log({ value, keyword });
+							return value.toLowerCase().includes(keyword.toLowerCase());
+						})
+					) {
+						record.matchPoint += 1;
+					} else if (AND) {
+						return false;
+					}
+					return record;
+				})
+				.filter((record) => record);
 		});
 	data = data.filter((record) => record.matchPoint > 0).sort((a, b) => b.matchPoint - a.matchPoint);
 	console.log({ data });

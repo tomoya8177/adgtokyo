@@ -56,4 +56,7 @@ export class Entity extends DBObject {
 			return work;
 		});
 	}
+	get username() {
+		return this.slug || this.id.substring(0, 8) || '';
+	}
 }

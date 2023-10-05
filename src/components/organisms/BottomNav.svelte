@@ -10,13 +10,15 @@
 	<ul />
 	<ul />
 	<ul>
-		<li>
-			<div>
-				<a role="button" href={'#'} on:click={$BottomNavButton.onClick}>
-					{$BottomNavButton.label}
-				</a>
-			</div>
-		</li>
+		{#if $BottomNavButton}
+			<li>
+				<div>
+					<a role="button" href={'#'} on:click={$BottomNavButton.onClick}>
+						{$BottomNavButton.label}
+					</a>
+				</div>
+			</li>
+		{/if}
 		<li>
 			<LocalEngSwitch />
 		</li>

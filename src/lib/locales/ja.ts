@@ -38,5 +38,6 @@ export default {
 	Format: 'フォーマット',
 	Video: 'ビデオ',
 	Description: '説明',
-	Filmography: 'フィルモグラフィー'
+	Filmography: 'フィルモグラフィー',
+	Register: '登録'
 };

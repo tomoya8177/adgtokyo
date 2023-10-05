@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { api } from '$lib/frontend/class/API';
 	import { User, auth0 } from '$lib/frontend/store';
+	import { page } from '$app/stores';
 	import { slide } from 'svelte/transition';
 	import Icon from '../atoms/Icon.svelte';
 	import SearchBox from '../molecules/SearchBox.svelte';
@@ -9,6 +10,12 @@
 	export let searchKeywords: string;
 	export let onKeywordsChange: (value: string) => void;
 	let searching = false;
+	$: emptySearchBox($page.url.href);
+	const emptySearchBox = (url: string) => {
+		if (!url.includes('/search')) {
+			searchKeywords = '';
+		}
+	};
 </script>
 
 <nav>

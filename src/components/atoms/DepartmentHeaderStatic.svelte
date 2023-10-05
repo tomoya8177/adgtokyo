@@ -25,5 +25,6 @@
 		color: var(--pico-background-color);
 		border-radius: var(--pico-border-radius);
 		line-height: 1rem;
+		margin-bottom: var(--pico-spacing);
 	}
 </style>
