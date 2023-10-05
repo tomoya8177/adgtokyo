@@ -26,8 +26,8 @@ export class Work extends DBObject {
 	constructor(data: any) {
 		data.table = 'Work';
 		super(data);
-		this.titleLocal = data.titleLocal;
-		this.titleEn = data.titleEn;
+		this.titleLocal = data.titleLocal || '';
+		this.titleEn = data.titleEn || '';
 		this.departments = data.departments || [];
 		this.distributions = data.distributions || [];
 		this.attachments = data.attachments || [];

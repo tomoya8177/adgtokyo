@@ -2,10 +2,6 @@
 	import { cookies } from '$lib/frontend/cookies';
 	import { _ } from '$lib/frontend/i18n';
 	import { LocalEnSwitch } from '$lib/frontend/store';
-	let value: string;
-	LocalEnSwitch.subscribe((val) => {
-		console.log({ val });
-	});
 </script>
 
 <div>

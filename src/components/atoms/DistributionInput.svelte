@@ -5,17 +5,19 @@
 	export let distribution: Distribution;
 </script>
 
-<label>
-	{_('Year')}
-	<input type="text" bind:value={distribution.year} />
-</label>
-<label>
-	{_('Release')}
-	({_('Local')})
-	<input type="text" bind:value={distribution.regionLocal} />
-</label>
-<label>
-	{_('Release')}
-	({_('English')})
-	<input type="text" bind:value={distribution.regionEn} />
-</label>
+<div class="grid">
+	<label>
+		{_('Year')}
+		<input type="text" bind:value={distribution.year} />
+	</label>
+	<label>
+		{_('Release')}
+		({_('Local')})
+		<input type="text" bind:value={distribution.regionLocal} />
+	</label>
+	<label>
+		{_('Release')}
+		({_('English')})
+		<input type="text" bind:value={distribution.regionEn} />
+	</label>
+</div>

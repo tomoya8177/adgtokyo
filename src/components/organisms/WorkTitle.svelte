@@ -113,9 +113,9 @@
 				work.editing = false;
 			}}
 			onDelete={async () => {
-				if (!(await myConfirm(_('Are you sure??')))) return;
+				if (!(await myConfirm(_('Are you sure?')))) return;
 				work.delete();
-				goto('/');
+				location.href = '/';
 			}}
 		/>
 	</div>

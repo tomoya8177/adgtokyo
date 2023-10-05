@@ -49,8 +49,11 @@
 							{_('Logged in as:')}
 							{$User.profile?.nickname}
 						</li>
+
 						{#if $User.profile.picture}
-							<UserProfilePicture />
+							<li>
+								<UserProfilePicture />
+							</li>
 						{:else}
 							<hr />
 						{/if}
@@ -81,12 +84,10 @@
 								<Icon icon="support_agent" />
 							</a>
 						</li>
-						<hr />
 						<li>
 							{_('Select UI Language')}<br />
 							<LocaleSwitch />
 						</li>
-						<hr />
 						<li>
 							<button
 								style="width:100%"

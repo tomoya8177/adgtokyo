@@ -35,21 +35,22 @@ export class Entity extends DBObject {
 		this.hasEntities = data.hasEntities || [];
 	}
 	build({ works, hasEntities, properties, departments, distributions }) {
-		this.hasEntities = hasEntities.map((hasEntity) => {
-			hasEntity = new PropertyHasEntity(hasEntity);
-			hasEntity.property = properties.find((property) => property.id == hasEntity.propertyId);
-			hasEntity.property = new Property(hasEntity.property);
-			hasEntity.department = departments.find(
-				(department) => department.id == hasEntity.property.departmentId
-			);
-			hasEntity.department = new Department(hasEntity.department);
-			hasEntity.work = works.find((work) => work.id == hasEntity.department.workId);
-			hasEntity.work = new Work(hasEntity.work);
-			hasEntity.distributions = distributions
-				.filter((Distribution) => Distribution.workId == hasEntity.work.id)
-				.map((distribution) => new Distribution(distribution));
-			return hasEntity;
-		});
+		this.hasEntities = hasEntities
+			.map((hasEntity) => {
+				hasEntity = new PropertyHasEntity(hasEntity);
+				hasEntity.property = properties.find((property) => property.id == hasEntity.propertyId);
+				hasEntity.property = new Property(hasEntity.property);
+				hasEntity.department = departments.find(
+					(department) => department.id == hasEntity.property.departmentId
+				);
+				hasEntity.department = new Department(hasEntity.department);
+				hasEntity.work = works.find((work) => work.id == hasEntity.department.workId);
+				if (!hasEntity.work) {
+					return false;
+				}
+				return hasEntity;
+			})
+			.filter((hasEntity) => hasEntity);
 		this.works = works.map((work) => {
 			work = new Work(work);
 			work.build({ hasEntities, properties, departments, distributions });

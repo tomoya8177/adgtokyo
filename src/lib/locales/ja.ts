@@ -45,5 +45,8 @@ export default {
 	Register: '登録',
 	'Are you sure?': 'よろしいですか？',
 	Support: 'サポート',
-	Japanese: '日本語'
+	Japanese: '日本語',
+	'Are you sure you want to delete this person?': 'この人物を削除してもよろしいですか？',
+	'Please enter keywords': 'キーワードを入力してください',
+	'No results': '結果がありません'
 };

@@ -25,7 +25,6 @@
 		});
 		const results = await Promise.all(promises);
 		possibleDuplicates = results.map((result) => {
-			console.log({ result });
 			const entity = new Entity(result.person);
 			entity.build(result);
 			return entity;

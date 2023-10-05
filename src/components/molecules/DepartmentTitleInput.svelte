@@ -4,13 +4,15 @@
 	export let department: Department;
 </script>
 
-<label>
-	{_('Department')}
-	({_('Local')})
-	<input type="text" bind:value={department.titleLocal} />
-</label>
-<label>
-	{_('Department')}
-	({_('Local')})
-	<input type="text" bind:value={department.titleEn} />
-</label>
+<div class="grid">
+	<label>
+		{_('Department')}
+		({_('Local')})
+		<input type="text" bind:value={department.titleLocal} />
+	</label>
+	<label>
+		{_('Department')}
+		({_('Local')})
+		<input type="text" bind:value={department.titleEn} />
+	</label>
+</div>

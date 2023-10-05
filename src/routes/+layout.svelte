@@ -20,7 +20,6 @@
 		if ($User.authenticated) {
 			$User.profile = await $auth0.getUser();
 		}
-		console.log($User);
 		loggingIn = false;
 	});
 	let searchKeywords = '';

@@ -1,6 +1,4 @@
 <script lang="ts">
-	import WorkTitleDistribution from './WorkTitleDistributionEdit.svelte';
-
 	import WorkTitleInput from '../../../../components/molecules/WorkTitleInput.svelte';
 	import { Work } from '$lib/frontend/class/Work';
 	import { _ } from '$lib/frontend/i18n';
@@ -21,42 +19,8 @@
 	import Icon from '../../../../components/atoms/Icon.svelte';
 	import { search } from '$lib/frontend/search';
 	import { api } from '$lib/frontend/class/API';
-	let work = new Work({});
-	let department = new Department({
-		workId: work.id
-	});
-	let property = new Property({
-		departmentId: department.id
-	});
-	let distribution = new Distribution({
-		workId: work.id
-	});
-	onMount(() => {
-		BottomNavButton.set({
-			label: _('Proceed'),
-			onClick: async () => {
-				if (!work.validate()) {
-					return;
-				}
-				await work.create();
-				await department.create();
-				await property.create();
-				await distribution.create();
-				await new PropertyHasEntity({
-					propertyId: property.id,
-					entityId: $page.params.entityId
-				}).create();
-				await new History({
-					userId: $User.profile.sub,
-					action: 'create',
-					target: 'work',
-					workId: work.id
-				}).create();
-
-				goto('/crew/' + $page.params.entityId + '/edit');
-			}
-		});
-	});
+	export let work: Work;
+	export let distribution: Distribution;
 	let searching = false;
 	const findExistingEntity = async (inputLocal: string, inputEn: string) => {
 		console.log({ work, inputLocal, inputEn });
@@ -84,22 +48,32 @@
 	let possibleDuplicates: any[] = [];
 </script>
 
-{#if $User.authenticated}
-	<h2>{_('Create New Work')}</h2>
-
-	<WorkTitleDistribution bind:work bind:distribution />
-	<hr />
-	<Heading label={_('Department')} />
-	<DepartmentTitleInput {department} />
-	<Heading label={_('Credit Title')} />
-	<PropertyKeyInput {property} />
-{:else if $User.authenticated === false}
-	{_('You need to be logged in to create a work.')}
-	<button
-		on:click={() => {
-			$auth0.login();
-		}}
-	>
-		{_('Login')}
-	</button>
+<Heading label={_('Work')} />
+<WorkTitleInput bind:work />
+{#if possibleDuplicates.length > 0}
+	<div>
+		{_('Possible duplicates')}:
+	</div>
+	{#each possibleDuplicates as option}
+		<div class="justified-flex">
+			<div style="display:flex">
+				<Icon icon="movie" />
+				<span>
+					<small>
+						{option.titleLocal}
+						{option.titleEn}
+						(ID:
+						{option.id} )
+					</small>
+				</span>
+			</div>
+			<a role="button" href={'/work/' + option.id + '/edit'}>
+				{_('Create credit under this work')}
+			</a>
+		</div>
+	{/each}
+	{_('Or create as new work by filling the information belopw.')}
 {/if}
+<hr />
+<Heading label={_('Release Info')} />
+<DistributionInput bind:distribution />

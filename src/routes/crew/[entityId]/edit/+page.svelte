@@ -43,7 +43,8 @@
 				onDelete={async () => {
 					if (!(await myConfirm(_('Are you sure you want to delete this person?')))) return;
 
-					person.delete();
+					await person.delete();
+					goto('/');
 				}}
 				onSave={async () => {
 					person.update({

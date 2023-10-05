@@ -10,7 +10,6 @@ export const search = async (keywords: string, category: string, AND: any = fals
 			.replace(/,/g, ' ')
 			.replace(/\./g, ' ')
 			.trim();
-		console.log({ keywords });
 		results = await api
 			.post('/search', {
 				keywords,
