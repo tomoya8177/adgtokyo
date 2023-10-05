@@ -9,8 +9,10 @@
 		<footer>
 			<button
 				class="outline"
-				on:click={() => {
+				on:click={async () => {
 					//go back
+					await $auth0.login();
+
 					history.back();
 				}}
 			>

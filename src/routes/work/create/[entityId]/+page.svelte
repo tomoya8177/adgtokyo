@@ -21,6 +21,7 @@
 	import Icon from '../../../../components/atoms/Icon.svelte';
 	import { search } from '$lib/frontend/search';
 	import { api } from '$lib/frontend/class/API';
+	import LoginWarningModal from '../../../../components/panels/LoginWarningModal.svelte';
 	let work = new Work({});
 	let department = new Department({
 		workId: work.id
@@ -94,12 +95,5 @@
 	<Heading label={_('Credit Title')} />
 	<PropertyKeyInput {property} />
 {:else if $User.authenticated === false}
-	{_('You need to be logged in to create a work.')}
-	<button
-		on:click={() => {
-			$auth0.login();
-		}}
-	>
-		{_('Login')}
-	</button>
+	<LoginWarningModal />
 {/if}
