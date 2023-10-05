@@ -7,6 +7,10 @@
 		const auth0 = new Auth0();
 		await auth0.init();
 		await auth0.handleRedirectCallback();
-		location.href = cookies.get('backTo');
+		location.href = cookies.get('backTo') || '/';
 	});
 </script>
+
+Please click
+<a href="/"> here </a>
+if the page doesn't redirect you automatically.
