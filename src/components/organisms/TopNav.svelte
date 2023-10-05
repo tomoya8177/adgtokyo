@@ -11,6 +11,7 @@
 	import { _ } from '$lib/frontend/i18n';
 	import { myPrompt } from '$lib/frontend/class/Prompt';
 	import { toast } from '$lib/frontend/toast';
+	import UserProfilePicture from '../atoms/UserProfilePicture.svelte';
 	export let searchKeywords: string;
 	export let onKeywordsChange: (value: string) => void;
 	let searching = false;
@@ -48,7 +49,11 @@
 							{_('Logged in as:')}
 							{$User.profile?.nickname}
 						</li>
-						<hr />
+						{#if $User.profile.picture}
+							<UserProfilePicture />
+						{:else}
+							<hr />
+						{/if}
 						<li>
 							<a
 								style="display:flex"
