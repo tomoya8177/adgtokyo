@@ -13,6 +13,7 @@
 	import EditControlButtons from '../molecules/EditControlButtons.svelte';
 	import HasEntityRow from './HasEntityRow.svelte';
 	import PropertyRowStatic from '../atoms/PropertyRowStatic.svelte';
+	import { myConfirm } from '$lib/frontend/class/Confirm';
 	let work = new Work({});
 	export let property: Property;
 	export let onDelete: () => void;
@@ -48,8 +49,8 @@
 					});
 					property.editing = false;
 				}}
-				onDelete={() => {
-					if (!confirm(_('Are you sure?'))) return;
+				onDelete={async () => {
+					if (!(await myConfirm(_('Are you sure?')))) return;
 					property.delete();
 					onDelete();
 				}}

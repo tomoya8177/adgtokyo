@@ -18,6 +18,7 @@
 	import Icon from '../atoms/Icon.svelte';
 	import type { Attachment } from '$lib/frontend/class/Attachments';
 	import EditControlButtons from '../molecules/EditControlButtons.svelte';
+	import { myConfirm } from '$lib/frontend/class/Confirm';
 	export let images: Attachment[];
 	export let editing = false;
 	let id = crypto.randomUUID();
@@ -72,8 +73,8 @@
 									  }
 									: false}
 								bind:editing
-								onDelete={() => {
-									if (!confirm('Are you sure?')) return;
+								onDelete={async () => {
+									if (!(await myConfirm('Are you sure?'))) return;
 									attachment.delete();
 									images = images.filter((a) => a.id !== attachment.id);
 								}}

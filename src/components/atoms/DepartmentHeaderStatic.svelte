@@ -21,7 +21,7 @@
 		padding: 0.2rem;
 		padding-left: 0.4rem;
 		width: 100%;
-		background-color: rgb(82, 95, 122);
+		background-color: rgb(145, 158, 186);
 		color: var(--pico-background-color);
 		border-radius: var(--pico-border-radius);
 		line-height: 1rem;

@@ -20,7 +20,7 @@
 
 <nav>
 	<ul>
-		<li>
+		<li style="padding:var(--pico-spacing)">
 			<Logo />
 		</li>
 	</ul>
@@ -40,12 +40,13 @@
 						<Icon icon="menu" /></summary
 					>
 					<ul dir="rtl">
-						<li>
+						<li style="display:flex">
 							{_('Logged in as:')}
 							{$User.profile?.nickname}
 						</li>
 						<li>
 							<a
+								style="display:flex"
 								href={'#'}
 								on:click={async () => {
 									const email = prompt('Enter new email');
@@ -55,14 +56,21 @@
 								}}
 							>
 								{_('Change Email')}
+								<Icon icon="email" />
 							</a>
 						</li>
 						<li>
-							<a
-								href={'#'}
+							<a style="display:flex" href="https://adgtokyo.channel.io/home">
+								{_('Support')}
+								<Icon icon="support_agent" />
+							</a>
+						</li>
+						<li>
+							<button
+								style="width:100%"
 								on:click={() => {
 									$auth0.logout();
-								}}>{_('Logout')}</a
+								}}>{_('Logout')}</button
 							>
 						</li>
 					</ul>

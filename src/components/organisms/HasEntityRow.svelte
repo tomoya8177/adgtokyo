@@ -7,6 +7,7 @@
 	import EditControlButtons from '../molecules/EditControlButtons.svelte';
 	import HasEntityStatic from '../molecules/HasEntityStatic.svelte';
 	import HasEntitySubtextInput from '../molecules/HasEntitySubtextInput.svelte';
+	import { myConfirm } from '$lib/frontend/class/Confirm';
 
 	export let hasEntity: PropertyHasEntity;
 	export let onDelete: () => void;
@@ -17,8 +18,8 @@
 <article style="display:flex;gap:0.3rem">
 	<div class="flex" style="flex:1">
 		{#if hasEntity.editing}
-			<div class="flex">
-				<div>
+			<div class="flex" style="flex:1">
+				<div style="flex:1">
 					{#if hasEntity.entityId && hasEntity.entity}
 						<div class="flex">
 							<div>
@@ -59,7 +60,7 @@
 					hasEntity.editing = false;
 				}}
 				onDelete={async () => {
-					if (!confirm(_('Are you sure?'))) return;
+					if (!(await myConfirm(_('Are you sure?')))) return;
 					await hasEntity.delete();
 					onDelete();
 				}}

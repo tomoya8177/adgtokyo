@@ -32,6 +32,9 @@ export default {
 	'Logged in as:': 'ログイン中：',
 	'Done Editing': '編集完了',
 	Work: '作品',
+	Works: '作品',
+	People: '人物',
+	Businesses: 'ビジネス',
 	Release: 'リリース',
 	Year: '年',
 	'Official Website': '公式サイト',
@@ -39,5 +42,7 @@ export default {
 	Video: 'ビデオ',
 	Description: '説明',
 	Filmography: 'フィルモグラフィー',
-	Register: '登録'
+	Register: '登録',
+	'Are you sure?': 'よろしいですか？',
+	Support: 'サポート'
 };

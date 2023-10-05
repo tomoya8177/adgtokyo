@@ -1,7 +1,10 @@
 import { db } from '$lib/backend/db.js';
+import { redirect } from '@sveltejs/kit';
 
 export const GET = async ({ params }) => {
 	const person = (await db.query(`select * from Entity where id='${params.entityId}'`))[0];
+	if (!person) throw redirect(307, '/');
+
 	const weights = await db.query(
 		`select * from WeightForEntity where entityId='${params.entityId}'`
 	);
@@ -20,7 +23,7 @@ export const GET = async ({ params }) => {
 						promises.push(
 							db.query(
 								`insert into WeightForEntity (id,entityId, attachedTo, weight) values ('${id}','${
-									person.id
+									params.entityId
 								}','${hasEntity.id}',${index + 1})`
 							)
 						);

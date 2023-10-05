@@ -1,6 +1,6 @@
 <script lang="ts">
-	import EntityCreditRow from './EntityCreditRow.svelte';
-	import EntityNameEdit from './EntityNameEdit.svelte';
+	import EntityCreditRow from '../../../../components/organisms/EntityCreditRow.svelte';
+	import EntityNameEdit from '../../../../components/molecules/EntityNameEdit.svelte';
 	import { Person } from '$lib/frontend/class/Person';
 	import { _ } from '$lib/frontend/i18n';
 	import { BottomNavButton } from '$lib/frontend/store';
@@ -13,6 +13,7 @@
 	import axios from 'axios';
 	import { api } from '$lib/frontend/class/API';
 	import Heading from '../../../../components/atoms/Heading.svelte';
+	import { myConfirm } from '$lib/frontend/class/Confirm';
 	export let data: PageData;
 	let person = new Person(data.person);
 	person.build(data);
@@ -37,10 +38,9 @@
 	<div>
 		<EditControlButtons
 			bind:editing={person.editing}
-			onDelete={() => {
-				if (!confirm(_('Are you sure you want to delete this person?'))) {
-					return;
-				}
+			onDelete={async () => {
+				if (!(await myConfirm(_('Are you sure you want to delete this person?')))) return;
+
 				person.delete();
 			}}
 			onSave={async () => {

@@ -7,6 +7,11 @@
 	import { goto } from '$app/navigation';
 	import BottomNav from '../components/organisms/BottomNav.svelte';
 	import Toasts from '../components/organisms/Toasts.svelte';
+	import ConfirmModal from '../components/panels/ConfirmModal.svelte';
+	import type { PageData } from './$types';
+	import axios from 'axios';
+	let loggingIn = true;
+
 	onMount(async () => {
 		auth0.set(new Auth0());
 		await $auth0.init();
@@ -14,6 +19,7 @@
 		if ($User.authenticated) {
 			$User.profile = await $auth0.getUser();
 		}
+		loggingIn = false;
 	});
 	let searchKeywords = '';
 	const onKeywordsChange = (value: string) => {
@@ -34,18 +40,36 @@
 	};
 </script>
 
-<div class="height">
-	<div class=" header">
-		<TopNav bind:searchKeywords {onKeywordsChange} />
+{#if loggingIn}
+	<div
+		style="
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 100%;
+  height: 100vh;
+				display: flex;
+					justify-content:center;
+					align-items:center;
+					"
+	>
+		<span aria-busy={true}>Loading...</span>
 	</div>
-	<div class="container body">
-		<slot />
+{:else}
+	<div class="height">
+		<div class=" header">
+			<TopNav bind:searchKeywords {onKeywordsChange} />
+		</div>
+		<div class="container body">
+			<slot />
+		</div>
+		<div class=" footer">
+			<BottomNav />
+		</div>
 	</div>
-	<div class=" footer">
-		<BottomNav />
-	</div>
-</div>
+{/if}
 <Toasts />
+<ConfirmModal />
 
 <style>
 	.height {

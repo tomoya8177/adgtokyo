@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
 	import { Attachment } from '$lib/frontend/class/Attachments';
+	import { myConfirm } from '$lib/frontend/class/Confirm';
 	import type { Work } from '$lib/frontend/class/Work';
 	import { _ } from '$lib/frontend/i18n';
 
@@ -16,28 +17,32 @@
 <div class="flex">
 	<div>
 		{#if work.editing}
-			<label>
-				{_('Title')}
-				({_('Local')})
+			<div class="grid">
+				<label>
+					{_('Title')}
+					({_('Local')})
 
-				<input type="text" bind:value={work.titleLocal} />
-			</label>
-			<label>
-				{_('Title')}
-				({_('English')})
-				<input type="text" bind:value={work.titleEn} />
-			</label>
-			<label>
-				{_('Format')}
-				({_('Local')})
+					<input type="text" bind:value={work.titleLocal} />
+				</label>
+				<label>
+					{_('Title')}
+					({_('English')})
+					<input type="text" bind:value={work.titleEn} />
+				</label>
+			</div>
+			<div class="grid">
+				<label>
+					{_('Format')}
+					({_('Local')})
 
-				<input type="text" bind:value={work.formatLocal} />
-			</label>
-			<label>
-				{_('Format')}
-				({_('English')})
-				<input type="text" bind:value={work.formatEn} />
-			</label>
+					<input type="text" bind:value={work.formatLocal} />
+				</label>
+				<label>
+					{_('Format')}
+					({_('English')})
+					<input type="text" bind:value={work.formatEn} />
+				</label>
+			</div>
 			<label>
 				{_('Description')}
 				({_('Local')})
@@ -107,8 +112,8 @@
 				});
 				work.editing = false;
 			}}
-			onDelete={() => {
-				if (!confirm(_('Are you sure??'))) return;
+			onDelete={async () => {
+				if (!(await myConfirm(_('Are you sure??')))) return;
 				work.delete();
 				goto('/');
 			}}

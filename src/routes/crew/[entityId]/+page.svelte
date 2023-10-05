@@ -11,7 +11,7 @@
 	import type { PageData } from './$types';
 	import { goto } from '$app/navigation';
 	import HasEntitySubtextStatic from '../../../components/molecules/HasEntitySubtextStatic.svelte';
-	import EntityCreditRow from './edit/EntityCreditRow.svelte';
+	import EntityCreditRow from '../../../components/organisms/EntityCreditRow.svelte';
 	import Heading from '../../../components/atoms/Heading.svelte';
 	export let data: PageData;
 	console.log(data.person);

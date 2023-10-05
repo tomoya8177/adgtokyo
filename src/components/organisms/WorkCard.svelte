@@ -13,7 +13,7 @@
 	<main>
 		<div class="justified-flex">
 			<div>
-				<a href={'/work/' + work.id} style="text-decoration:none">
+				<a href={'/work/' + work.id} class="contrast">
 					<strong>
 						{#if $LocalEnSwitch == 'local'}
 							{work.titleLocal}

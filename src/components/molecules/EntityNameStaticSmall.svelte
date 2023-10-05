@@ -5,8 +5,7 @@
 	export let entity: Entity;
 </script>
 
-<a href={`/crew/${entity.id}`}>
-	<Icon icon={entity.category || ''} />
+<a class="contrast" href={`/crew/${entity.id}`}>
 	{#if $LocalEnSwitch == 'local'}
 		{entity.nameLocal}
 	{:else}
@@ -19,6 +18,5 @@
 		display: flex;
 		align-items: center;
 		gap: 0.4rem;
-		text-decoration: none;
 	}
 </style>

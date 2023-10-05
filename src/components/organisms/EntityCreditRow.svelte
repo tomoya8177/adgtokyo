@@ -1,11 +1,15 @@
 <script lang="ts">
 	import { _ } from '$lib/frontend/i18n';
 	import { LocalEnSwitch } from '$lib/frontend/store';
-	import PropertyRowStatic from '../../../../components/atoms/PropertyRowStatic.svelte';
-	import DistributionRowStatic from '../../../../components/organisms/DistributionRowStatic.svelte';
-	import EditControlButtons from '../../../../components/molecules/EditControlButtons.svelte';
-	import HasEntitySubtextStatic from '../../../../components/molecules/HasEntitySubtextStatic.svelte';
-	import HasEntitySubtextInput from '../../../../components/molecules/HasEntitySubtextInput.svelte';
+	import PropertyRowStatic from '../atoms/PropertyRowStatic.svelte';
+	import DistributionRowStatic from './DistributionRowStatic.svelte';
+	import EditControlButtons from '../molecules/EditControlButtons.svelte';
+	import HasEntitySubtextStatic from '../molecules/HasEntitySubtextStatic.svelte';
+	import HasEntitySubtextInput from '../molecules/HasEntitySubtextInput.svelte';
+	import { myConfirm } from '$lib/frontend/class/Confirm';
+	import Icon from '../atoms/Icon.svelte';
+	import { goto } from '$app/navigation';
+	import Button from '../atoms/Button.svelte';
 	export let hasEntity: any;
 	export let editable = false;
 	export let onUp: (() => void) | false = false;
@@ -18,9 +22,6 @@
 		<div class="grid">
 			<div>
 				<PropertyRowStatic property={hasEntity.property} />
-				{#if !hasEntity.editing}
-					<HasEntitySubtextStatic {hasEntity} />
-				{/if}
 				<small
 					><em>
 						{#if $LocalEnSwitch == 'local'}
@@ -30,14 +31,26 @@
 						{/if}
 					</em>
 				</small>
-				{#if hasEntity.editing}
+				{#if !hasEntity.editing}
+					<HasEntitySubtextStatic {hasEntity} />
+				{:else}
+					<div>
+						<Button
+							className="outline"
+							icon="edit"
+							label={_('Edit Work')}
+							onclick={() => {
+								goto(`/work/${hasEntity.work.id}/edit`);
+							}}
+						/>
+					</div>
 					<HasEntitySubtextInput {hasEntity} />
 				{/if}
 			</div>
 			<div style="margin-left:1rem">
 				<div class="flex">
 					<div>
-						<a href="/work/{hasEntity.work.id}">
+						<a class="contrast" href="/work/{hasEntity.work.id}">
 							{#if $LocalEnSwitch == 'local'}
 								{hasEntity.work.titleLocal}
 							{:else}
@@ -71,7 +84,7 @@
 		<div>
 			<EditControlButtons
 				onDelete={async () => {
-					if (!confirm(_('Are you sure?'))) return;
+					if (!(await myConfirm(_('Are you sure?')))) return;
 					await hasEntity.delete();
 					hasEntity.editing = false;
 					if (onDelete) {

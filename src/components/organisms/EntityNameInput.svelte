@@ -3,17 +3,20 @@
 	import { Entity } from '$lib/frontend/class/Entity';
 	import { _ } from '$lib/frontend/i18n';
 	import { search } from '$lib/frontend/search';
+	import Searching from '../../routes/search/[personOrBusiness]/[keywords]/Searching.svelte';
 	import Icon from '../atoms/Icon.svelte';
 	export let inputLocal: string;
 	export let inputEn: string;
 	export let onExistingClicked: (entity: Entity) => void;
 	let possibleDuplicates: any[] = [];
+	let searching = false;
 	const findExistingEntity = async (inputLocal: string, inputEn: string) => {
-		const keyword = `${inputLocal.length > 3 ? inputLocal : ''} ${
-			inputEn.length > 3 ? inputEn : ''
+		const keyword = `${inputLocal.length > 2 ? inputLocal : ''} ${
+			inputEn.length > 2 ? inputEn : ''
 		}`.trim();
 		console.log({ keyword });
 		if (!keyword) return;
+		searching = true;
 		const personResults = await search(keyword, 'person', 'AND');
 		const businessResults = await search(keyword, 'business', 'AND');
 		const mergedResults = [...personResults, ...businessResults];
@@ -27,19 +30,25 @@
 			entity.build(result);
 			return entity;
 		});
+		searching = false;
 		console.log({ possibleDuplicates });
 	};
 	$: findExistingEntity(inputLocal, inputEn);
 </script>
 
-<label
-	>{_('Name')} ({_('Local')})
-	<input bind:value={inputLocal} />
-</label>
-<label
-	>{_('Name')} ({_('English')})
-	<input bind:value={inputEn} />
-</label>
+<div class="grid">
+	<label
+		>{_('Name')} ({_('Local')})
+		<input bind:value={inputLocal} />
+	</label>
+	<label
+		>{_('Name')} ({_('English')})
+		<input bind:value={inputEn} />
+	</label>
+</div>
+{#if searching}
+	<Searching />
+{/if}
 {#if possibleDuplicates.length > 0}
 	<div>
 		{_('Possible duplicates')}:

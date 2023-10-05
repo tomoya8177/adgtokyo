@@ -18,3 +18,12 @@ export const BottomNavButton = writable({
 
 export const LocalEnSwitch = writable('local' as 'local' | 'en');
 export const Toasts = writable([] as any[]);
+export const ConfirmMessage = writable({
+	open: false,
+	message: '',
+	result: false
+} as {
+	open: boolean;
+	message: string;
+	result: boolean | undefined;
+});

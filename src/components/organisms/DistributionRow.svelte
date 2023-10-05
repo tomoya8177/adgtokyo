@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { myConfirm } from '$lib/frontend/class/Confirm';
 	import type { Distribution } from '$lib/frontend/class/Distribution';
 	import { _ } from '$lib/frontend/i18n';
 	import { LocalEnSwitch } from '$lib/frontend/store';
@@ -35,8 +36,8 @@
 					});
 					distribution.editing = false;
 				}}
-				onDelete={() => {
-					if (!confirm(_('Are you sure?'))) return;
+				onDelete={async () => {
+					if (!(await myConfirm(_('Are you sure?')))) return;
 					distribution.delete();
 					distribution.editing = false;
 					onDelete();

@@ -7,6 +7,7 @@
 	import Button from '../atoms/Button.svelte';
 	import DepartmentHeaderStatic from '../atoms/DepartmentHeaderStatic.svelte';
 	import EditControlButtons from './EditControlButtons.svelte';
+	import { myConfirm } from '$lib/frontend/class/Confirm';
 	export let department: Department;
 	export let onDelete: () => void;
 	export let onUp: (() => void) | false;
@@ -34,8 +35,8 @@
 				});
 				department.editing = false;
 			}}
-			onDelete={() => {
-				if (!confirm(_('Are you sure?'))) return;
+			onDelete={async () => {
+				if (!(await myConfirm(_('Are you sure?')))) return;
 				department.delete();
 				department.editing = false;
 				onDelete();
