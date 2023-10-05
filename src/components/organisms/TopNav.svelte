@@ -74,35 +74,6 @@
 								<Icon icon="person" />
 							</a>
 						</li>
-						{#if $User.profile.email}
-							<li>
-								<a
-									style="display:flex"
-									href={'#'}
-									on:click={async () => {
-										const email = await myPrompt(
-											'Enter new email. Current email is :' + $User.profile?.email
-										);
-										if (!email) return;
-										const response = await api
-											.put('/users/' + $User.profile?.sub, { email })
-											.then((res) => res.data);
-										console.log(response);
-										if (response.error) {
-											toast(response.msg);
-											return;
-										}
-										toast(_('Email updated'));
-										setTimeout(() => {
-											//location.reload();
-										}, 1000);
-									}}
-								>
-									{_('Change Email')}
-									<Icon icon="email" />
-								</a>
-							</li>
-						{/if}
 
 						<li>
 							<a style="display:flex" href="https://adgtokyo.channel.io/home">
