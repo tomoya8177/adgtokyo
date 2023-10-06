@@ -9,6 +9,7 @@ export const search = async (keywords: string, category: string, AND: any = fals
 			.replace(/\+/g, ' ')
 			.replace(/,/g, ' ')
 			.replace(/\./g, ' ')
+			.replace(/\s+/g, ' ')
 			.trim();
 		results = await api
 			.post('/search', {

@@ -17,32 +17,34 @@ export const POST = async ({ request }) => {
 		case 'business':
 			data = await db.query("select * from Entity where category='business'");
 			break;
+		case 'department':
+			data = await db.query('select * from Department where 1');
+			break;
+		case 'property':
+			data = await db.query('select * from Property where 1');
+			break;
 	}
 	data = data.map((record) => ({ ...record, matchPoint: 0 }));
 	console.log(data.length);
 	console.log({ keywords });
-	keywords
-		.replace(/　/g, ' ')
-		.replace(/\+/g, ' ')
-		.split(' ')
-		.forEach((keyword: string) => {
-			data = data
-				.map((record) => {
-					if (
-						Object.values(record).some((value: any) => {
-							if (typeof value !== 'string') return false;
-							// console.log({ value, keyword });
-							return value.toLowerCase().includes(keyword.toLowerCase());
-						})
-					) {
-						record.matchPoint += 1;
-					} else if (AND) {
-						return false;
-					}
-					return record;
-				})
-				.filter((record) => record);
-		});
+	keywords.split(' ').forEach((keyword: string) => {
+		data = data
+			.map((record) => {
+				if (
+					Object.values(record).some((value: any) => {
+						if (typeof value !== 'string') return false;
+						// console.log({ value, keyword });
+						return value.toLowerCase().includes(keyword.toLowerCase());
+					})
+				) {
+					record.matchPoint += 1;
+				} else if (AND) {
+					return false;
+				}
+				return record;
+			})
+			.filter((record) => record);
+	});
 	data = data.filter((record) => record.matchPoint > 0).sort((a, b) => b.matchPoint - a.matchPoint);
 	console.log({ data });
 	return new Response(JSON.stringify(data));
