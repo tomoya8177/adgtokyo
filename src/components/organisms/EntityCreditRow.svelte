@@ -17,7 +17,10 @@
 	export let onDelete: (() => void) | false = false;
 </script>
 
-<div class="justified-flex" style="border-bottom:1px solid var(--pico-card-border-color)">
+<div
+	class="justified-flex"
+	style="border-bottom:1px solid var(--pico-card-border-color);margin-bottom:var(--pico-spacing)"
+>
 	<div>
 		<div class="grid">
 			<div>
