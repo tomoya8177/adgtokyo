@@ -61,8 +61,10 @@
 		<div class=" header">
 			<TopNav bind:searchKeywords {onKeywordsChange} />
 		</div>
-		<div class="container body">
-			<slot />
+		<div class="body">
+			<div class="container">
+				<slot />
+			</div>
 		</div>
 		<div class=" footer">
 			<BottomNav />
@@ -86,12 +88,12 @@
 		background-color: var(--my-background-color);
 	}
 	.body {
-		padding: var(--pico-spacing);
 		height: calc(100dvh - 7rem);
-		position: relative;
 		overflow-y: auto;
-		border-right: solid 1px var(--pico-card-border-color);
-		border-left: solid 1px var(--pico-card-border-color);
+	}
+	.container {
+		padding: var(--pico-spacing);
+		position: relative;
 	}
 	.footer {
 		box-shadow: var(--pico-card-box-shadow);

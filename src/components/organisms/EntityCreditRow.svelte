@@ -11,6 +11,7 @@
 	import { goto } from '$app/navigation';
 	import Button from '../atoms/Button.svelte';
 	import { workCategory } from '$lib/Category';
+	import SquareThumbnail from '../atoms/SquareThumbnail.svelte';
 	export let hasEntity: any;
 	export let editable = false;
 	export let onUp: (() => void) | false = false;
@@ -20,68 +21,81 @@
 
 <div
 	class="justified-flex"
-	style="border-bottom:1px solid var(--pico-card-border-color);margin-bottom:var(--pico-spacing)"
+	style="border-bottom:1px solid var(--pico-form-element-border-color);margin-bottom:var(--pico-spacing);padding-bottom:var(--pico-spacing)"
 >
 	<div>
-		<div class="grid">
-			<div>
-				<PropertyRowStatic property={hasEntity.property} />
-				<small
-					><em>
-						{#if $LocalEnSwitch == 'local'}
-							{hasEntity.department.titleLocal}
-						{:else}
-							{hasEntity.department.titleEn}
-						{/if}
-					</em>
-				</small>
-				{#if !hasEntity.editing}
-					<HasEntitySubtextStatic {hasEntity} />
-				{:else}
-					<div>
-						<Button
-							className="outline"
-							icon="edit"
-							label={_('Edit Work')}
-							onclick={() => {
-								goto(`/work/${hasEntity.work.id}/edit`);
-							}}
-						/>
-					</div>
-					<HasEntitySubtextInput {hasEntity} />
-				{/if}
+		<div style="display:flex;gap:var(--pico-spacing)">
+			<div style="">
+				<img
+					src={hasEntity.work.attachments[0]?.thumbnailURL}
+					style="width:4rem;border-radius:var(--pico-border-radius);overflow:hidden"
+				/>
 			</div>
-			<div style="margin-left:1rem">
+			<div>
+				<div>
+					<div class="flex">
+						<div>
+							<a class="contrast" href="/work/{hasEntity.work.id}">
+								{#if $LocalEnSwitch == 'local'}
+									{hasEntity.work.titleLocal}
+								{:else}
+									{hasEntity.work.titleEn}
+								{/if}
+							</a>
+						</div>
+						<div>
+							<mark>
+								{_(hasEntity.work.category)}
+							</mark>
+						</div>
+					</div>
+				</div>
 				<div class="flex">
-					<div>
-						<a class="contrast" href="/work/{hasEntity.work.id}">
+					<PropertyRowStatic property={hasEntity.property} />
+					<small
+						><em>
 							{#if $LocalEnSwitch == 'local'}
-								{hasEntity.work.titleLocal}
+								{hasEntity.department.titleLocal}
 							{:else}
-								{hasEntity.work.titleEn}
+								{hasEntity.department.titleEn}
 							{/if}
-						</a>
-					</div>
-					<div>
-						<small>
-							{#if $LocalEnSwitch == 'local'}
-								{hasEntity.work.formatLocal}
-							{:else}
-								{hasEntity.work.formatEn}
-							{/if}
-						</small>
-					</div>
-					<div>
-						{#if hasEntity.distributions && hasEntity.distributions.length}
-							{#each hasEntity.distributions as distribution}
-								<div>
-									<small>
-										<DistributionRowStatic {distribution} />
-									</small>
-								</div>
-							{/each}
+						</em>
+					</small>
+					{#if !hasEntity.editing}
+						<HasEntitySubtextStatic {hasEntity} />
+					{:else}
+						<div>
+							<Button
+								className="outline"
+								icon="edit"
+								label={_('Edit Work')}
+								onclick={() => {
+									goto(`/work/${hasEntity.work.id}/edit`);
+								}}
+							/>
+						</div>
+						<HasEntitySubtextInput {hasEntity} />
+					{/if}
+				</div>
+				<!-- <div>
+					<small>
+						{#if $LocalEnSwitch == 'local'}
+							{hasEntity.work.formatLocal}
+						{:else}
+							{hasEntity.work.formatEn}
 						{/if}
-					</div>
+					</small>
+				</div> -->
+				<div>
+					{#if hasEntity.distributions && hasEntity.distributions.length}
+						{#each hasEntity.distributions as distribution}
+							<div>
+								<small>
+									<DistributionRowStatic {distribution} />
+								</small>
+							</div>
+						{/each}
+					{/if}
 				</div>
 			</div>
 		</div>

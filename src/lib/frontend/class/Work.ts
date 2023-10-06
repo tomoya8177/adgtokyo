@@ -73,24 +73,25 @@ export class Work extends DBObject {
 		attachments?: Attachment[];
 		editing?: boolean;
 	}) {
-		this.departments = departments
-			.filter((department) => {
-				return department.workId == this.id;
-			})
-			.map((department) => {
-				department.properties = properties
-					.filter((property) => property.departmentId == department.id)
-					.map((property) => {
-						property.hasEntities = hasEntities
-							.filter((h) => h.propertyId == property.id)
-							.map((hasEntity) => {
-								hasEntity.entity = entities?.find((e) => e.id == hasEntity.entityId) || null;
-								return new PropertyHasEntity(hasEntity);
-							});
-						return new Property(property);
-					});
-				return new Department(department);
-			});
+		this.departments =
+			departments
+				?.filter((department) => {
+					return department.workId == this.id;
+				})
+				.map((department) => {
+					department.properties = properties
+						.filter((property) => property.departmentId == department.id)
+						.map((property) => {
+							property.hasEntities = hasEntities
+								.filter((h) => h.propertyId == property.id)
+								.map((hasEntity) => {
+									hasEntity.entity = entities?.find((e) => e.id == hasEntity.entityId) || null;
+									return new PropertyHasEntity(hasEntity);
+								});
+							return new Property(property);
+						});
+					return new Department(department);
+				}) || [];
 		this.distributions =
 			distributions?.map((distribution) => {
 				return new Distribution(distribution);
@@ -99,5 +100,8 @@ export class Work extends DBObject {
 			attachments?.map((attachment) => {
 				return new Attachment(attachment);
 			}) || [];
+	}
+	get thumbnailURL() {
+		return this.attachments[0]?.thumbnailURL || '';
 	}
 }

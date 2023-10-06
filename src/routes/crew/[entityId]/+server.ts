@@ -81,6 +81,13 @@ export const GET = async ({ params }) => {
 
 			return works;
 		});
+	const workAttachments = await db.query(
+		`select * from Attachment where attachedTo in ('${works.map((w) => w.id).join("','")}')`
+	);
+	works.forEach((work) => {
+		work.attachments = workAttachments.filter((a) => a.attachedTo == work.id);
+	});
+
 	const distributions = await db.query(
 		`select * from Distribution where workId in ('${works.map((w) => w.id).join("','")}')`
 	);

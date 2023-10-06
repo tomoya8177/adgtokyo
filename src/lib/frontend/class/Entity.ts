@@ -44,6 +44,9 @@ export class Entity extends DBObject {
 				);
 				hasEntity.department = new Department(hasEntity.department);
 				hasEntity.work = works.find((work) => work.id == hasEntity.department.workId);
+				hasEntity.work = new Work(hasEntity.work);
+				hasEntity.work.build({ attachments: hasEntity.work.attachments });
+
 				console.log(hasEntity.work, distributions);
 				if (!hasEntity.work) {
 					return false;
