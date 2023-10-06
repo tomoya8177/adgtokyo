@@ -15,8 +15,8 @@ export class Work extends DBObject {
 	distributions: any[];
 	attachments: Attachment[];
 	editing: boolean = false;
-	formatLocal: string;
-	formatEn: string;
+	// formatLocal: string;
+	// formatEn: string;
 	descriptionLocal: string;
 	descriptionEn: string;
 	createdAt: any;
@@ -32,8 +32,8 @@ export class Work extends DBObject {
 		this.departments = data.departments || [];
 		this.distributions = data.distributions || [];
 		this.attachments = data.attachments || [];
-		this.formatLocal = data.formatLocal || '';
-		this.formatEn = data.formatEn || '';
+		// this.formatLocal = data.formatLocal || '';
+		// this.formatEn = data.formatEn || '';
 		this.descriptionLocal = data.descriptionLocal || '';
 		this.descriptionEn = data.descriptionEn || '';
 		this.createdAt = data.createdAt || new Date();

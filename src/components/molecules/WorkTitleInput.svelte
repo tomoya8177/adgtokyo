@@ -24,7 +24,7 @@
 		<option value={category.title}>{_(category.title)}</option>
 	{/each}
 </select>
-<div class="grid">
+<!-- <div class="grid">
 	<label>
 		{_('Format')}
 		({_('Local')})
@@ -36,4 +36,4 @@
 		({_('English')})
 		<input type="text" bind:value={work.formatEn} />
 	</label>
-</div>
+</div> -->

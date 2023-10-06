@@ -3,14 +3,17 @@
 	import { _ } from '$lib/frontend/i18n';
 	import { LocalEnSwitch } from '$lib/frontend/store';
 	import Button from './Button.svelte';
+	import PopularFilmography from './PopularFilmography.svelte';
 
 	export let entity: Entity;
+	console.log(entity.popularCreditTitles);
 </script>
 
 {#if $LocalEnSwitch == 'local'}
 	<h2>
 		{entity.nameLocal}
 	</h2>
+	<PopularFilmography {entity} />
 	<p>
 		{@html entity.descriptionLocal}
 	</p>
@@ -18,6 +21,8 @@
 	<h2>
 		{entity.nameEn}
 	</h2>
+	<PopularFilmography {entity} />
+
 	<p>
 		{@html entity.descriptionEn}
 	</p>

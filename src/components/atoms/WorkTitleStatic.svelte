@@ -15,9 +15,9 @@
 			{_(work.category)}
 		</mark>
 	{/if}
-	<small>
+	<!-- <small>
 		{work.formatLocal}
-	</small>
+	</small> -->
 	<p>
 		{@html work.descriptionLocal}
 	</p>
@@ -30,9 +30,9 @@
 			{_(work.category)}
 		</mark>
 	{/if}
-	<small>
+	<!-- <small>
 		{work.formatEn}
-	</small>
+	</small> -->
 	<p>
 		{@html work.descriptionEn}
 	</p>

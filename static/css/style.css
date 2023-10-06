@@ -10,6 +10,8 @@
 	--pico-primary-hover-background: #af291d;
 	--pico-primary-focus: rgba(240, 96, 72, 0.25);
 	--pico-primary-inverse: #fff;
+
+	--pico-mark-background-color: #dfe3eb;
 }
 
 /* Red color for dark color scheme (Auto) */
@@ -24,6 +26,8 @@
 		--pico-primary-hover-background: #d93526;
 		--pico-primary-focus: rgba(241, 121, 97, 0.25);
 		--pico-primary-inverse: #fff;
+
+		--pico-mark-background-color: #014063;
 	}
 }
 
@@ -38,6 +42,8 @@
 	--pico-primary-hover-background: #d93526;
 	--pico-primary-focus: rgba(241, 121, 97, 0.25);
 	--pico-primary-inverse: #fff;
+
+	--pico-mark-background-color: #014063;
 }
 
 p a:not(.secondary) {
@@ -97,4 +103,9 @@ body {
 	.hiddenWithMobile {
 		display: none;
 	}
+}
+mark {
+	border-radius: var(--pico-border-radius);
+	padding-right: var(--pico-spacing);
+	padding-left: var(--pico-spacing);
 }

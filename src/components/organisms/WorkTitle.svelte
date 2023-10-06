@@ -39,7 +39,7 @@
 					{/each}
 				</select>
 			</div>
-			<div class="grid">
+			<!-- <div class="grid">
 				<label>
 					{_('Format')}
 					({_('Local')})
@@ -51,7 +51,7 @@
 					({_('English')})
 					<input type="text" bind:value={work.formatEn} />
 				</label>
-			</div>
+			</div> -->
 			<label>
 				{_('Description')}
 				({_('Local')})
@@ -111,8 +111,8 @@
 				work.update({
 					titleLocal: work.titleLocal,
 					titleEn: work.titleEn,
-					formatLocal: work.formatLocal,
-					formatEn: work.formatEn,
+					// formatLocal: work.formatLocal,
+					// formatEn: work.formatEn,
 					descriptionLocal: work.descriptionLocal,
 					descriptionEn: work.descriptionEn,
 					imdbURL: work.imdbURL,

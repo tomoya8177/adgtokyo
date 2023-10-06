@@ -11,7 +11,7 @@
 
 <article>
 	<main>
-		<div class="justified-flex">
+		<div class="justified-flex" style="margin-bottom:var(--pico-spacing)">
 			<div>
 				<a href={'/work/' + work.id} class="contrast">
 					<strong>
@@ -23,7 +23,16 @@
 					</strong>
 				</a>
 			</div>
-			<div>
+			{#if work.category}
+				<div>
+					<mark>
+						<small>
+							{_(work.category)}
+						</small>
+					</mark>
+				</div>
+			{/if}
+			<!-- <div>
 				<small
 					><em>
 						{#if $LocalEnSwitch == 'local'}
@@ -33,7 +42,7 @@
 						{/if}
 					</em>
 				</small>
-			</div>
+			</div> -->
 		</div>
 		{#if attachment || work.descriptionLocal != '' || work.descriptionEn != ''}
 			<div class="justified-flex">
@@ -61,7 +70,7 @@
 </article>
 
 <style>
-	footer {
-		text-align: right;
+	p {
+		padding: var(--pico-spacing);
 	}
 </style>

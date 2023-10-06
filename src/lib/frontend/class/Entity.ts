@@ -67,4 +67,18 @@ export class Entity extends DBObject {
 	get username() {
 		return this.slug || this.id.substring(0, 8) || '';
 	}
+	get popularCreditTitles(): { local: string; en: string }[] {
+		const titles = this.hasEntities.map((hasEntity) => {
+			return { local: hasEntity.property.keyLocal, en: hasEntity.property.keyEn };
+		});
+		//remove duplicates, and sort by occurances desc
+		return titles
+			.filter((title, index, self) => self.findIndex((t) => t.local == title.local) == index)
+			.sort((a, b) => {
+				return (
+					titles.filter((title) => title.local == b.local).length -
+					titles.filter((title) => title.local == a.local).length
+				);
+			});
+	}
 }
