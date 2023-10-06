@@ -28,10 +28,12 @@
 			if (!user) {
 				await api.post('/api/User', {
 					id: profile.sub,
-					nickname: profile.nickname
+					nickname: profile.nickname,
+					picture: profile.picture
 				});
 			} else {
 				profile.nickname = user.nickname;
+				profile.picture = user.picture || profile.picture;
 			}
 			$User.profile = profile;
 		}
