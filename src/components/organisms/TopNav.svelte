@@ -58,7 +58,7 @@
 						{:else}
 							<hr />
 						{/if}
-						<!-- <li>
+						<li>
 							<a
 								style="display:flex"
 								href={'#'}
@@ -68,18 +68,19 @@
 									);
 									if (!nickname) return;
 									const response = await api.put('/users/' + $User.profile?.sub, {
-										user_metadata: { nickname }
+										nickname
 									});
+									console.log({ response });
 									toast(_('Nickname updated'));
 									setTimeout(() => {
-										location.reload();
+										//location.reload();
 									}, 1000);
 								}}
 							>
 								{_('Update Nickname')}
 								<Icon icon="person" />
 							</a>
-						</li> -->
+						</li>
 
 						<li>
 							<a style="display:flex" href="https://adgtokyo.channel.io/home">
