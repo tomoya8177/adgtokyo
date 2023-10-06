@@ -11,6 +11,7 @@
 	import type { PageData } from './$types';
 	import axios from 'axios';
 	import PromptModal from '../components/panels/PromptModal.svelte';
+	import { api } from '$lib/frontend/class/API';
 	let loggingIn = true;
 
 	onMount(async () => {
@@ -18,7 +19,21 @@
 		await $auth0.init();
 		$User.authenticated = await $auth0.check();
 		if ($User.authenticated) {
-			$User.profile = await $auth0.getUser();
+			const profile = await $auth0.getUser();
+			if (!profile) {
+				return;
+			}
+			let user = await api.get('/api/User/' + profile.sub).then((res) => res.data);
+			console.log({ user });
+			if (!user) {
+				await api.post('/api/User', {
+					id: profile.sub,
+					nickname: profile.nickname
+				});
+			} else {
+				profile.nickname = user.nickname;
+			}
+			$User.profile = profile;
 		}
 		loggingIn = false;
 	});

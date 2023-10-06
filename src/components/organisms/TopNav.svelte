@@ -67,13 +67,13 @@
 										_('Enter new nickname. current nickname is :') + $User.profile?.nickname
 									);
 									if (!nickname) return;
-									const response = await api.put('/users/' + $User.profile?.sub, {
+									const response = await api.put('/api/User/' + $User.profile?.sub, {
 										nickname
 									});
 									console.log({ response });
 									toast(_('Nickname updated'));
 									setTimeout(() => {
-										//location.reload();
+										location.reload();
 									}, 1000);
 								}}
 							>
