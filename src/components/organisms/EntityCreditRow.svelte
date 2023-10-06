@@ -20,7 +20,7 @@
 
 <div
 	class="justified-flex"
-	style="border-bottom:1px solid var(--pico-card-border-color);margin-bottom:var(--pico-spacing)"
+	style="border-bottom:1px solid var(--pico-card-border-color);margin-bottom:var(--pico-spacing);margin-left:0.5rem;"
 >
 	<div>
 		<div class="grid">

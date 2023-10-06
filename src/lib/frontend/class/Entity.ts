@@ -1,3 +1,4 @@
+import type { Attachment } from './Attachments';
 import { DBObject } from './DBObject';
 import { Department } from './Department';
 import { Property } from './Property';
@@ -17,6 +18,7 @@ export class Entity extends DBObject {
 	imdbURL: string;
 	officialWebsiteURL: string;
 	hasEntities: PropertyHasEntity[];
+	attachments: Attachment[];
 	constructor(data: any) {
 		data.table = 'Entity';
 		super(data);
@@ -32,6 +34,7 @@ export class Entity extends DBObject {
 		this.imdbURL = data.imdbURL || '';
 		this.officialWebsiteURL = data.officialWebsiteURL || '';
 		this.hasEntities = data.hasEntities || [];
+		this.attachments = data.attachments || [];
 	}
 	build({ works, hasEntities, properties, departments, distributions }) {
 		this.hasEntities = hasEntities
@@ -46,6 +49,9 @@ export class Entity extends DBObject {
 				hasEntity.work = works.find((work) => work.id == hasEntity.department.workId);
 				hasEntity.work = new Work(hasEntity.work);
 				hasEntity.work.build({ attachments: hasEntity.work.attachments });
+				if (hasEntity.work.attachments.length > 0) {
+					this.attachments = [...this.attachments, hasEntity.work.attachments[0]];
+				}
 
 				console.log(hasEntity.work, distributions);
 				if (!hasEntity.work) {

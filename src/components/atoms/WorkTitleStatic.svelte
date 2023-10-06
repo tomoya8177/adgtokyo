@@ -2,6 +2,7 @@
 	import type { Work } from '$lib/frontend/class/Work';
 	import { _ } from '$lib/frontend/i18n';
 	import { LocalEnSwitch } from '$lib/frontend/store';
+	import Button from './Button.svelte';
 
 	export let work: Work;
 </script>
@@ -37,3 +38,28 @@
 		{@html work.descriptionEn}
 	</p>
 {/if}
+<div style="display:flex;gap:0.4rem">
+	{#if work.imdbURL}
+		<small>
+			<a role="button" href={work.imdbURL} target="_blank"> IMDB </a>
+		</small>
+	{/if}
+	{#if work.officialWebsiteURL}
+		<Button
+			onclick={() => {
+				window.open(work.officialWebsiteURL);
+			}}
+			icon="language"
+			label={_('Official Website')}
+		/>
+	{/if}
+	{#if work.videoURL}
+		<Button
+			onclick={() => {
+				window.open(work.videoURL);
+			}}
+			icon="play_arrow"
+			label={_('Video')}
+		/>
+	{/if}
+</div>

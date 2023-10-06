@@ -1,29 +1,12 @@
 <script lang="ts">
-	import { Department } from '$lib/frontend/class/Department';
-	import { Property } from '$lib/frontend/class/Property';
-	import { PropertyHasEntity } from '$lib/frontend/class/PropertyHasEntity';
-	import { Work } from '$lib/frontend/class/Work';
-
 	import { _ } from '$lib/frontend/i18n';
-	import { BottomNavButton, LocalEnSwitch, onBottomNavButtonClicked } from '$lib/frontend/store';
 	import Button from '../atoms/Button.svelte';
-	import LocalEngSwitch from '../atoms/LocalEngSwitch.svelte';
-	import WorkTitle from './WorkTitle.svelte';
-	import type { PageData } from '../../routes/work/[workId]/edit/$types';
-	import DepartmentRow from './DepartmentRow.svelte';
-	import { onMount } from 'svelte';
-	import { goto } from '$app/navigation';
-	import { Distribution } from '$lib/frontend/class/Distribution';
-	import DistributionRow from './DistributionRow.svelte';
-	import Icon from '../atoms/Icon.svelte';
 	import type { Attachment } from '$lib/frontend/class/Attachments';
 	import EditControlButtons from '../molecules/EditControlButtons.svelte';
 	import { myConfirm } from '$lib/frontend/class/Confirm';
 	export let images: Attachment[];
 	export let editing = false;
 	let id = crypto.randomUUID();
-	const onUp = () => {};
-	let onDown: (() => void) | false;
 	export let isStatic = false;
 </script>
 

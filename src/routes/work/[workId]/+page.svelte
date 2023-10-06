@@ -29,6 +29,8 @@
 
 <WorkTitleStatic {work} />
 {#if work.attachments.length > 0}
+	<hr />
+
 	<ImageSlider isStatic bind:images={work.attachments} editing={false} />
 {/if}
 <hr />

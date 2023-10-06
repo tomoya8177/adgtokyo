@@ -15,6 +15,7 @@
 	import { workCategory } from '$lib/Category';
 	import HeadingLabel from '../../../components/atoms/HeadingLabel.svelte';
 	import { Entity } from '$lib/frontend/class/Entity';
+	import ImageSlider from '../../../components/organisms/ImageSlider.svelte';
 	export let data: PageData;
 	console.log(data.person);
 	let person = new Entity(data.person);
@@ -31,6 +32,11 @@
 </script>
 
 <EntityNameStatic entity={person} />
+{#if person.attachments.length > 0}
+	<hr />
+	<ImageSlider isStatic bind:images={person.attachments} editing={false} />
+{/if}
+
 <hr />
 <Heading label={_('Filmography')} />
 {#each workCategory as category}
