@@ -48,5 +48,19 @@ export default {
 	Japanese: '日本語',
 	'Are you sure you want to delete this person?': 'この人物を削除してもよろしいですか？',
 	'Please enter keywords': 'キーワードを入力してください',
-	'No results': '結果がありません'
+	'No results': '結果がありません',
+	Category: 'カテゴリー',
+	Feature: '長編映画',
+	'TV Series': 'テレビシリーズ',
+	Commercial: 'CM',
+	'Music Video': 'ミュージックビデオ',
+	Documentary: 'ドキュメンタリー',
+	'Short Film': 'ショートフィルム',
+	'TV Movie': 'テレビ映画',
+	'TV Special': 'テレビスペシャル',
+	'Video Game': 'ビデオゲーム',
+	Other: 'その他',
+	'Still Photography': 'スチール写真',
+	'Architecture/Interior DDesign': '建築/インテリアデザイン',
+	'Window Display/Installation': 'ウィンドウディスプレイ/展示'
 };

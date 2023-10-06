@@ -1,7 +1,4 @@
 <script lang="ts">
-	import { Department } from '$lib/frontend/class/Department';
-	import { Property } from '$lib/frontend/class/Property';
-	import { PropertyHasEntity } from '$lib/frontend/class/PropertyHasEntity';
 	import { Work } from '$lib/frontend/class/Work';
 
 	import { _ } from '$lib/frontend/i18n';

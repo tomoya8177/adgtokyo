@@ -13,6 +13,14 @@
 		fixed = false;
 		const localAndEng = (local.length > 1 ? local : '') + ' ' + (eng.length > 2 ? eng : '');
 		duplicates = await search(localAndEng, 'property', 'AND');
+		duplicates = duplicates.map((dep) => {
+			dep.mix = (dep.keyLocal + dep.keyEn).trim();
+			return dep;
+		});
+		//filter departments that has the same mix
+		duplicates = duplicates.filter(
+			(dep, index, self) => index == self.findIndex((t) => t.mix == dep.mix)
+		);
 	};
 </script>
 

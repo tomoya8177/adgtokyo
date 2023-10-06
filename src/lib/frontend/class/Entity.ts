@@ -1,6 +1,5 @@
 import { DBObject } from './DBObject';
 import { Department } from './Department';
-import { Distribution } from './Distribution';
 import { Property } from './Property';
 import { PropertyHasEntity } from './PropertyHasEntity';
 import { Work } from './Work';

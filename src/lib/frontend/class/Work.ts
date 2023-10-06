@@ -23,6 +23,7 @@ export class Work extends DBObject {
 	imdbURL: string;
 	officialWebsiteURL: string;
 	videoURL: string;
+	category: string;
 	constructor(data: any) {
 		data.table = 'Work';
 		super(data);
@@ -39,10 +40,17 @@ export class Work extends DBObject {
 		this.imdbURL = data.imdbURL || '';
 		this.officialWebsiteURL = data.officialWebsiteURL || '';
 		this.videoURL = data.videoURL || '';
+		this.category = data.category || '';
 	}
 	validate: () => boolean = () => {
-		if (!this.titleLocal || !this.titleEn) {
+		if (!this.titleLocal && !this.titleEn) {
 			toast(_('Title is required'), {
+				style: 'error'
+			});
+			return false;
+		}
+		if (!this.category) {
+			toast(_('Category is required'), {
 				style: 'error'
 			});
 			return false;

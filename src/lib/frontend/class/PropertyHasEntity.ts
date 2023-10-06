@@ -1,13 +1,11 @@
 import { _ } from '../i18n';
 import { toast } from '../toast';
 import { DBObject } from './DBObject';
-import { Entity } from './Entity';
-import type { Business } from './Business';
-import type { Person } from './Person';
+import type { Entity } from './Entity';
 
 export class PropertyHasEntity extends DBObject {
 	entityId: string;
-	entity: Person | Business | null = null;
+	entity: Entity | null = null;
 	subtextLocal: string;
 	subtextEn: string;
 	weight: number;

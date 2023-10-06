@@ -7,7 +7,7 @@
 	export let onDown: (() => void) | false = false;
 </script>
 
-<div style="display:flex;gap:0rem">
+<div style="display:flex;gap:0rem;justify-content:end;">
 	{#if editing}
 		{#if !!onSave}
 			<Button icon="save" onclick={onSave} />

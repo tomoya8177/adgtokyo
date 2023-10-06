@@ -22,7 +22,7 @@ export class Department extends DBObject {
 		this.workId = data.workId || '';
 	}
 	validate: () => boolean = () => {
-		if (!this.titleLocal || !this.titleEn) {
+		if (!this.titleLocal && !this.titleEn) {
 			toast(_('Title is required'), {
 				style: 'error'
 			});

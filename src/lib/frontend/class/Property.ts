@@ -22,7 +22,7 @@ export class Property extends DBObject {
 		this.departmentId = data.departmentId || '';
 	}
 	validate: () => boolean = () => {
-		if (!this.keyLocal || !this.keyEn) {
+		if (!this.keyLocal && !this.keyEn) {
 			toast(_('Title is required'), {
 				style: 'error'
 			});

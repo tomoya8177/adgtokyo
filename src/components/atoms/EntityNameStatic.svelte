@@ -1,12 +1,10 @@
 <script lang="ts">
-	import type { Business } from '$lib/frontend/class/Business';
-	import type { Person } from '$lib/frontend/class/Person';
+	import type { Entity } from '$lib/frontend/class/Entity';
 	import { _ } from '$lib/frontend/i18n';
 	import { LocalEnSwitch } from '$lib/frontend/store';
 	import Button from './Button.svelte';
-	import Icon from './Icon.svelte';
 
-	export let entity: Person | Business;
+	export let entity: Entity;
 </script>
 
 {#if $LocalEnSwitch == 'local'}

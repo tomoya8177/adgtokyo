@@ -2,31 +2,22 @@
 	import ImageSlider from '../../../../components/organisms/ImageSlider.svelte';
 
 	import { Department } from '$lib/frontend/class/Department';
-	import { Property } from '$lib/frontend/class/Property';
-	import { PropertyHasEntity } from '$lib/frontend/class/PropertyHasEntity';
 	import { Work } from '$lib/frontend/class/Work';
 
 	import { _ } from '$lib/frontend/i18n';
-	import {
-		BottomNavButton,
-		LocalEnSwitch,
-		User,
-		onBottomNavButtonClicked
-	} from '$lib/frontend/store';
+	import { BottomNavButton, User } from '$lib/frontend/store';
 	import Button from '../../../../components/atoms/Button.svelte';
-	import LocalEngSwitch from '../../../../components/atoms/LocalEngSwitch.svelte';
 	import WorkTitle from '../../../../components/organisms/WorkTitle.svelte';
 	import type { PageData } from './$types';
 	import DepartmentRow from '../../../../components/organisms/DepartmentRow.svelte';
 	import { onMount } from 'svelte';
-	import { goto } from '$app/navigation';
 	import { Distribution } from '$lib/frontend/class/Distribution';
 	import DistributionRow from '../../../../components/organisms/DistributionRow.svelte';
-	import Icon from '../../../../components/atoms/Icon.svelte';
 	import { Attachment } from '$lib/frontend/class/Attachments';
 	import Uploader from '../../../../components/atoms/Uploader.svelte';
 	import Heading from '../../../../components/atoms/Heading.svelte';
 	import LoginWarningModal from '../../../../components/panels/LoginWarningModal.svelte';
+	import { toast } from '$lib/frontend/toast';
 	export let data: PageData;
 	let work = new Work(data.work);
 	work.build(data);
@@ -35,6 +26,18 @@
 		BottomNavButton.set({
 			label: _('Done Editing'),
 			onClick: () => {
+				if (
+					work.editing ||
+					work.distributions.some((dis) => dis.editing) ||
+					work.departments.some(
+						(dep) =>
+							dep.editing ||
+							dep.properties.some((p) => p.editing || p.hasEntities.some((has) => has.editing))
+					)
+				) {
+					toast(_('Please save your changes first'));
+					return;
+				}
 				location.href = `/work/${work.id}`;
 			}
 		});

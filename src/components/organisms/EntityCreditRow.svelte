@@ -10,6 +10,7 @@
 	import Icon from '../atoms/Icon.svelte';
 	import { goto } from '$app/navigation';
 	import Button from '../atoms/Button.svelte';
+	import { workCategory } from '$lib/Category';
 	export let hasEntity: any;
 	export let editable = false;
 	export let onUp: (() => void) | false = false;
@@ -86,7 +87,7 @@
 		</div>
 	</div>
 	{#if editable}
-		<div>
+		<div style="min-width:6rem; display:flex;justiry-items:end">
 			<EditControlButtons
 				onDelete={async () => {
 					if (!(await myConfirm(_('Are you sure?')))) return;

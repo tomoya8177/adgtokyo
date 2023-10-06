@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { Person } from '$lib/frontend/class/Person';
 	import { _ } from '$lib/frontend/i18n';
 	import { BottomNavButton, LocalEnSwitch } from '$lib/frontend/store';
 	import { onMount } from 'svelte';
@@ -11,7 +10,8 @@
 	import EditControlButtons from './EditControlButtons.svelte';
 	import RichTextarea from '../atoms/RichTextarea.svelte';
 	import HasEntitySubtextStatic from './HasEntitySubtextStatic.svelte';
-	export let person: Person;
+	import type { Entity } from '$lib/frontend/class/Entity';
+	export let person: Entity;
 </script>
 
 <div class="grid">

@@ -60,11 +60,9 @@
 	});
 	let searching = false;
 	const findExistingEntity = async (inputLocal: string, inputEn: string) => {
-		console.log({ work, inputLocal, inputEn });
 		const keyword = `${inputLocal.length > 2 ? inputLocal : ''} ${
 			inputEn.length > 2 ? inputEn : ''
 		}`.trim();
-		console.log({ keyword });
 		if (!keyword) return;
 		searching = true;
 		const workResults = await search(keyword, 'work', 'AND');
@@ -72,14 +70,12 @@
 			return api.get('/work/' + result.id).then((res) => res.data);
 		});
 		const results = await Promise.all(promises);
-		console.log({ results });
 		possibleDuplicates = results.map((result) => {
 			const work = new Work(result.work);
 			work.build(result);
 			return work;
 		});
 		searching = false;
-		console.log({ possibleDuplicates });
 	};
 	$: findExistingEntity(work.titleLocal, work.titleEn);
 	let possibleDuplicates: any[] = [];

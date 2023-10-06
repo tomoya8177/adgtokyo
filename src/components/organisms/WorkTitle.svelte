@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
+	import { workCategory } from '$lib/Category';
 	import { Attachment } from '$lib/frontend/class/Attachments';
 	import { myConfirm } from '$lib/frontend/class/Confirm';
 	import type { Work } from '$lib/frontend/class/Work';
@@ -29,6 +30,14 @@
 					({_('English')})
 					<input type="text" bind:value={work.titleEn} />
 				</label>
+			</div>
+			<div>
+				{_('Category')}
+				<select bind:value={work.category}>
+					{#each workCategory as category}
+						<option value={category.title}>{_(category.title)}</option>
+					{/each}
+				</select>
 			</div>
 			<div class="grid">
 				<label>
@@ -108,7 +117,8 @@
 					descriptionEn: work.descriptionEn,
 					imdbURL: work.imdbURL,
 					officialWebsiteURL: work.officialWebsiteURL,
-					videoURL: work.videoURL
+					videoURL: work.videoURL,
+					category: work.category
 				});
 				work.editing = false;
 			}}
