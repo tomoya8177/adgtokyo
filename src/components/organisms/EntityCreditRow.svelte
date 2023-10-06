@@ -68,13 +68,15 @@
 						</small>
 					</div>
 					<div>
-						{#each hasEntity.distributions as distribution}
-							<div>
-								<small>
-									<DistributionRowStatic {distribution} />
-								</small>
-							</div>
-						{/each}
+						{#if hasEntity.distributions && hasEntity.distributions.length}
+							{#each hasEntity.distributions as distribution}
+								<div>
+									<small>
+										<DistributionRowStatic {distribution} />
+									</small>
+								</div>
+							{/each}
+						{/if}
 					</div>
 				</div>
 			</div>

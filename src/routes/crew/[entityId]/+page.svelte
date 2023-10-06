@@ -31,9 +31,11 @@
 <EntityNameStatic entity={person} />
 <hr />
 <Heading label={_('Filmography')} />
-{#each person.hasEntities as hasEntity, index}
-	<EntityCreditRow bind:hasEntity />
-{/each}
+{#if person.hasEntities && person.hasEntities.length}
+	{#each person.hasEntities as hasEntity}
+		<EntityCreditRow bind:hasEntity />
+	{/each}
+{/if}
 
 <style>
 	.flex {

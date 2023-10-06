@@ -45,17 +45,22 @@ export class Entity extends DBObject {
 				);
 				hasEntity.department = new Department(hasEntity.department);
 				hasEntity.work = works.find((work) => work.id == hasEntity.department.workId);
+				console.log(hasEntity.work, distributions);
 				if (!hasEntity.work) {
 					return false;
 				}
+				hasEntity.distributions = distributions.filter(
+					(distribution) => distribution.workId == hasEntity.work.id
+				);
+				console.log(hasEntity);
 				return hasEntity;
 			})
 			.filter((hasEntity) => hasEntity);
-		this.works = works.map((work) => {
-			work = new Work(work);
-			work.build({ hasEntities, properties, departments, distributions });
-			return work;
-		});
+		// this.works = works.map((work) => {
+		// 	work = new Work(work);
+		// 	work.build({ hasEntities, properties, departments, distributions });
+		// 	return work;
+		// });
 	}
 	get username() {
 		return this.slug || this.id.substring(0, 8) || '';
