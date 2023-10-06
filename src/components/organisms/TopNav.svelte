@@ -21,6 +21,7 @@
 			searchKeywords = '';
 		}
 	};
+	$: console.log($User.profile);
 </script>
 
 <nav>
@@ -57,7 +58,7 @@
 						{:else}
 							<hr />
 						{/if}
-						<li>
+						<!-- <li>
 							<a
 								style="display:flex"
 								href={'#'}
@@ -66,7 +67,9 @@
 										_('Enter new nickname. current nickname is :') + $User.profile?.nickname
 									);
 									if (!nickname) return;
-									const response = await api.put('/users/' + $User.profile?.sub, { nickname });
+									const response = await api.put('/users/' + $User.profile?.sub, {
+										user_metadata: { nickname }
+									});
 									toast(_('Nickname updated'));
 									setTimeout(() => {
 										location.reload();
@@ -76,7 +79,7 @@
 								{_('Update Nickname')}
 								<Icon icon="person" />
 							</a>
-						</li>
+						</li> -->
 
 						<li>
 							<a style="display:flex" href="https://adgtokyo.channel.io/home">
