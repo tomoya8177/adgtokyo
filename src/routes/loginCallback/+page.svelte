@@ -16,4 +16,9 @@
 </script>
 
 {_("Please click the button below if the page doesn't redirect you automatically.")}
-<a href="/"> {_('Proceed')} </a>
+{_(
+	'If you used Line login, and used the external app to login, clicking the login button at the top right again, will get you logged in safely.'
+)}
+<div>
+	<a role="button" href="/"> {_('Proceed')} </a>
+</div>

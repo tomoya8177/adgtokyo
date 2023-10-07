@@ -64,5 +64,7 @@ export default {
 	'Architecture/Interior DDesign': '建築/インテリアデザイン',
 	'Window Display/Installation': 'ウィンドウディスプレイ/展示',
 	"Please click the button below if the page doesn't redirect you automatically.":
-		'自動的にリダイレクトされない場合は、下のボタンをクリックしてください。'
+		'自動的にリダイレクトされない場合は、下のボタンをクリックしてください。',
+	'If you used Line login, and used the external app to login, clicking the login button at the top right again, will get you logged in safely.':
+		'Lineログインを使用し、外部アプリを使用してログインした場合は、右上のログインボタンを再度クリックすると、安全にログインできます。'
 };
