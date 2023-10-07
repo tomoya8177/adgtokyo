@@ -12,7 +12,7 @@
 
 <div style="position:relative">
 	<figure class="slider" {id}>
-		<div style="text-wrap:nowrap">
+		<div style="white-space:nowrap">
 			{#each images as attachment, index}
 				<div class="image">
 					<img
