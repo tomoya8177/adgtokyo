@@ -35,16 +35,18 @@
 		</li>
 	</ul>
 	<ul>
-		{#if $User.authenticated}
-			<li style="display:flex;align-items:center">
-				<details class="dropdown">
-					<summary role="link" style="display: flex;">
+		<li style="display:flex;align-items:center">
+			<details class="dropdown">
+				<summary role="link" style="display: flex;">
+					{#if $User.authenticated}
 						<span class="hiddenWithMobile">
 							{$User.profile?.nickname}
 						</span>
-						<Icon icon="menu" /></summary
-					>
-					<ul dir="rtl">
+					{/if}
+					<Icon icon="menu" /></summary
+				>
+				<ul dir="rtl">
+					{#if $User.authenticated}
 						<li style="display:flex">
 							{_('Logged in as:')}
 							{$User.profile?.nickname}
@@ -80,17 +82,18 @@
 								<Icon icon="person" />
 							</a>
 						</li>
-
-						<li>
-							<a style="display:flex" href="https://adgtokyo.channel.io/home">
-								{_('Support')}
-								<Icon icon="support_agent" />
-							</a>
-						</li>
-						<li>
-							{_('Select UI Language')}<br />
-							<LocaleSwitch />
-						</li>
+					{/if}
+					<li>
+						<a style="display:flex" href="https://adgtokyo.channel.io/home">
+							{_('Support')}
+							<Icon icon="support_agent" />
+						</a>
+					</li>
+					<li>
+						{_('Select UI Language')}<br />
+						<LocaleSwitch />
+					</li>
+					{#if $User.authenticated}
 						<li>
 							<button
 								style="width:100%"
@@ -99,22 +102,19 @@
 								}}>{_('Logout')}</button
 							>
 						</li>
-					</ul>
-				</details>
-			</li>
-		{:else}
-			<li>
-				<a
-					href={'#'}
-					on:click={() => {
-						$auth0.login();
-					}}>{_('Login')}</a
-				>
-			</li>
-			<li class="padding-small">
-				<LocaleSwitch />
-			</li>
-		{/if}
+					{:else}
+						<li>
+							<button
+								style="width:100%"
+								on:click={() => {
+									$auth0.login();
+								}}>{_('Login')}</button
+							>
+						</li>
+					{/if}
+				</ul>
+			</details>
+		</li>
 	</ul>
 </nav>
 
