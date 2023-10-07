@@ -22,11 +22,6 @@
 	let entity = new Entity(data.entity);
 	entity.build(data);
 	onMount(() => {
-		if ($page.url.href.includes('#updated') && $UpdatedData && $UpdatedData instanceof Entity) {
-			console.log('updated');
-			//need to reload data
-			entity = $UpdatedData;
-		}
 		BottomNavButton.set({
 			label: _('Done Editing'),
 			onClick: () => {
@@ -35,7 +30,9 @@
 					return;
 				}
 				UpdatedData.set(entity);
-				goto(`/crew/${entity.id}#updated`);
+				goto(`/crew/${entity.id}`, {
+					invalidateAll: true
+				});
 			}
 		});
 	});

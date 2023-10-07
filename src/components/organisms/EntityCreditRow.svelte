@@ -44,7 +44,9 @@
 							icon="edit"
 							label={_('Edit Work')}
 							onclick={() => {
-								goto(`/work/${hasEntity.work.id}/edit`);
+								goto(`/work/${hasEntity.work.id}/edit`, {
+									invalidateAll: true
+								});
 							}}
 						/>
 					</div>

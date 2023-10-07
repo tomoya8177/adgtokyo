@@ -5,7 +5,7 @@
 	import { Work } from '$lib/frontend/class/Work';
 
 	import { _ } from '$lib/frontend/i18n';
-	import { BottomNavButton, UpdatedData, User } from '$lib/frontend/store';
+	import { BottomNavButton, User } from '$lib/frontend/store';
 	import Button from '../../../../components/atoms/Button.svelte';
 	import WorkTitle from '../../../../components/organisms/WorkTitle.svelte';
 	import type { PageData } from './$types';
@@ -21,18 +21,11 @@
 	import { Property } from '$lib/frontend/class/Property';
 	import { PropertyHasEntity } from '$lib/frontend/class/PropertyHasEntity';
 	import { page } from '$app/stores';
-	import { Entity } from '$lib/frontend/class/Entity';
 	import { goto } from '$app/navigation';
 	export let data: PageData;
 	let work = new Work(data.work);
 	work.build(data);
-
 	onMount(() => {
-		if ($page.url.href.includes('#updated') && $UpdatedData && $UpdatedData instanceof Work) {
-			console.log('updated');
-			//need to reload data
-			work = $UpdatedData;
-		}
 		BottomNavButton.set({
 			label: _('Done Editing'),
 			onClick: () => {
@@ -48,8 +41,9 @@
 					toast(_('Please save your changes first'));
 					return;
 				}
-				UpdatedData.set(work);
-				goto(`/work/${work.id}#updated`);
+				goto(`/work/${work.id}#updated`, {
+					invalidateAll: true
+				});
 				//				location.href = `/work/${work.id}`;
 			}
 		});
@@ -126,7 +120,6 @@
 				workId: work.id
 			}).create();
 			distribution.editing = true;
-
 			work.distributions = [...work.distributions, distribution];
 		}}
 	/>

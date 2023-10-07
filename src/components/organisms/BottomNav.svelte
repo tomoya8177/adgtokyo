@@ -13,7 +13,15 @@
 		{#if $BottomNavButton}
 			<li>
 				<div>
-					<a role="button" href={'#'} on:click={$BottomNavButton.onClick}>
+					<a
+						role="button"
+						href={'#'}
+						on:click={() => {
+							$BottomNavButton.busy = true;
+							$BottomNavButton.onClick();
+						}}
+						aria-busy={$BottomNavButton.busy}
+					>
 						{$BottomNavButton.label}
 					</a>
 				</div>

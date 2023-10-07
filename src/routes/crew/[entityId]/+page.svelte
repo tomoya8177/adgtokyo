@@ -17,23 +17,17 @@
 	import { Entity } from '$lib/frontend/class/Entity';
 	import ImageSlider from '../../../components/organisms/ImageSlider.svelte';
 	import { page } from '$app/stores';
+	import Button from '../../../components/atoms/Button.svelte';
 	export let data: PageData;
 	let entity = new Entity(data.entity);
 	entity.build(data);
 	onMount(() => {
-		if ($page.url.href.includes('#updated') && $UpdatedData && $UpdatedData instanceof Entity) {
-			console.log('updated');
-			//need to reload data
-			entity = $UpdatedData;
-		}
 		BottomNavButton.set({
 			label: _('Edit This Page'),
 			onClick: () => {
-				if ($page.url.href.includes('#updated') && $UpdatedData && $UpdatedData instanceof Entity) {
-					goto(`/crew/${entity.id}/edit#updated`);
-				} else {
-					goto(`/crew/${entity.id}/edit`);
-				}
+				goto(`/crew/${entity.id}/edit#updated`, {
+					invalidateAll: true
+				});
 			}
 		});
 	});
