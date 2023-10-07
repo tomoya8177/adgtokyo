@@ -9,7 +9,6 @@
 	import PopularFilmography from './PopularFilmography.svelte';
 
 	export let entity: Entity;
-	console.log(entity.popularCreditTitles);
 </script>
 
 {#if $LocalEnSwitch == 'local'}

@@ -10,6 +10,7 @@
 	import ConfirmModal from '../components/panels/ConfirmModal.svelte';
 	import type { PageData } from './$types';
 	import axios from 'axios';
+	import { User as UserClass } from '$lib/frontend/class/User';
 	import PromptModal from '../components/panels/PromptModal.svelte';
 	import { api } from '$lib/frontend/class/API';
 	let loggingIn = true;
@@ -24,7 +25,6 @@
 				return;
 			}
 			let user = await api.get('/api/User/' + profile.sub).then((res) => res.data);
-			console.log({ user });
 			if (!user) {
 				await api.post('/api/User', {
 					id: profile.sub,
@@ -35,13 +35,13 @@
 				profile.nickname = user.nickname;
 				profile.picture = user.picture || profile.picture;
 			}
+			profile.user = new UserClass(user);
 			$User.profile = profile;
 		}
 		loggingIn = false;
 	});
 	let searchKeywords = '';
 	const onKeywordsChange = (value: string) => {
-		console.log(searchKeywords);
 		if ($page.url.pathname.includes('/search/')) {
 			if ($page.url.pathname.includes('/work/')) {
 				goto('/search/work/' + searchKeywords);

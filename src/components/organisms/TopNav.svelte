@@ -38,21 +38,21 @@
 		<li style="display:flex;align-items:center">
 			<details class="dropdown">
 				<summary role="link" style="display: flex;">
-					{#if $User.authenticated}
+					{#if $User.authenticated && $User.user}
 						<span class="hiddenWithMobile">
-							{$User.profile?.nickname}
+							{$User.user.nickname}
 						</span>
 					{/if}
 					<Icon icon="menu" /></summary
 				>
 				<ul dir="rtl">
-					{#if $User.authenticated}
+					{#if $User.authenticated && $User.user}
 						<li style="display:flex">
 							{_('Logged in as:')}
-							{$User.profile?.nickname}
+							{$User.user.nickname}
 						</li>
 
-						{#if $User.profile.picture}
+						{#if $User.user.picture}
 							<li>
 								<UserProfilePicture />
 							</li>
@@ -64,17 +64,17 @@
 								style="display:flex"
 								href={'#'}
 								on:click={async () => {
+									if (!$User.user) throw new Error('User not found');
 									const nickname = await myPrompt(
-										_('Enter new nickname. current nickname is :') + $User.profile?.nickname
+										_('Enter new nickname. current nickname is :') + $User.user.nickname
 									);
 									if (!nickname) return;
-									const response = await api.put('/api/User/' + $User.profile?.sub, {
+									await $User.user.update({
 										nickname
 									});
-									console.log({ response });
 									toast(_('Nickname updated'));
 									setTimeout(() => {
-										location.reload();
+										//location.reload();
 									}, 1000);
 								}}
 							>
