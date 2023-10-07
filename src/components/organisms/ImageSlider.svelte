@@ -10,7 +10,7 @@
 	export let isStatic = false;
 </script>
 
-<div style="position:relative">
+<div style="position:relative" class="container">
 	<figure class="slider" {id}>
 		<div style="white-space:nowrap">
 			{#each images as attachment, index}
@@ -66,7 +66,7 @@
 			{/each}
 		</div>
 	</figure>
-	<div style="position:absolute;left:0;top:100px" class="circleButton">
+	<div style="position:absolute;left:0;top:100px" class="circleButton arrow">
 		<Button
 			icon="chevron_left"
 			onclick={() => {
@@ -76,7 +76,7 @@
 			}}
 		/>
 	</div>
-	<div style="position:absolute;right:0;top:100px;" class="circleButton">
+	<div style="position:absolute;right:0;top:100px;" class="circleButton arrow">
 		<Button
 			icon="chevron_right"
 			onclick={() => {
@@ -111,5 +111,12 @@
 		border-radius: var(--pico-border-radius);
 		overflow: hidden;
 		position: relative;
+	}
+	.arrow {
+		opacity: 0;
+		transition: all 0.5s ease-in-out;
+	}
+	.container:hover .arrow {
+		opacity: 1;
 	}
 </style>

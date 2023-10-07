@@ -24,13 +24,14 @@ export const createInsertData = async (params: any, body, id: string): Promise<s
 		}
 	}
 	const data = [];
-	for (const [key, value] of Object.entries(body)) {
+	for (let [key, value] of Object.entries(body)) {
 		if (!fields.some((field) => field.Field == key)) continue;
 		if (key == 'ai') continue;
 		if (key == 'id' && !value) continue;
 		if (value === null) {
 			continue;
 		}
+		if (typeof value == 'string') value = value.replace(/(?<!\\)'/g, "\\'");
 		data.push(`${key}='${value}'`);
 	}
 	if (!body.id) {

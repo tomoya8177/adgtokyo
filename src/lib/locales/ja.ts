@@ -68,5 +68,7 @@ export default {
 	'If you used Line login, and used the external app to login, clicking the login button at the top right again, will get you logged in safely.':
 		'Lineログインを使用し、外部アプリを使用してログインした場合は、右上のログインボタンを再度クリックすると、安全にログインできます。',
 	'Jump to work and create credit under this work': '作品に移動して、クレジットを作成する',
-	'Translate from local': '現地語から翻訳する'
+	'Translate from local': '現地語から翻訳する',
+	'Select UI Language': 'UI言語を選択する',
+	Searching: '検索中'
 };
