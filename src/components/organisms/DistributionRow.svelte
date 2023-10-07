@@ -15,7 +15,7 @@
 
 <article>
 	<div class="justified-flex">
-		<div>
+		<div style="flex:1">
 			{#if !distribution.editing}
 				<DistributionRowStatic {distribution} />
 			{:else}

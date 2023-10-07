@@ -66,9 +66,8 @@
 			{/each}
 		</div>
 	</figure>
-	<div style="position:absolute;left:0;top:100px">
+	<div style="position:absolute;left:0;top:100px" class="circleButton">
 		<Button
-			white
 			icon="chevron_left"
 			onclick={() => {
 				const slider = document.getElementById(id);
@@ -77,9 +76,8 @@
 			}}
 		/>
 	</div>
-	<div style="position:absolute;right:0;top:100px">
+	<div style="position:absolute;right:0;top:100px;" class="circleButton">
 		<Button
-			white
 			icon="chevron_right"
 			onclick={() => {
 				const slider = document.getElementById(id);
@@ -91,6 +89,13 @@
 </div>
 
 <style>
+	.circleButton {
+		border-radius: 50%;
+		height: 2.5rem;
+		width: 2.5rem;
+		overflow: hidden;
+		display: flex;
+	}
 	.slider {
 		scroll-behavior: smooth;
 		transition: all 0.5s ease-in-out;

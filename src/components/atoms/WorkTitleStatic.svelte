@@ -3,6 +3,7 @@
 	import { _ } from '$lib/frontend/i18n';
 	import { LocalEnSwitch } from '$lib/frontend/store';
 	import Button from './Button.svelte';
+	import Icon from './Icon.svelte';
 
 	export let work: Work;
 </script>
@@ -41,7 +42,10 @@
 <div style="display:flex;gap:0.4rem">
 	{#if work.imdbURL}
 		<small>
-			<a role="button" href={work.imdbURL} target="_blank"> IMDB </a>
+			<a role="button" href={work.imdbURL} target="_blank" style="display:flex">
+				<Icon icon="theaters" />
+				IMDB
+			</a>
 		</small>
 	{/if}
 	{#if work.officialWebsiteURL}

@@ -22,20 +22,14 @@
 </script>
 
 <article>
-	<div class="flex">
-		<div class="flex">
-			<div>
-				<!--TITLE-->
-				<div class="flex">
-					<div>
-						{#if !property.editing}
-							<PropertyRowStatic {property} />
-						{:else}
-							<PropertyKeyInput bind:property />
-						{/if}
-					</div>
-				</div>
-			</div>
+	<div class="justified-flex">
+		<div style="flex:1">
+			<!--TITLE-->
+			{#if !property.editing}
+				<PropertyRowStatic {property} />
+			{:else}
+				<PropertyKeyInput bind:property />
+			{/if}
 		</div>
 		<div>
 			<EditControlButtons

@@ -8,6 +8,7 @@
 
 	import DepartmentRowHeader from '../molecules/DepartmentRowHeader.svelte';
 	import PropertyRow from './PropertyRow.svelte';
+	import { PropertyHasEntity } from '$lib/frontend/class/PropertyHasEntity';
 	export let index: number;
 	export let department: Department;
 	export let work: Work;
@@ -64,6 +65,12 @@
 					weight: department.properties.length + 1,
 					departmentId: department.id
 				}).create();
+				const hasEntity = await new PropertyHasEntity({
+					propertyId: property.id,
+					weight: 1
+				}).create();
+				hasEntity.editing = true;
+				property.hasEntities = [hasEntity];
 				property.editing = true;
 				department.properties = [...department.properties, property];
 			}}

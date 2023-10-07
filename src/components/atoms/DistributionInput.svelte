@@ -2,22 +2,22 @@
 	import type { Distribution } from '$lib/frontend/class/Distribution';
 
 	import { _ } from '$lib/frontend/i18n';
+	import PairOfInputs from './PairOfInputs.svelte';
 	export let distribution: Distribution;
 </script>
 
-<div class="grid">
-	<label>
-		{_('Year')}
-		<input type="text" bind:value={distribution.year} />
-	</label>
-	<label>
-		{_('Release')}
-		({_('Local')})
-		<input type="text" bind:value={distribution.regionLocal} />
-	</label>
-	<label>
-		{_('Release')}
-		({_('English')})
-		<input type="text" bind:value={distribution.regionEn} />
-	</label>
+<div style="display:flex;gap:var(--pico-spacing)">
+	<div style="flex:1">
+		<label>
+			{_('Year')}
+			<input type="text" bind:value={distribution.year} />
+		</label>
+	</div>
+	<div style="flex:2">
+		<PairOfInputs
+			label={_('Release')}
+			bind:local={distribution.regionLocal}
+			bind:en={distribution.regionEn}
+		/>
+	</div>
 </div>

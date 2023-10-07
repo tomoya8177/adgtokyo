@@ -4,6 +4,7 @@
 	import type { Property } from '$lib/frontend/class/Property';
 	import { _ } from '$lib/frontend/i18n';
 	import { search } from '$lib/frontend/search';
+	import PairOfInputs from '../atoms/PairOfInputs.svelte';
 	export let property: Property;
 	let fixed = false;
 	let duplicates: Property[] = [];
@@ -24,26 +25,15 @@
 	};
 </script>
 
-<div class="grid">
-	<label
-		>{_('Title')} ({_('Local')})
-		<input
-			bind:value={property.keyLocal}
-			on:input={async () => {
-				searchExisting();
-			}}
-		/>
-	</label>
-	<label
-		>{_('Title')} ({_('English')})
-		<input
-			bind:value={property.keyEn}
-			on:input={async () => {
-				searchExisting();
-			}}
-		/>
-	</label>
-</div>
+<PairOfInputs
+	label={_('Credit Title')}
+	bind:local={property.keyLocal}
+	bind:en={property.keyEn}
+	onInput={() => {
+		searchExisting();
+	}}
+/>
+
 {#if duplicates.length && !fixed}
 	{_('Maybe...')}
 	{#each duplicates as prop}

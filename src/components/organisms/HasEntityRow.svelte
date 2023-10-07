@@ -6,8 +6,8 @@
 	import Button from '../atoms/Button.svelte';
 	import EditControlButtons from '../molecules/EditControlButtons.svelte';
 	import HasEntityStatic from '../molecules/HasEntityStatic.svelte';
-	import HasEntitySubtextInput from '../molecules/HasEntitySubtextInput.svelte';
 	import { myConfirm } from '$lib/frontend/class/Confirm';
+	import PairOfInputs from '../atoms/PairOfInputs.svelte';
 
 	export let hasEntity: PropertyHasEntity;
 	export let onDelete: () => void;
@@ -31,7 +31,11 @@
 							</div>
 						</div>
 						<div>
-							<HasEntitySubtextInput bind:hasEntity />
+							<PairOfInputs
+								bind:local={hasEntity.subtextLocal}
+								bind:en={hasEntity.subtextEn}
+								label={_('Memo')}
+							/>
 						</div>
 					{:else}
 						<HasEntityEdit bind:hasEntity />

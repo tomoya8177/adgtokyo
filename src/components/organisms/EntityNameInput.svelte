@@ -5,6 +5,7 @@
 	import { search } from '$lib/frontend/search';
 	import Searching from '../../routes/search/[personOrBusiness]/[keywords]/Searching.svelte';
 	import Icon from '../atoms/Icon.svelte';
+	import PairOfInputs from '../atoms/PairOfInputs.svelte';
 	export let inputLocal: string;
 	export let inputEn: string;
 	export let onExistingClicked: (entity: Entity) => void;
@@ -32,19 +33,16 @@
 		searching = false;
 		console.log({ possibleDuplicates });
 	};
-	$: findExistingEntity(inputLocal, inputEn);
 </script>
 
-<div class="grid">
-	<label
-		>{_('Name')} ({_('Local')})
-		<input bind:value={inputLocal} />
-	</label>
-	<label
-		>{_('Name')} ({_('English')})
-		<input bind:value={inputEn} />
-	</label>
-</div>
+<PairOfInputs
+	label={_('Name')}
+	bind:local={inputLocal}
+	bind:en={inputEn}
+	onInput={async () => {
+		findExistingEntity(inputLocal, inputEn);
+	}}
+/>
 {#if searching}
 	<Searching />
 {/if}

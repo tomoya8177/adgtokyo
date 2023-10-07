@@ -9,36 +9,18 @@
 	import { LocalEnSwitch, User } from '$lib/frontend/store';
 	import Button from '../atoms/Button.svelte';
 	import RichTextarea from '../atoms/RichTextarea.svelte';
+	import TranslateButton from '../atoms/TranslateButton.svelte';
 	import Uploader from '../atoms/Uploader.svelte';
 	import WorkTitleStatic from '../atoms/WorkTitleStatic.svelte';
 	import EditControlButtons from '../molecules/EditControlButtons.svelte';
+	import WorkTitleInput from '../molecules/WorkTitleInput.svelte';
 	export let work: Work;
 </script>
 
 <div class="flex">
 	<div>
 		{#if work.editing}
-			<div class="grid">
-				<label>
-					{_('Title')}
-					({_('Local')})
-
-					<input type="text" bind:value={work.titleLocal} />
-				</label>
-				<label>
-					{_('Title')}
-					({_('English')})
-					<input type="text" bind:value={work.titleEn} />
-				</label>
-			</div>
-			<div>
-				{_('Category')}
-				<select bind:value={work.category}>
-					{#each workCategory as category}
-						<option value={category.title}>{_(category.title)}</option>
-					{/each}
-				</select>
-			</div>
+			<WorkTitleInput bind:work />
 			<!-- <div class="grid">
 				<label>
 					{_('Format')}
@@ -52,15 +34,16 @@
 					<input type="text" bind:value={work.formatEn} />
 				</label>
 			</div> -->
-			<label>
+			<label for="description-local">
 				{_('Description')}
 				({_('Local')})
-				<RichTextarea bind:value={work.descriptionLocal} />
+				<RichTextarea id="description-local" bind:value={work.descriptionLocal} />
 			</label>
-			<label>
+			<label for="description-en">
 				{_('Description')}
 				({_('English')})
-				<RichTextarea bind:value={work.descriptionEn} />
+				<TranslateButton bind:local={work.descriptionLocal} bind:en={work.descriptionEn} />
+				<RichTextarea id="description-en" bind:value={work.descriptionEn} />
 			</label>
 			<label>
 				{_('IMDB')}

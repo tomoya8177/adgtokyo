@@ -2,6 +2,7 @@
 	import type { Department } from '$lib/frontend/class/Department';
 	import { _ } from '$lib/frontend/i18n';
 	import { search } from '$lib/frontend/search';
+	import PairOfInputs from '../atoms/PairOfInputs.svelte';
 	export let department: Department;
 	let duplicates: Department[] = [];
 	let fixed = false;
@@ -22,30 +23,15 @@
 	};
 </script>
 
-<div class="grid">
-	<label>
-		{_('Department')}
-		({_('Local')})
-		<input
-			type="text"
-			bind:value={department.titleLocal}
-			on:input={async () => {
-				searchExisting();
-			}}
-		/>
-	</label>
-	<label>
-		{_('Department')}
-		({_('Local')})
-		<input
-			type="text"
-			bind:value={department.titleEn}
-			on:input={async () => {
-				searchExisting();
-			}}
-		/>
-	</label>
-</div>
+<PairOfInputs
+	label={_('Department')}
+	bind:local={department.titleLocal}
+	bind:en={department.titleEn}
+	onInput={async () => {
+		searchExisting();
+	}}
+/>
+
 {#if duplicates.length && !fixed}
 	{_('Maybe...')}
 	{#each duplicates as dep}

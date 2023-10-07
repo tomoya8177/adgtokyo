@@ -3,6 +3,7 @@
 	import { _ } from '$lib/frontend/i18n';
 	import { LocalEnSwitch } from '$lib/frontend/store';
 	import Button from './Button.svelte';
+	import Icon from './Icon.svelte';
 	import PopularFilmography from './PopularFilmography.svelte';
 
 	export let entity: Entity;
@@ -30,7 +31,10 @@
 <div style="display:flex;gap:0.4rem">
 	{#if entity.imdbURL}
 		<small>
-			<a role="button" href={entity.imdbURL} target="_blank"> IMDB </a>
+			<a role="button" href={entity.imdbURL} target="_blank" style="display:flex">
+				<Icon icon="theaters" />
+				IMDB
+			</a>
 		</small>
 	{/if}
 	{#if entity.officialWebsiteURL}

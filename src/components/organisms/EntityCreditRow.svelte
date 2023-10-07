@@ -5,12 +5,12 @@
 	import DistributionRowStatic from './DistributionRowStatic.svelte';
 	import EditControlButtons from '../molecules/EditControlButtons.svelte';
 	import HasEntitySubtextStatic from '../molecules/HasEntitySubtextStatic.svelte';
-	import HasEntitySubtextInput from '../molecules/HasEntitySubtextInput.svelte';
 	import { myConfirm } from '$lib/frontend/class/Confirm';
 	import Icon from '../atoms/Icon.svelte';
 	import { goto } from '$app/navigation';
 	import Button from '../atoms/Button.svelte';
 	import { workCategory } from '$lib/Category';
+	import PairOfInputs from '../atoms/PairOfInputs.svelte';
 	export let hasEntity: any;
 	export let editable = false;
 	export let onUp: (() => void) | false = false;
@@ -48,7 +48,11 @@
 							}}
 						/>
 					</div>
-					<HasEntitySubtextInput {hasEntity} />
+					<PairOfInputs
+						bind:local={hasEntity.subtextLocal}
+						bind:en={hasEntity.subtextEn}
+						label={_('Memo')}
+					/>
 				{/if}
 			</div>
 			<div style="margin-left:1rem">

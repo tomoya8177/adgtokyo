@@ -78,13 +78,17 @@ export class Entity extends DBObject {
 			return { local: hasEntity.property.keyLocal, en: hasEntity.property.keyEn };
 		});
 		//remove duplicates, and sort by occurances desc
-		return titles
-			.filter((title, index, self) => self.findIndex((t) => t.local == title.local) == index)
-			.sort((a, b) => {
-				return (
-					titles.filter((title) => title.local == b.local).length -
-					titles.filter((title) => title.local == a.local).length
-				);
-			});
+		return (
+			titles
+				.filter((title, index, self) => self.findIndex((t) => t.local == title.local) == index)
+				.sort((a, b) => {
+					return (
+						titles.filter((title) => title.local == b.local).length -
+						titles.filter((title) => title.local == a.local).length
+					);
+				})
+				//just return top 3
+				.slice(0, 3)
+		);
 	}
 }

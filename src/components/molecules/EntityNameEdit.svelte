@@ -11,21 +11,12 @@
 	import RichTextarea from '../atoms/RichTextarea.svelte';
 	import HasEntitySubtextStatic from './HasEntitySubtextStatic.svelte';
 	import type { Entity } from '$lib/frontend/class/Entity';
+	import PairOfInputs from '../atoms/PairOfInputs.svelte';
+	import TranslateButton from '../atoms/TranslateButton.svelte';
 	export let person: Entity;
 </script>
 
-<div class="grid">
-	<label>
-		{_('Name')}
-		({_('Local')})
-		<input bind:value={person.nameLocal} />
-	</label>
-	<label>
-		{_('Name')}
-		({_('English')})
-		<input bind:value={person.nameEn} />
-	</label>
-</div>
+<PairOfInputs bind:local={person.nameLocal} bind:en={person.nameEn} label={_('Name')} />
 <label>
 	{_('IMDB')}
 	<input bind:value={person.imdbURL} type="url" />
@@ -34,20 +25,14 @@
 	{_('Website')}
 	<input bind:value={person.officialWebsiteURL} type="url" />
 </label>
-<label>
+<label for="bio-local">
 	{_('Bio')}
 	({_('Local')})
 	<RichTextarea bind:value={person.descriptionLocal} />
 </label>
-<label>
+<label for="bio-en">
 	{_('Bio')}
 	({_('English')})
+	<TranslateButton bind:local={person.descriptionLocal} bind:en={person.descriptionEn} />
 	<RichTextarea bind:value={person.descriptionEn} />
 </label>
-
-<style>
-	.flex {
-		display: flex;
-		gap: 1rem;
-	}
-</style>

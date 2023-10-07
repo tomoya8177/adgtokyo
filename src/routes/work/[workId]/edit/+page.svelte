@@ -18,6 +18,9 @@
 	import Heading from '../../../../components/atoms/Heading.svelte';
 	import LoginWarningModal from '../../../../components/panels/LoginWarningModal.svelte';
 	import { toast } from '$lib/frontend/toast';
+	import { Property } from '$lib/frontend/class/Property';
+	import { PropertyHasEntity } from '$lib/frontend/class/PropertyHasEntity';
+	import { Entity } from '$lib/frontend/class/Entity';
 	export let data: PageData;
 	let work = new Work(data.work);
 	work.build(data);
@@ -167,6 +170,18 @@
 				weight: work.departments.length + 1,
 				workId: work.id
 			}).create();
+			const property = await new Property({
+				departmentId: department.id,
+				weight: 1
+			}).create();
+			property.editing = true;
+			const hasEntity = await new PropertyHasEntity({
+				propertyId: property.id,
+				weight: 1
+			}).create();
+			hasEntity.editing = true;
+			property.hasEntities = [hasEntity];
+			department.properties = [property];
 			department.editing = true;
 
 			work.departments = [...work.departments, department];
