@@ -6,31 +6,11 @@
 	export let onclick: () => void;
 	export let className: string = '';
 	export let white: boolean = false;
-	let iconButton = false;
-	onMount(() => {
-		if (icon && !label) {
-			iconButton = true;
-		}
-	});
 </script>
 
-<button
-	class={className}
-	class:buttonWithIcon={!!icon}
-	class:white
-	class:outline={iconButton || className.includes('outline')}
-	class:circle={iconButton}
-	on:click={onclick}
->
+<button class={className} class:buttonWithIcon={!!icon} class:white on:click={onclick}>
 	{#if icon}
-		<div class:icon-container={iconButton} class:icon-container-with-label={!iconButton}>
-			<Icon
-				position={iconButton ? 'absolute' : 'relative'}
-				size={iconButton ? '1.2rem' : '1.5rem'}
-				{icon}
-				color={iconButton ? 'var(--pico-color)' : 'var(--pico-text-color)'}
-			/>
-		</div>
+		<Icon {icon} />
 	{/if}
 	<span style:margin-right={icon ? '0.5rem' : ''}>
 		{label}
@@ -40,8 +20,8 @@
 <style>
 	.icon-container-with-label {
 		display: inline;
-		vertical-align: bottom;
 		line-height: 70%;
+		vertical-align: -webkit-baseline-middle;
 	}
 	.buttonWithIcon {
 		gap: 0.25rem;
@@ -63,10 +43,7 @@
 		background-color: rgba(255, 255, 255, 0.5);
 		box-shadow: var(--pico-card-box-shadow);
 	}
-	.icon-container {
-		position: absolute;
+	button {
 		display: flex;
-		justify-content: center;
-		vertical-align: -webkit-baseline-middle;
 	}
 </style>
