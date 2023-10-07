@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { _ } from '$lib/frontend/i18n';
-	import { BottomNavButton, LocalEnSwitch } from '$lib/frontend/store';
+	import { BottomNavButton, LocalEnSwitch, UpdatedData } from '$lib/frontend/store';
 	import { onMount } from 'svelte';
 	import DepartmentHeaderStatic from '../../../components/atoms/DepartmentHeaderStatic.svelte';
 	import EntityNameStatic from '../../../components/atoms/EntityNameStatic.svelte';
@@ -16,31 +16,35 @@
 	import HeadingLabel from '../../../components/atoms/HeadingLabel.svelte';
 	import { Entity } from '$lib/frontend/class/Entity';
 	import ImageSlider from '../../../components/organisms/ImageSlider.svelte';
+	import { page } from '$app/stores';
 	export let data: PageData;
-	console.log(data.person);
-	let person = new Entity(data.person);
-	person.build(data);
-	console.log({ person });
+	let entity = new Entity(data.entity);
+	entity.build(data);
 	onMount(() => {
+		if ($page.url.href.includes('#updated') && $UpdatedData && $UpdatedData instanceof Entity) {
+			console.log('updated');
+			//need to reload data
+			entity = $UpdatedData;
+		}
 		BottomNavButton.set({
 			label: _('Edit This Page'),
 			onClick: () => {
-				goto(`/crew/${person.id}/edit`);
+				goto(`/crew/${entity.id}/edit`);
 			}
 		});
 	});
 </script>
 
-<EntityNameStatic entity={person} />
-{#if person.attachments.length > 0}
+<EntityNameStatic {entity} />
+{#if entity.attachments.length > 0}
 	<hr />
-	<ImageSlider isStatic bind:images={person.attachments} editing={false} />
+	<ImageSlider isStatic bind:images={entity.attachments} editing={false} />
 {/if}
 
 <hr />
 <Heading label={_('Filmography')} />
 {#each workCategory as category}
-	{@const hasEntities = person.hasEntities.filter((has) => has.work.category == category.title)}
+	{@const hasEntities = entity.hasEntities.filter((has) => has.work.category == category.title)}
 	{#if hasEntities.length}
 		<section>
 			<HeadingLabel label={_(category.title)} />

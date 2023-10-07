@@ -13,26 +13,26 @@
 	import type { Entity } from '$lib/frontend/class/Entity';
 	import PairOfInputs from '../atoms/PairOfInputs.svelte';
 	import TranslateButton from '../atoms/TranslateButton.svelte';
-	export let person: Entity;
+	export let entity: Entity;
 </script>
 
-<PairOfInputs bind:local={person.nameLocal} bind:en={person.nameEn} label={_('Name')} />
+<PairOfInputs bind:local={entity.nameLocal} bind:en={entity.nameEn} label={_('Name')} />
 <label>
-	{_('IMDB')}
-	<input bind:value={person.imdbURL} type="url" />
+	{_('IMDb')}
+	<input bind:value={entity.imdbURL} type="url" />
 </label>
 <label>
 	{_('Website')}
-	<input bind:value={person.officialWebsiteURL} type="url" />
+	<input bind:value={entity.officialWebsiteURL} type="url" />
 </label>
 <label for="bio-local">
 	{_('Bio')}
 	({_('Local')})
-	<RichTextarea bind:value={person.descriptionLocal} />
+	<RichTextarea bind:value={entity.descriptionLocal} />
 </label>
 <label for="bio-en">
 	{_('Bio')}
 	({_('English')})
-	<TranslateButton bind:local={person.descriptionLocal} bind:en={person.descriptionEn} />
-	<RichTextarea bind:value={person.descriptionEn} />
+	<TranslateButton bind:local={entity.descriptionLocal} bind:en={entity.descriptionEn} />
+	<RichTextarea bind:value={entity.descriptionEn} />
 </label>

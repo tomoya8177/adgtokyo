@@ -6,7 +6,7 @@
 	export let work: Work;
 </script>
 
-<PairOfInputs label={_('Title')} local={work.titleLocal} en={work.titleEn} />
+<PairOfInputs label={_('Title')} bind:local={work.titleLocal} bind:en={work.titleEn} />
 {_('Category')}
 <select bind:value={work.category}>
 	{#each workCategory as category}

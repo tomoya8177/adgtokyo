@@ -5,7 +5,7 @@
 	import { Work } from '$lib/frontend/class/Work';
 
 	import { _ } from '$lib/frontend/i18n';
-	import { BottomNavButton, User } from '$lib/frontend/store';
+	import { BottomNavButton, UpdatedData, User } from '$lib/frontend/store';
 	import Button from '../../../../components/atoms/Button.svelte';
 	import WorkTitle from '../../../../components/organisms/WorkTitle.svelte';
 	import type { PageData } from './$types';
@@ -21,6 +21,7 @@
 	import { Property } from '$lib/frontend/class/Property';
 	import { PropertyHasEntity } from '$lib/frontend/class/PropertyHasEntity';
 	import { Entity } from '$lib/frontend/class/Entity';
+	import { goto } from '$app/navigation';
 	export let data: PageData;
 	let work = new Work(data.work);
 	work.build(data);
@@ -41,7 +42,9 @@
 					toast(_('Please save your changes first'));
 					return;
 				}
-				location.href = `/work/${work.id}`;
+				UpdatedData.set(work);
+				goto(`/work/${work.id}#updated`);
+				//				location.href = `/work/${work.id}`;
 			}
 		});
 	});

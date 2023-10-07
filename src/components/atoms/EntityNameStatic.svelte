@@ -1,4 +1,6 @@
 <script lang="ts">
+	import IMDbButton from './IMDbButton.svelte';
+
 	import type { Entity } from '$lib/frontend/class/Entity';
 	import { _ } from '$lib/frontend/i18n';
 	import { LocalEnSwitch } from '$lib/frontend/store';
@@ -30,12 +32,7 @@
 {/if}
 <div style="display:flex;gap:0.4rem">
 	{#if entity.imdbURL}
-		<small>
-			<a role="button" href={entity.imdbURL} target="_blank" style="display:flex">
-				<Icon icon="theaters" />
-				IMDB
-			</a>
-		</small>
+		<IMDbButton url={entity.imdbURL} />
 	{/if}
 	{#if entity.officialWebsiteURL}
 		<Button

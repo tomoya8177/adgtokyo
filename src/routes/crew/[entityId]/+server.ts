@@ -2,11 +2,11 @@ import { db } from '$lib/backend/db.js';
 import { redirect } from '@sveltejs/kit';
 
 export const GET = async ({ params }) => {
-	const person = (await db.query(`select * from Entity where id='${params.entityId}'`))[0];
-	if (!person) {
+	const entity = (await db.query(`select * from Entity where id='${params.entityId}'`))[0];
+	if (!entity) {
 		return new Response(
 			JSON.stringify({
-				person: false
+				entity: false
 			})
 		);
 	}
@@ -94,7 +94,7 @@ export const GET = async ({ params }) => {
 
 	return new Response(
 		JSON.stringify({
-			person,
+			entity,
 			distributions,
 			departments,
 			properties,

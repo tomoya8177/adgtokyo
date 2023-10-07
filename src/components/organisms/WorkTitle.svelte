@@ -21,19 +21,7 @@
 	<div>
 		{#if work.editing}
 			<WorkTitleInput bind:work />
-			<!-- <div class="grid">
-				<label>
-					{_('Format')}
-					({_('Local')})
 
-					<input type="text" bind:value={work.formatLocal} />
-				</label>
-				<label>
-					{_('Format')}
-					({_('English')})
-					<input type="text" bind:value={work.formatEn} />
-				</label>
-			</div> -->
 			<label for="description-local">
 				{_('Description')}
 				({_('Local')})
@@ -46,7 +34,7 @@
 				<RichTextarea id="description-en" bind:value={work.descriptionEn} />
 			</label>
 			<label>
-				{_('IMDB')}
+				{_('IMDb')}
 				<input type="text" bind:value={work.imdbURL} />
 			</label>
 			<label>

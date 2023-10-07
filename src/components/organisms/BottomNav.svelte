@@ -31,4 +31,8 @@
 		bottom: 0px;
 		width: 100%;
 	}
+	nav {
+		margin-right: var(--pico-spacing);
+		margin-left: var(--pico-spacing);
+	}
 </style>

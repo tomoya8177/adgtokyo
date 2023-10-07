@@ -21,7 +21,6 @@
 			searchKeywords = '';
 		}
 	};
-	$: console.log($User.profile);
 </script>
 
 <nav>
@@ -37,9 +36,9 @@
 	</ul>
 	<ul>
 		{#if $User.authenticated}
-			<li>
+			<li style="display:flex;align-items:center">
 				<details class="dropdown">
-					<summary role="link">
+					<summary role="link" style="display: flex;">
 						<span class="hiddenWithMobile">
 							{$User.profile?.nickname}
 						</span>
@@ -126,9 +125,10 @@
 	}
 	summary {
 		display: flex;
-		gap: 0.2rem;
 		align-items: center;
 		text-decoration: none;
+		/* 
+		 */
 	}
 	details summary::after {
 		display: none;

@@ -2,7 +2,7 @@
 	import { Work } from '$lib/frontend/class/Work';
 
 	import { _ } from '$lib/frontend/i18n';
-	import { BottomNavButton, LocalEnSwitch } from '$lib/frontend/store';
+	import { BottomNavButton, LocalEnSwitch, UpdatedData } from '$lib/frontend/store';
 	import type { PageData } from './$types';
 	import { onMount } from 'svelte';
 	import { goto } from '$app/navigation';
@@ -11,13 +11,20 @@
 	import DepartmentHeaderStatic from '../../../components/atoms/DepartmentHeaderStatic.svelte';
 	import PropertyRowStatic from '../../../components/atoms/PropertyRowStatic.svelte';
 	import HasEntityStatic from '../../../components/molecules/HasEntityStatic.svelte';
+	import { page } from '$app/stores';
+	import { api } from '$lib/frontend/class/API';
 	export let data: PageData;
 	let work = new Work(data.work);
 	console.log({ departments: data.departments });
 	work.build(data);
 
 	console.log({ work });
-	onMount(() => {
+	onMount(async () => {
+		if ($page.url.href.includes('#updated') && $UpdatedData && $UpdatedData instanceof Work) {
+			console.log('updated');
+			//need to reload data
+			work = $UpdatedData;
+		}
 		BottomNavButton.set({
 			label: _('Edit This Page'),
 			onClick: () => {
@@ -28,7 +35,7 @@
 </script>
 
 <WorkTitleStatic {work} />
-{#if work.attachments.length > 0}
+{#if work.attachments?.length > 0}
 	<hr />
 
 	<ImageSlider isStatic bind:images={work.attachments} editing={false} />

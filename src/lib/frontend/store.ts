@@ -28,3 +28,4 @@ export const ConfirmMessage = writable({
 	message: string;
 	result: boolean | undefined;
 });
+export const UpdatedData = writable(null as any);
