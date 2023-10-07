@@ -65,7 +65,7 @@ body {
 }
 @media (min-width: 576px) {
 	:root {
-		--pico-font-size: 106.25%;
+		--pico-font-size: 112.5%;
 	}
 }
 @media (min-width: 768px) {
