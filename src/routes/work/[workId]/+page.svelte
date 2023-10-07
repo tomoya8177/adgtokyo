@@ -14,7 +14,6 @@
 	import { page } from '$app/stores';
 	export let data: PageData;
 	let work = new Work(data.work);
-	console.log({ departments: data.departments });
 	work.build(data);
 
 	onMount(async () => {

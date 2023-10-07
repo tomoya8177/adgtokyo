@@ -22,9 +22,7 @@
 			});
 		return new Work(work);
 	});
-	console.log(works);
 	onMount(async () => {
-		//authenticated = await auth0.isAuthenticated();
 		BottomNavButton.set({
 			label: _('Create New Work'),
 			onClick: () => {

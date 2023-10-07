@@ -35,7 +35,7 @@
 				profile.nickname = user.nickname;
 				profile.picture = user.picture || profile.picture;
 			}
-			profile.user = new UserClass(user);
+			$User.user = new UserClass(user);
 			$User.profile = profile;
 		}
 		loggingIn = false;

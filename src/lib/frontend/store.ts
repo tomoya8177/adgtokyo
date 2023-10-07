@@ -1,16 +1,16 @@
 import { writable } from 'svelte/store';
 import { cookies } from './cookies';
 import type { Work } from './class/Work';
-import type { User as UserClass } from './class/User';
+import { User as UserClass } from './class/User';
 
 export const User = writable({
 	authenticated: undefined,
 	profile: undefined,
-	user: undefined
+	user: new UserClass({})
 } as {
 	authenticated: boolean | undefined;
 	profile: any | undefined;
-	user: undefined | UserClass;
+	user: UserClass;
 });
 
 export const auth0 = writable(null as any);

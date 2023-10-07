@@ -36,6 +36,5 @@ export default class Auth0 {
 	};
 	changeEmail: (email: string) => Promise<void> = async (email: string) => {
 		const response = await this.client.updateUser({ email });
-		console.log(response);
 	};
 }
