@@ -38,7 +38,7 @@
 		<li style="display:flex;align-items:center">
 			<details class="dropdown">
 				<summary role="link" style="display: flex;">
-					{#if $User.authenticated && $User.user}
+					{#if $User.authenticated}
 						<span class="hiddenWithMobile">
 							{$User.user.nickname}
 						</span>
@@ -46,7 +46,7 @@
 					<Icon icon="menu" /></summary
 				>
 				<ul dir="rtl">
-					{#if $User.authenticated && $User.user}
+					{#if $User.authenticated}
 						<li style="display:flex">
 							{_('Logged in as:')}
 							{$User.user.nickname}
