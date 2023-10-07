@@ -66,7 +66,7 @@
 	.icon-container {
 		position: absolute;
 		display: flex;
-		align-items: center;
 		justify-content: center;
+		vertical-align: -webkit-baseline-middle;
 	}
 </style>

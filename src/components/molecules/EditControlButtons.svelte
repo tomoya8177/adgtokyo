@@ -1,5 +1,6 @@
 <script lang="ts">
 	import Button from '../atoms/Button.svelte';
+	import Icon from '../atoms/Icon.svelte';
 	export let editing: boolean;
 	export let onSave: (() => void) | false = false;
 	export let onDelete: (() => void) | false = false;
@@ -10,25 +11,35 @@
 <div style="display:flex;gap:0rem;justify-content:end;">
 	{#if editing}
 		{#if !!onSave}
-			<Button icon="save" onclick={onSave} />
+			<a href={'#'} on:click={onSave}>
+				<Icon icon="save" />
+			</a>
 		{/if}
 		{#if !!onDelete}
-			<Button icon="delete" onclick={onDelete} />
+			<a href={'#'} on:click={onDelete}>
+				<Icon icon="delete" />
+			</a>
 		{/if}
 	{:else}
 		{#if !!onUp}
-			<Button icon="keyboard_arrow_up" onclick={onUp} />
+			<a href={'#'} on:click={onUp}>
+				<Icon icon="keyboard_arrow_up" />
+			</a>
 		{/if}
 		{#if !!onDown}
-			<Button icon="keyboard_arrow_down" onclick={onDown} />
+			<a href={'#'} on:click={onDown}>
+				<Icon icon="keyboard_arrow_down" />
+			</a>
 		{/if}
 		{#if !!onSave}
-			<Button
-				icon="edit"
-				onclick={() => {
+			<a
+				href={'#'}
+				on:click={() => {
 					editing = true;
 				}}
-			/>
+			>
+				<Icon icon="edit" />
+			</a>
 		{/if}
 	{/if}
 </div>
