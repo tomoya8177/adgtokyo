@@ -20,6 +20,7 @@
 	import { toast } from '$lib/frontend/toast';
 	import { Property } from '$lib/frontend/class/Property';
 	import { PropertyHasEntity } from '$lib/frontend/class/PropertyHasEntity';
+	import { page } from '$app/stores';
 	import { Entity } from '$lib/frontend/class/Entity';
 	import { goto } from '$app/navigation';
 	export let data: PageData;
@@ -27,6 +28,11 @@
 	work.build(data);
 
 	onMount(() => {
+		if ($page.url.href.includes('#updated') && $UpdatedData && $UpdatedData instanceof Work) {
+			console.log('updated');
+			//need to reload data
+			work = $UpdatedData;
+		}
 		BottomNavButton.set({
 			label: _('Done Editing'),
 			onClick: () => {

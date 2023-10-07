@@ -29,7 +29,11 @@
 		BottomNavButton.set({
 			label: _('Edit This Page'),
 			onClick: () => {
-				goto(`/crew/${entity.id}/edit`);
+				if ($page.url.href.includes('#updated') && $UpdatedData && $UpdatedData instanceof Entity) {
+					goto(`/crew/${entity.id}/edit#updated`);
+				} else {
+					goto(`/crew/${entity.id}/edit`);
+				}
 			}
 		});
 	});

@@ -17,10 +17,16 @@
 	import HeadingLabel from '../../../../components/atoms/HeadingLabel.svelte';
 	import { Entity } from '$lib/frontend/class/Entity';
 	import { toast } from '$lib/frontend/toast';
+	import { page } from '$app/stores';
 	export let data: PageData;
 	let entity = new Entity(data.entity);
 	entity.build(data);
 	onMount(() => {
+		if ($page.url.href.includes('#updated') && $UpdatedData && $UpdatedData instanceof Entity) {
+			console.log('updated');
+			//need to reload data
+			entity = $UpdatedData;
+		}
 		BottomNavButton.set({
 			label: _('Done Editing'),
 			onClick: () => {

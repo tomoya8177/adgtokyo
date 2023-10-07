@@ -28,7 +28,11 @@
 		BottomNavButton.set({
 			label: _('Edit This Page'),
 			onClick: () => {
-				goto(`/work/${work.id}/edit`);
+				if ($page.url.href.includes('#updated') && $UpdatedData && $UpdatedData instanceof Work) {
+					goto(`/work/${work.id}/edit#updated`);
+				} else {
+					goto(`/work/${work.id}/edit`);
+				}
 			}
 		});
 	});
