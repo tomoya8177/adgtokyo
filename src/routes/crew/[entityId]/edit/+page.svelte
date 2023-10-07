@@ -27,9 +27,8 @@
 			onClick: () => {
 				if (entity.editing || entity.hasEntities.some((has) => has.editing)) {
 					toast(_('Please save your changes first'));
-					return;
+					return false;
 				}
-				UpdatedData.set(entity);
 				goto(`/crew/${entity.id}`, {
 					invalidateAll: true
 				});

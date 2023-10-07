@@ -17,8 +17,9 @@
 						role="button"
 						href={'#'}
 						on:click={() => {
+							const bool = $BottomNavButton.onClick();
+							if (bool === false) return;
 							$BottomNavButton.busy = true;
-							$BottomNavButton.onClick();
 						}}
 						aria-busy={$BottomNavButton.busy}
 					>

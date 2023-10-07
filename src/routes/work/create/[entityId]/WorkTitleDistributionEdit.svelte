@@ -68,7 +68,7 @@
 				</span>
 			</div>
 			<a role="button" href={'/work/' + option.id + '/edit'}>
-				{_('Create credit under this work')}
+				{_('Jump to work and create credit under this work')}
 			</a>
 		</div>
 	{/each}

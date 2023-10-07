@@ -39,7 +39,7 @@
 					)
 				) {
 					toast(_('Please save your changes first'));
-					return;
+					return false;
 				}
 				goto(`/work/${work.id}#updated`, {
 					invalidateAll: true
