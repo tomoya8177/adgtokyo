@@ -61,24 +61,6 @@
 	};
 </script>
 
-<svelte:head>
-	{#if !$page.url.host.includes('localhost')}
-		<!-- Google tag (gtag.js) -->
-		<!-- Google tag (gtag.js) -->
-		<!-- Google tag (gtag.js) -->
-		<script async src="https://www.googletagmanager.com/gtag/js?id=G-K3XZXW4R4E"></script>
-		<script>
-			window.dataLayer = window.dataLayer || [];
-			function gtag() {
-				dataLayer.push(arguments);
-			}
-			gtag('js', new Date());
-
-			gtag('config', 'G-K3XZXW4R4E');
-		</script>
-	{/if}
-</svelte:head>
-
 {#if loggingIn}
 	<div
 		style="
