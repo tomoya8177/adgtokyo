@@ -13,6 +13,7 @@
 	export let onDelete: () => void;
 	export let onUp: (() => void) | false;
 	export let onDown: (() => void) | false;
+	export let onUpdate: (hasEntity: PropertyHasEntity) => void;
 </script>
 
 <article style="display:flex;gap:0.3rem">
@@ -55,12 +56,7 @@
 				{onDown}
 				bind:editing={hasEntity.editing}
 				onSave={() => {
-					if (!hasEntity.validate()) return;
-					hasEntity.update({
-						entityId: hasEntity.entityId,
-						subtextLocal: hasEntity.subtextLocal,
-						subtextEn: hasEntity.subtextEn
-					});
+					onUpdate(hasEntity);
 					hasEntity.editing = false;
 				}}
 				onDelete={async () => {

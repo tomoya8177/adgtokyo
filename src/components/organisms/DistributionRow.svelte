@@ -11,6 +11,7 @@
 	export let onDelete: () => void;
 	export let onUp: (() => void) | false;
 	export let onDown: (() => void) | false;
+	export let onDistributionUpdate: (distribution: Distribution) => void;
 </script>
 
 <article>
@@ -28,12 +29,7 @@
 				{onDown}
 				bind:editing={distribution.editing}
 				onSave={() => {
-					if (!distribution.validate()) return;
-					distribution.update({
-						year: distribution.year,
-						regionLocal: distribution.regionLocal,
-						regionEn: distribution.regionEn
-					});
+					onDistributionUpdate(distribution);
 					distribution.editing = false;
 				}}
 				onDelete={async () => {

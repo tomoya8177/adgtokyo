@@ -12,6 +12,7 @@
 	export let onDelete: () => void;
 	export let onUp: (() => void) | false;
 	export let onDown: (() => void) | false;
+	export let onUpdate: (department: Department) => void;
 </script>
 
 <div class="justified-flex">
@@ -28,11 +29,7 @@
 			{onDown}
 			bind:editing={department.editing}
 			onSave={() => {
-				if (!department.validate()) return;
-				department.update({
-					titleLocal: department.titleLocal,
-					titleEn: department.titleEn
-				});
+				onUpdate(department);
 				department.editing = false;
 			}}
 			onDelete={async () => {

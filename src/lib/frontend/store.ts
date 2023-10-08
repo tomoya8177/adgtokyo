@@ -23,7 +23,7 @@ export const BottomNavButton = writable({
 } as {
 	label: string;
 	busy?: boolean;
-	onClick: () => boolean | void;
+	onClick: () => Promise<boolean | void> | boolean | void;
 });
 
 export const LocalEnSwitch = writable(cookies.get('localEng') || ('local' as 'local' | 'en'));

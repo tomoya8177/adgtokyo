@@ -4,11 +4,10 @@
 	import { LocalEnSwitch } from '$lib/frontend/store';
 </script>
 
-<div>
+<div role="group">
 	<a
 		href={'#'}
 		role="button"
-		class="leftButton"
 		class:outline={$LocalEnSwitch == 'en'}
 		on:click={() => {
 			LocalEnSwitch.set('local');
@@ -20,7 +19,6 @@
 	<a
 		href={'#'}
 		role="button"
-		class="rightButton"
 		class:outline={$LocalEnSwitch == 'local'}
 		on:click={() => {
 			LocalEnSwitch.set('en');
@@ -32,10 +30,6 @@
 </div>
 
 <style>
-	div {
-		display: flex;
-		gap: 0px;
-	}
 	.leftButton {
 		border-top-right-radius: 0px;
 		border-bottom-right-radius: 0px;

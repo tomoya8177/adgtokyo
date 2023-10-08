@@ -15,6 +15,7 @@
 	import EditControlButtons from '../molecules/EditControlButtons.svelte';
 	import WorkTitleInput from '../molecules/WorkTitleInput.svelte';
 	export let work: Work;
+	export let onUpdate: (work: Work) => void;
 </script>
 
 <div class="flex">
@@ -53,19 +54,7 @@
 		<EditControlButtons
 			bind:editing={work.editing}
 			onSave={() => {
-				if (!work.validate()) return;
-				work.update({
-					titleLocal: work.titleLocal,
-					titleEn: work.titleEn,
-					// formatLocal: work.formatLocal,
-					// formatEn: work.formatEn,
-					descriptionLocal: work.descriptionLocal,
-					descriptionEn: work.descriptionEn,
-					imdbURL: work.imdbURL,
-					officialWebsiteURL: work.officialWebsiteURL,
-					videoURL: work.videoURL,
-					category: work.category
-				});
+				onUpdate(work);
 				work.editing = false;
 			}}
 			onDelete={async () => {

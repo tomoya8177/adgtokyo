@@ -11,11 +11,13 @@
 	import Button from '../atoms/Button.svelte';
 	import { workCategory } from '$lib/Category';
 	import PairOfInputs from '../atoms/PairOfInputs.svelte';
+	import type { PropertyHasEntity } from '$lib/frontend/class/PropertyHasEntity';
 	export let hasEntity: any;
 	export let editable = false;
 	export let onUp: (() => void) | false = false;
 	export let onDown: (() => void) | false = false;
 	export let onDelete: (() => void) | false = false;
+	export let onUpdate: (hasEntity: PropertyHasEntity) => void;
 </script>
 
 <div
@@ -105,10 +107,7 @@
 					}
 				}}
 				onSave={async () => {
-					await hasEntity.update({
-						subtextLocal: hasEntity.subtextLocal,
-						subtextEn: hasEntity.subtextEn
-					});
+					onUpdate(hasEntity);
 					hasEntity.editing = false;
 				}}
 				{onUp}

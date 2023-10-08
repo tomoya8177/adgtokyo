@@ -28,19 +28,43 @@
 	onMount(() => {
 		BottomNavButton.set({
 			label: _('Done Editing'),
-			onClick: () => {
-				if (
-					work.editing ||
-					work.distributions.some((dis) => dis.editing) ||
-					work.departments.some(
-						(dep) =>
-							dep.editing ||
-							dep.properties.some((p) => p.editing || p.hasEntities.some((has) => has.editing))
-					)
-				) {
-					toast(_('Please save your changes first'));
-					return false;
+			onClick: async () => {
+				if (work.editing) {
+					await workUpdate(work);
 				}
+				await Promise.all(
+					work.distributions.map((dis) => {
+						if (dis.editing) {
+							return distributionUpdate(dis);
+						}
+						return Promise.resolve();
+					})
+				);
+				await Promise.all(
+					work.departments.map(async (dep) => {
+						await Promise.all(
+							dep.properties.map(async (prop) => {
+								await Promise.all(
+									prop.hasEntities.map((hasEntity) => {
+										if (hasEntity.editing) {
+											return hasEntityUpdate(hasEntity);
+										}
+										return Promise.resolve();
+									})
+								);
+								if (prop.editing) {
+									return propertyUpdate(prop);
+								}
+								return Promise.resolve();
+							})
+						);
+						if (dep.editing) {
+							return departmentUpdate(dep);
+						}
+						return Promise.resolve();
+					})
+				);
+
 				goto(`/work/${work.id}#updated`, {
 					invalidateAll: true
 				});
@@ -48,10 +72,57 @@
 			}
 		});
 	});
+	const hasEntityUpdate = async (hasEntity: PropertyHasEntity) => {
+		if (!hasEntity.validate()) return;
+		hasEntity.update({
+			subtextLocal: hasEntity.subtextLocal,
+			subtextEn: hasEntity.subtextEn
+		});
+		hasEntity.editing = false;
+	};
+	const propertyUpdate = async (property: Property) => {
+		if (!property.validate()) return;
+		property.update({
+			keyLocal: property.keyLocal,
+			keyEn: property.keyEn
+		});
+		property.editing = false;
+	};
+	const departmentUpdate = async (department: Department) => {
+		if (!department.validate()) return;
+		department.update({
+			titleLocal: department.titleLocal,
+			titleEn: department.titleEn
+		});
+		department.editing = false;
+	};
+	const distributionUpdate = async (distribution: Distribution) => {
+		if (!distribution.validate()) return;
+		distribution.update({
+			year: distribution.year,
+			regionLocal: distribution.regionLocal,
+			regionEn: distribution.regionEn
+		});
+		distribution.editing = false;
+	};
+	const workUpdate = async (work: Work) => {
+		if (!work.validate()) return;
+		work.update({
+			titleLocal: work.titleLocal,
+			titleEn: work.titleEn,
+			descriptionLocal: work.descriptionLocal,
+			descriptionEn: work.descriptionEn,
+			imdbURL: work.imdbURL,
+			officialWebsiteURL: work.officialWebsiteURL,
+			videoURL: work.videoURL,
+			category: work.category
+		});
+		work.editing = false;
+	};
 </script>
 
 {#if $User.authenticated}
-	<WorkTitle bind:work />
+	<WorkTitle bind:work onUpdate={workUpdate} />
 	<hr />
 	<Heading label={_('Images')} />
 	{#if work.attachments.length}
@@ -79,6 +150,7 @@
 			onDelete={() => {
 				work.distributions = work.distributions.filter((d) => d.id !== distribution.id);
 			}}
+			onDistributionUpdate={distributionUpdate}
 			onUp={index != 0
 				? () => {
 						distribution.weight = index;
@@ -127,6 +199,9 @@
 	<Heading label={_('Crew List')} />
 	{#each work.departments as department, index}
 		<DepartmentRow
+			onUpdate={departmentUpdate}
+			onPropertyUpdate={propertyUpdate}
+			onHasEntityUpdate={hasEntityUpdate}
 			onUp={index != 0
 				? () => {
 						department.weight = index;
@@ -155,9 +230,7 @@
 						work.departments.sort((a, b) => (a.weight > b.weight ? 1 : -1));
 				  }
 				: false}
-			{work}
 			{department}
-			{index}
 			onDelete={() => {
 				work.departments = work.departments.filter((d) => d.id !== department.id);
 			}}

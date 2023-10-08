@@ -19,6 +19,8 @@
 	export let onDelete: () => void;
 	export let onUp: (() => void) | false;
 	export let onDown: (() => void) | false;
+	export let onUpdate: (property: Property) => void;
+	export let onHasEntityUpdate: (hasEntity: PropertyHasEntity) => void;
 </script>
 
 <article>
@@ -37,10 +39,7 @@
 				{onDown}
 				bind:editing={property.editing}
 				onSave={async () => {
-					property.update({
-						keyLocal: property.keyLocal,
-						keyEn: property.keyEn
-					});
+					onUpdate(property);
 					property.editing = false;
 				}}
 				onDelete={async () => {
@@ -55,6 +54,7 @@
 		<!--Entity-->
 		{#each property.hasEntities as hasEntity, index}
 			<HasEntityRow
+				onUpdate={onHasEntityUpdate}
 				onUp={index != 0
 					? () => {
 							hasEntity.weight = index;

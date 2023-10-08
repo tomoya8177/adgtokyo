@@ -18,23 +18,49 @@
 	import { Entity } from '$lib/frontend/class/Entity';
 	import { toast } from '$lib/frontend/toast';
 	import { page } from '$app/stores';
+	import type { PropertyHasEntity } from '$lib/frontend/class/PropertyHasEntity';
 	export let data: PageData;
 	let entity = new Entity(data.entity);
 	entity.build(data);
 	onMount(() => {
 		BottomNavButton.set({
 			label: _('Done Editing'),
-			onClick: () => {
-				if (entity.editing || entity.hasEntities.some((has) => has.editing)) {
-					toast(_('Please save your changes first'));
-					return false;
+			onClick: async () => {
+				if (entity.editing) {
+					await entityUpdate(entity);
 				}
+				await Promise.all(
+					entity.hasEntities.map((hasEntity) => {
+						if (hasEntity.editing) {
+							return hasEntityUpdate(hasEntity);
+						}
+						return Promise.resolve();
+					})
+				);
 				goto(`/crew/${entity.id}`, {
 					invalidateAll: true
 				});
 			}
 		});
 	});
+	const hasEntityUpdate = async (hasEntity: PropertyHasEntity) => {
+		await hasEntity.update({
+			subtextLocal: hasEntity.subtextLocal,
+			subtextEn: hasEntity.subtextEn
+		});
+		hasEntity.editing = false;
+	};
+	const entityUpdate = async (entity: Entity) => {
+		await entity.update({
+			nameLocal: entity.nameLocal,
+			nameEn: entity.nameEn,
+			descriptionLocal: entity.descriptionLocal,
+			descriptionEn: entity.descriptionEn,
+			imdbURL: entity.imdbURL,
+			officialWebsiteURL: entity.officialWebsiteURL
+		});
+		entity.editing = false;
+	};
 </script>
 
 {#if $User.authenticated}
@@ -56,14 +82,7 @@
 					goto('/');
 				}}
 				onSave={async () => {
-					entity.update({
-						nameLocal: entity.nameLocal,
-						nameEn: entity.nameEn,
-						descriptionLocal: entity.descriptionLocal,
-						descriptionEn: entity.descriptionEn,
-						imdbURL: entity.imdbURL,
-						officialWebsiteURL: entity.officialWebsiteURL
-					});
+					entityUpdate(entity);
 					entity.editing = false;
 				}}
 			/>
@@ -80,6 +99,7 @@
 				<EntityCreditRow
 					bind:hasEntity
 					editable
+					onUpdate={hasEntityUpdate}
 					onDelete={() => {
 						entity.hasEntities = entity.hasEntities.filter((h) => h.id != hasEntity.id);
 					}}

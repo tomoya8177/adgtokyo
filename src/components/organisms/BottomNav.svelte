@@ -12,7 +12,7 @@
 	<ul>
 		{#if $BottomNavButton}
 			<li>
-				<div>
+				<div role="group">
 					<a
 						role="button"
 						href={'#'}

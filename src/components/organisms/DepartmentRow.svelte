@@ -9,19 +9,22 @@
 	import DepartmentRowHeader from '../molecules/DepartmentRowHeader.svelte';
 	import PropertyRow from './PropertyRow.svelte';
 	import { PropertyHasEntity } from '$lib/frontend/class/PropertyHasEntity';
-	export let index: number;
 	export let department: Department;
-	export let work: Work;
 	export let onDelete: () => void;
 	export let onUp: (() => void) | false;
 	export let onDown: (() => void) | false;
+	export let onUpdate: (department: Department) => void;
+	export let onPropertyUpdate: (property: Property) => void;
+	export let onHasEntityUpdate: (hasEntity: PropertyHasEntity) => void;
 </script>
 
 <article>
-	<DepartmentRowHeader {onUp} {onDown} bind:department {onDelete} />
+	<DepartmentRowHeader {onUp} {onDown} bind:department {onDelete} {onUpdate} />
 	<div>
 		{#each department.properties as property, index}
 			<PropertyRow
+				onUpdate={onPropertyUpdate}
+				{onHasEntityUpdate}
 				onUp={index != 0
 					? () => {
 							property.weight = index;
