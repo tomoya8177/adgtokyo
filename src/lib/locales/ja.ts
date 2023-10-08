@@ -74,5 +74,6 @@ export default {
 	'Search Results': '検索結果',
 	'Title is required': 'タイトルは必須です',
 	'Category is required': 'カテゴリーは必須です',
-	'Are you sure you want to delete this entity?': 'このエンティティを削除してもよろしいですか？'
+	'Are you sure you want to delete this entity?': 'このエンティティを削除してもよろしいですか？',
+	'Entity needs to be registered': 'エンティティを登録する必要があります'
 };
