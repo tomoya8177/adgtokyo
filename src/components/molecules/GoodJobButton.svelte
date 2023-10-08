@@ -68,5 +68,7 @@
 	a {
 		text-decoration: none;
 		display: flex;
+		padding-right: 2rem;
+		padding-left: 2rem;
 	}
 </style>
