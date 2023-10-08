@@ -13,6 +13,7 @@
 	import SquareThumbnail from '../components/atoms/SquareThumbnail.svelte';
 	import DistributionRowStatic from '../components/organisms/DistributionRowStatic.svelte';
 	import WorkCard from '../components/organisms/WorkCard.svelte';
+	import TopSlideShow from '../components/atoms/TopSlideShow.svelte';
 	export let data: PageData;
 	let works = data.works.map((work) => {
 		work.attachments = data.attachments
@@ -35,6 +36,9 @@
 <svelte:head>
 	<title>ADG Tokyo</title>
 </svelte:head>
+<section>
+	<TopSlideShow />
+</section>
 <h4>
 	{_('Recently Added Works')}
 </h4>
