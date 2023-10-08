@@ -26,7 +26,11 @@
 	<label for="bio-en">
 		{_('Bio')}
 		({_('English')})
-		<TranslateButton bind:local={entity.descriptionLocal} bind:en={entity.descriptionEn} />
+		<TranslateButton
+			bind:local={entity.descriptionLocal}
+			bind:en={entity.descriptionEn}
+			forTitle={false}
+		/>
 		<RichTextarea bind:value={entity.descriptionEn} />
 	</label>
 {/if}

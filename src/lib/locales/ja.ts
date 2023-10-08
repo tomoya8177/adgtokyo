@@ -70,5 +70,7 @@ export default {
 	'Jump to work and create credit under this work': '作品に移動して、クレジットを作成する',
 	'Translate from local': '現地語から翻訳する',
 	'Select UI Language': 'UI言語を選択する',
-	Searching: '検索中'
+	Searching: '検索中',
+	'Search Results': '検索結果',
+	'Title is required': 'タイトルは必須です'
 };

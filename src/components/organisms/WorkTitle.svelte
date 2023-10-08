@@ -31,7 +31,11 @@
 			<label for="description-en">
 				{_('Description')}
 				({_('English')})
-				<TranslateButton bind:local={work.descriptionLocal} bind:en={work.descriptionEn} />
+				<TranslateButton
+					bind:local={work.descriptionLocal}
+					bind:en={work.descriptionEn}
+					forTitle={false}
+				/>
 				<RichTextarea id="description-en" bind:value={work.descriptionEn} />
 			</label>
 			<label>

@@ -6,9 +6,10 @@
 	export let onclick: () => void;
 	export let className: string = '';
 	export let white: boolean = false;
+	export let busy = false;
 </script>
 
-<button class={className} class:white on:click={onclick}>
+<button aria-busy={busy} class={className} class:white on:click={onclick}>
 	{#if icon}
 		<Icon {icon} />
 	{/if}

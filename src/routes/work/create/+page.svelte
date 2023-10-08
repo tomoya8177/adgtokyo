@@ -19,16 +19,12 @@
 			label: _('Proceed'),
 			onClick: async () => {
 				if (!work.validate()) {
-					return;
+					return Promise.resolve(false);
 				}
+				$BottomNavButton.busy = true;
 				const response = await work.create();
 				console.log({ response }, work.id);
-				await new History({
-					userId: $User.profile.sub,
-					action: 'create',
-					target: 'work',
-					workId: work.id
-				}).create();
+
 				await new Department({
 					titleLocal: _('Art Department'),
 					titleEn: 'Art Department',

@@ -16,8 +16,8 @@
 					<a
 						role="button"
 						href={'#'}
-						on:click={() => {
-							const bool = $BottomNavButton.onClick();
+						on:click={async () => {
+							const bool = await $BottomNavButton.onClick();
 							if (bool === false) return;
 							$BottomNavButton.busy = true;
 						}}

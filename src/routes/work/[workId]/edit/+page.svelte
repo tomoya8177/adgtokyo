@@ -23,12 +23,14 @@
 	import { page } from '$app/stores';
 	import { goto } from '$app/navigation';
 	export let data: PageData;
+	let departmentButtonBusy = false;
 	let work = new Work(data.work);
 	work.build(data);
 	onMount(() => {
 		BottomNavButton.set({
 			label: _('Done Editing'),
 			onClick: async () => {
+				$BottomNavButton.busy = true;
 				if (work.editing) {
 					await workUpdate(work);
 				}
@@ -40,31 +42,27 @@
 						return Promise.resolve();
 					})
 				);
-				await Promise.all(
-					work.departments.map(async (dep) => {
-						await Promise.all(
-							dep.properties.map(async (prop) => {
-								await Promise.all(
-									prop.hasEntities.map((hasEntity) => {
-										if (hasEntity.editing) {
-											return hasEntityUpdate(hasEntity);
-										}
-										return Promise.resolve();
-									})
-								);
-								if (prop.editing) {
-									return propertyUpdate(prop);
-								}
-								return Promise.resolve();
-							})
-						);
-						if (dep.editing) {
-							return departmentUpdate(dep);
+				const promises: Promise<any>[] = [];
+				work.departments.forEach((dep) => {
+					dep.properties.forEach((prop) => {
+						prop.hasEntities.forEach((hasEntity) => {
+							if (hasEntity.editing) {
+								promises.push(hasEntityUpdate(hasEntity));
+							}
+						});
+						if (prop.editing) {
+							promises.push(propertyUpdate(prop));
 						}
-						return Promise.resolve();
-					})
-				);
-
+					});
+					if (dep.editing) {
+						promises.push(departmentUpdate(dep));
+					}
+				});
+				const response = await Promise.all(promises);
+				console.log(response);
+				if (response.includes(false)) {
+					return false;
+				}
 				goto(`/work/${work.id}#updated`, {
 					invalidateAll: true
 				});
@@ -72,42 +70,47 @@
 			}
 		});
 	});
-	const hasEntityUpdate = async (hasEntity: PropertyHasEntity) => {
-		if (!hasEntity.validate()) return;
-		hasEntity.update({
+	const hasEntityUpdate = async (hasEntity: PropertyHasEntity): Promise<boolean> => {
+		if (!hasEntity.validate()) return false;
+		await hasEntity.update({
 			subtextLocal: hasEntity.subtextLocal,
-			subtextEn: hasEntity.subtextEn
+			subtextEn: hasEntity.subtextEn,
+			entityId: hasEntity.entityId
 		});
 		hasEntity.editing = false;
+		return true;
 	};
-	const propertyUpdate = async (property: Property) => {
-		if (!property.validate()) return;
-		property.update({
+	const propertyUpdate = async (property: Property): Promise<boolean> => {
+		if (!property.validate()) return false;
+		await property.update({
 			keyLocal: property.keyLocal,
 			keyEn: property.keyEn
 		});
 		property.editing = false;
+		return true;
 	};
-	const departmentUpdate = async (department: Department) => {
-		if (!department.validate()) return;
-		department.update({
+	const departmentUpdate = async (department: Department): Promise<boolean> => {
+		if (!department.validate()) return false;
+		await department.update({
 			titleLocal: department.titleLocal,
 			titleEn: department.titleEn
 		});
 		department.editing = false;
+		return true;
 	};
-	const distributionUpdate = async (distribution: Distribution) => {
-		if (!distribution.validate()) return;
-		distribution.update({
+	const distributionUpdate = async (distribution: Distribution): Promise<boolean> => {
+		if (!distribution.validate()) return false;
+		await distribution.update({
 			year: distribution.year,
 			regionLocal: distribution.regionLocal,
 			regionEn: distribution.regionEn
 		});
 		distribution.editing = false;
+		return true;
 	};
-	const workUpdate = async (work: Work) => {
-		if (!work.validate()) return;
-		work.update({
+	const workUpdate = async (work: Work): Promise<boolean> => {
+		if (!work.validate()) return false;
+		await work.update({
 			titleLocal: work.titleLocal,
 			titleEn: work.titleEn,
 			descriptionLocal: work.descriptionLocal,
@@ -118,6 +121,7 @@
 			category: work.category
 		});
 		work.editing = false;
+		return true;
 	};
 </script>
 
@@ -237,10 +241,12 @@
 		/>
 	{/each}
 	<Button
+		busy={departmentButtonBusy}
 		className="outline"
 		icon="add"
 		label={_('Add Department')}
 		onclick={async () => {
+			departmentButtonBusy = true;
 			const department = await new Department({
 				weight: work.departments.length + 1,
 				workId: work.id
@@ -254,12 +260,14 @@
 				propertyId: property.id,
 				weight: 1
 			}).create();
+
 			hasEntity.editing = true;
 			property.hasEntities = [hasEntity];
 			department.properties = [property];
 			department.editing = true;
 
 			work.departments = [...work.departments, department];
+			departmentButtonBusy = false;
 		}}
 	/>
 {:else if $User.authenticated === false}

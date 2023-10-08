@@ -2,7 +2,7 @@
 	import EntityCreditRow from '../../../../components/organisms/EntityCreditRow.svelte';
 	import EntityNameEdit from '../../../../components/molecules/EntityNameEdit.svelte';
 	import { _ } from '$lib/frontend/i18n';
-	import { BottomNavButton, UpdatedData, User } from '$lib/frontend/store';
+	import { BottomNavButton, LocalEnSwitch, UpdatedData, User } from '$lib/frontend/store';
 	import { onMount } from 'svelte';
 	import EntityNameStatic from '../../../../components/atoms/EntityNameStatic.svelte';
 	import type { PageData } from './$types';
@@ -16,8 +16,6 @@
 	import { workCategory } from '$lib/Category';
 	import HeadingLabel from '../../../../components/atoms/HeadingLabel.svelte';
 	import { Entity } from '$lib/frontend/class/Entity';
-	import { toast } from '$lib/frontend/toast';
-	import { page } from '$app/stores';
 	import type { PropertyHasEntity } from '$lib/frontend/class/PropertyHasEntity';
 	export let data: PageData;
 	let entity = new Entity(data.entity);
@@ -26,17 +24,17 @@
 		BottomNavButton.set({
 			label: _('Done Editing'),
 			onClick: async () => {
+				$BottomNavButton.busy = true;
 				if (entity.editing) {
 					await entityUpdate(entity);
 				}
-				await Promise.all(
-					entity.hasEntities.map((hasEntity) => {
-						if (hasEntity.editing) {
-							return hasEntityUpdate(hasEntity);
-						}
-						return Promise.resolve();
-					})
-				);
+				const promises: Promise<any>[] = [];
+				entity.hasEntities.forEach((hasEntity) => {
+					if (hasEntity.editing) {
+						promises.push(hasEntityUpdate(hasEntity));
+					}
+				});
+				await Promise.all(promises);
 				goto(`/crew/${entity.id}`, {
 					invalidateAll: true
 				});
@@ -49,6 +47,7 @@
 			subtextEn: hasEntity.subtextEn
 		});
 		hasEntity.editing = false;
+		return true;
 	};
 	const entityUpdate = async (entity: Entity) => {
 		await entity.update({
@@ -60,6 +59,7 @@
 			officialWebsiteURL: entity.officialWebsiteURL
 		});
 		entity.editing = false;
+		return true;
 	};
 </script>
 

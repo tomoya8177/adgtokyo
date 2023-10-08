@@ -13,7 +13,7 @@
 	export let onDelete: () => void;
 	export let onUp: (() => void) | false;
 	export let onDown: (() => void) | false;
-	export let onUpdate: (hasEntity: PropertyHasEntity) => void;
+	export let onUpdate: (hasEntity: PropertyHasEntity) => Promise<void | false>;
 </script>
 
 <article style="display:flex;gap:0.3rem">
@@ -55,8 +55,9 @@
 				{onUp}
 				{onDown}
 				bind:editing={hasEntity.editing}
-				onSave={() => {
-					onUpdate(hasEntity);
+				onSave={async () => {
+					const result = await onUpdate(hasEntity);
+					if (result === false) return;
 					hasEntity.editing = false;
 				}}
 				onDelete={async () => {

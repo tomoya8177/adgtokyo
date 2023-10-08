@@ -32,9 +32,13 @@
 	});
 </script>
 
+<svelte:head>
+	<title>ADG Tokyo</title>
+</svelte:head>
 <h4>
 	{_('Recently Added Works')}
 </h4>
+
 {#each works as work}
 	<WorkCard {work} />
 {/each}

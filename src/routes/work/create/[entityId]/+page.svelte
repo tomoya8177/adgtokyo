@@ -36,9 +36,10 @@
 		BottomNavButton.set({
 			label: _('Proceed'),
 			onClick: async () => {
-				if (!work.validate()) {
-					return;
+				if (!work.validate() || !department.validate() || !property.validate()) {
+					return false;
 				}
+				$BottomNavButton.busy = true;
 				await work.create();
 				await department.create();
 				await property.create();
@@ -46,12 +47,6 @@
 				await new PropertyHasEntity({
 					propertyId: property.id,
 					entityId: $page.params.entityId
-				}).create();
-				await new History({
-					userId: $User.profile.sub,
-					action: 'create',
-					target: 'work',
-					workId: work.id
 				}).create();
 
 				goto('/crew/' + $page.params.entityId + '/edit');

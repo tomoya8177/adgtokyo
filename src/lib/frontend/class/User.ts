@@ -17,3 +17,5 @@ export class User extends DBObject {
 		return this.subscription == 'pro';
 	}
 }
+
+export let me = new User({});

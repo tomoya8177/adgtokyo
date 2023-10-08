@@ -4,7 +4,7 @@
 </script>
 
 {#if $Toasts.filter((toast) => toast.options.position == 'bottom-center').length}
-	<div class="toastsContainerBottom">
+	<div class="toastsContainerBottom" transition:fade>
 		{#each $Toasts.filter((toast) => toast.options.position == 'bottom-center') as toast}
 			<div class={`toast ${toast.options.style} ${toast.options.position}`} transition:fade>
 				{toast.message}
@@ -13,7 +13,7 @@
 	</div>
 {/if}
 {#if $Toasts.filter((toast) => toast.options.position == 'top-center').length}
-	<div class="toastsContainerTop">
+	<div class="toastsContainerTop" transition:fade>
 		{#each $Toasts.filter((toast) => toast.options.position == 'top-center') as toast}
 			<div class={`toast ${toast.options.style} ${toast.options.position}`} transition:fade>
 				{toast.message}
@@ -61,7 +61,7 @@
 		color: white;
 	}
 	.toast.error {
-		background: rgb(200, 100, 100);
+		background: var(--pico-primary);
 		color: white;
 	}
 	.toast.info {

@@ -10,7 +10,7 @@
 	import ConfirmModal from '../components/panels/ConfirmModal.svelte';
 	import type { PageData } from './$types';
 	import axios from 'axios';
-	import { User as UserClass } from '$lib/frontend/class/User';
+	import { User as UserClass, me } from '$lib/frontend/class/User';
 	import PromptModal from '../components/panels/PromptModal.svelte';
 	import { api } from '$lib/frontend/class/API';
 	let loggingIn = true;
@@ -35,6 +35,7 @@
 				profile.nickname = user.nickname;
 				profile.picture = user.picture || profile.picture;
 			}
+			me.id = profile.sub;
 			$User.user = new UserClass(user);
 			$User.profile = profile;
 		}
