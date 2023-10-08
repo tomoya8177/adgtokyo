@@ -41,7 +41,6 @@
 				checked = false;
 			});
 		} else {
-			console.log('me.id', me.id);
 			if ($User.authenticated) {
 				api
 					.post('/api/GoodJob', {
