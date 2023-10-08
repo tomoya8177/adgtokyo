@@ -31,9 +31,9 @@
 </script>
 
 <a
+	class:secondary={!checked}
 	data-tooltip={_('Good Job!')}
 	href={'#'}
-	style:opacity={checked ? 1 : 0.5}
 	on:click={async () => {
 		if (checked) {
 			api.delete('/api/GoodJob/' + goodJobId).then((res) => {
