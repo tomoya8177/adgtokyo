@@ -31,12 +31,14 @@
 					nickname: profile.nickname,
 					picture: profile.picture
 				});
+				user = await api.get('/api/User/' + profile.sub).then((res) => res.data);
 			} else {
 				profile.nickname = user.nickname;
 				profile.picture = user.picture || profile.picture;
 			}
 			me.id = profile.sub;
-			$User.user = new UserClass(user);
+			console.log({ user });
+			$User.user = new UserClass(user || {});
 			$User.profile = profile;
 		}
 		loggingIn = false;
