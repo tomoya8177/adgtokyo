@@ -72,5 +72,7 @@ export default {
 	'Select UI Language': 'UI言語を選択する',
 	Searching: '検索中',
 	'Search Results': '検索結果',
-	'Title is required': 'タイトルは必須です'
+	'Title is required': 'タイトルは必須です',
+	'Category is required': 'カテゴリーは必須です',
+	'Are you sure you want to delete this entity?': 'このエンティティを削除してもよろしいですか？'
 };

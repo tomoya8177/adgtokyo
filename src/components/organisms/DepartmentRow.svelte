@@ -16,6 +16,7 @@
 	export let onUpdate: (department: Department) => void;
 	export let onPropertyUpdate: (property: Property) => void;
 	export let onHasEntityUpdate: (hasEntity: PropertyHasEntity) => void;
+	let creditTitleBusy = false;
 </script>
 
 <article>
@@ -60,10 +61,12 @@
 			/>
 		{/each}
 		<Button
+			busy={creditTitleBusy}
 			className="outline"
 			icon="add"
 			label={_('Add Credit Title')}
 			onclick={async () => {
+				creditTitleBusy = true;
 				const property = await new Property({
 					weight: department.properties.length + 1,
 					departmentId: department.id
@@ -76,6 +79,7 @@
 				property.hasEntities = [hasEntity];
 				property.editing = true;
 				department.properties = [...department.properties, property];
+				creditTitleBusy = false;
 			}}
 		/>
 	</div>

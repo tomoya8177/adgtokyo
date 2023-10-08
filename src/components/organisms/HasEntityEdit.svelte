@@ -10,6 +10,7 @@
 	let dialogOpen = false;
 	let category: 'person' | 'business' = 'person';
 	let existings: Entity[] = [];
+	let registerBusy = false;
 </script>
 
 <div>
@@ -49,7 +50,9 @@
 		</a>
 	</div>
 	<button
+		aria-busy={registerBusy}
 		on:click={async () => {
+			registerBusy = true;
 			const entity = await new Entity({
 				nameLocal: inputLocal,
 				nameEn: inputEn,
@@ -57,6 +60,7 @@
 			}).create();
 			hasEntity.entityId = entity.id;
 			hasEntity.entity = entity;
+			registerBusy = false;
 		}}
 	>
 		{_('Register')}
