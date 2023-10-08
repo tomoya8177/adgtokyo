@@ -108,7 +108,7 @@
 								style="width:100%"
 								on:click={() => {
 									$auth0.login();
-								}}>{_('Login')}</button
+								}}>{_('Login')}/{_('Sign up')}</button
 							>
 						</li>
 					{/if}
@@ -119,10 +119,6 @@
 </nav>
 
 <style>
-	.padding-small {
-		padding-top: var(--pico-spacing);
-		padding-bottom: var(--pico-spacing);
-	}
 	summary {
 		display: flex;
 		align-items: center;

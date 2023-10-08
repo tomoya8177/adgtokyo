@@ -15,6 +15,9 @@ export const workCategory = [
 		title: 'Documentary'
 	},
 	{
+		title: 'Theater'
+	},
+	{
 		title: 'Short Film'
 	},
 	{

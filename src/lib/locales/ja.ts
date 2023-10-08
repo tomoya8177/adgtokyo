@@ -75,5 +75,10 @@ export default {
 	'Title is required': 'タイトルは必須です',
 	'Category is required': 'カテゴリーは必須です',
 	'Are you sure you want to delete this entity?': 'このエンティティを削除してもよろしいですか？',
-	'Entity needs to be registered': 'エンティティを登録する必要があります'
+	'Entity needs to be registered': 'エンティティを登録する必要があります',
+	Theater: '演劇',
+	'Please login/register to give a good job!': 'グッジョブをするにはログイン/登録してください！',
+	'Good Job!': 'グッジョブ！',
+	'Sign up': '新規登録',
+	'You need to be logged in.': 'ログインする必要があります。'
 };

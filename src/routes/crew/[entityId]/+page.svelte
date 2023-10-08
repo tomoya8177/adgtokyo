@@ -40,7 +40,7 @@
 		<section>
 			<HeadingLabel label={_(category.title)} />
 			{#each hasEntities as hasEntity}
-				<EntityCreditRow bind:hasEntity />
+				<EntityCreditRow onUpdate={() => {}} bind:hasEntity />
 			{/each}
 		</section>
 	{/if}

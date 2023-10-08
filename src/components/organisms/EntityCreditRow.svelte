@@ -12,6 +12,7 @@
 	import { workCategory } from '$lib/Category';
 	import PairOfInputs from '../atoms/PairOfInputs.svelte';
 	import type { PropertyHasEntity } from '$lib/frontend/class/PropertyHasEntity';
+	import GoodJobButton from '../molecules/GoodJobButton.svelte';
 	export let hasEntity: any;
 	export let editable = false;
 	export let onUp: (() => void) | false = false;
@@ -115,6 +116,8 @@
 				bind:editing={hasEntity.editing}
 			/>
 		</div>
+	{:else}
+		<GoodJobButton {hasEntity} />
 	{/if}
 </div>
 

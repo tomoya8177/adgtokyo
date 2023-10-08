@@ -12,6 +12,7 @@
 	import PropertyRowStatic from '../../../components/atoms/PropertyRowStatic.svelte';
 	import HasEntityStatic from '../../../components/molecules/HasEntityStatic.svelte';
 	import { page } from '$app/stores';
+	import GoodJobButton from '../../../components/molecules/GoodJobButton.svelte';
 	export let data: PageData;
 	let work = new Work(data.work);
 	work.build(data);
@@ -62,8 +63,9 @@
 				</div>
 				<div class="names">
 					{#each property.hasEntities as hasEntity}
-						<div style="display:flex">
+						<div class="justified-flex">
 							<HasEntityStatic {hasEntity} />
+							<GoodJobButton {hasEntity} />
 						</div>
 					{/each}
 				</div>

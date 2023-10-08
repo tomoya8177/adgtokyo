@@ -20,7 +20,7 @@
 	export let onUp: (() => void) | false;
 	export let onDown: (() => void) | false;
 	export let onUpdate: (property: Property) => void;
-	export let onHasEntityUpdate: (hasEntity: PropertyHasEntity) => void;
+	export let onHasEntityUpdate: (hasEntity: PropertyHasEntity) => Promise<void>;
 </script>
 
 <article>

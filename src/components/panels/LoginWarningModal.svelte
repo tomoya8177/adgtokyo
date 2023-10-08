@@ -23,7 +23,7 @@
 					$auth0.login();
 				}}
 			>
-				{_('Login')}
+				{_('Login')}/{_('Sign up')}
 			</button>
 		</footer>
 	</article>
