@@ -36,7 +36,7 @@
 			if (
 				await myConfirm(
 					_(
-						'Please contact support for claiming the entity ownership. D you want to proceed to the support form?'
+						'Please contact support for claiming the entity ownership. Do you want to proceed to the support form?'
 					)
 				)
 			) {

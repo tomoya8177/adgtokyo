@@ -81,7 +81,7 @@ export default {
 	'Good Job!': 'グッジョブ！',
 	'Sign up': '新規登録',
 	'You need to be logged in.': 'ログインする必要があります。',
-	'Please contact support for claiming the entity ownership. D you want to proceed to the support form?':
+	'Please contact support for claiming the entity ownership. Do you want to proceed to the support form?':
 		'エンティティの所有権を主張するには、サポートに連絡してください。 サポートフォームに進みますか？',
 	'Claim this is me': 'これは私です'
 };
