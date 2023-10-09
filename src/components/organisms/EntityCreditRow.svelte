@@ -93,7 +93,7 @@
 		</div>
 	</div>
 	{#if editable}
-		<div style="min-width:6rem; display:flex;justiry-items:end">
+		<div style="min-width:6rem; display:flex;justify-content:end">
 			<EditControlButtons
 				onDelete={async () => {
 					if (!(await myConfirm(_('Are you sure?')))) return;
