@@ -2,24 +2,20 @@ import { createInsertData } from '$lib/backend/createInsertData.js';
 import { db } from '$lib/backend/db.js';
 import { createFiltersFromParams } from '$lib/backend/createFiltersFromParams.js';
 import { unlink } from 'fs/promises';
+import { checkApiKey } from '$lib/backend/checkApiKey.js';
 
-export async function GET({ request, params, cookies }) {
-	// const isLocalhost = request.headers.get('host')?.includes('localhost');
-	// const checkResult = await Auth.check(cookies.get('login'));
-	// if (!checkResult.result && !isLocalhost) {
-	// 	return new Response('not authorized', { status: 401 });
-	// }
+export async function GET({ request, params }) {
+	if (!(await checkApiKey(request.headers.get('Authorization')?.replace('Bearer ', '') || '')))
+		return new Response('not authorized', { status: 401 });
 	const filter = await createFiltersFromParams(request, params);
 	const query = `select * from ${params.tableName} where ${filter}`;
 	const rows = await db.query(query);
 	return new Response(JSON.stringify(rows));
 }
 
-export async function POST({ request, params, cookies }) {
-	// const isLocalhost = request.headers.get('host')?.includes('localhost');
-	// if (!(await Auth.check(cookies.get('login'))).result) {
-	// 	return new Response('not authorized', { status: 401 });
-	// }
+export async function POST({ request, params }) {
+	if (!(await checkApiKey(request.headers.get('Authorization')?.replace('Bearer ', '') || '')))
+		return new Response('not authorized', { status: 401 });
 	const id = crypto.randomUUID();
 	const body = await request.json();
 	if (!body.id) body.id = id;
