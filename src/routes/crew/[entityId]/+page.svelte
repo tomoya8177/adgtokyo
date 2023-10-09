@@ -11,6 +11,7 @@
 	import HeadingLabel from '../../../components/atoms/HeadingLabel.svelte';
 	import { Entity } from '$lib/frontend/class/Entity';
 	import ImageSlider from '../../../components/organisms/ImageSlider.svelte';
+	import { myConfirm } from '$lib/frontend/class/Confirm';
 	export let data: PageData;
 	let entity = new Entity(data.entity);
 	entity.build(data);
@@ -25,6 +26,26 @@
 		});
 	});
 </script>
+
+<div style="text-align:right">
+	<a href={`/crew/${entity.id}/edit`}>{_('Edit This Page')}</a>
+
+	|
+	<a
+		on:click={async () => {
+			if (
+				await myConfirm(
+					_(
+						'Please contact support for claiming the entity ownership. D you want to proceed to the support form?'
+					)
+				)
+			) {
+				goto('https://adgtokyo.channel.io/home');
+			}
+		}}
+		href={'#'}>{_('Claim this is me')}</a
+	>
+</div>
 
 <EntityNameStatic {entity} />
 {#if entity.attachments.length > 0}
