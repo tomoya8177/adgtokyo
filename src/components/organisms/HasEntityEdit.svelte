@@ -1,15 +1,12 @@
 <script lang="ts">
 	import EntityNameInput from './EntityNameInput.svelte';
-
 	import { Entity } from '$lib/frontend/class/Entity';
 	import type { PropertyHasEntity } from '$lib/frontend/class/PropertyHasEntity';
 	import { _ } from '$lib/frontend/i18n';
 	export let hasEntity: PropertyHasEntity;
 	let inputLocal: string = '';
 	let inputEn: string = '';
-	let dialogOpen = false;
 	let category: 'person' | 'business' = 'person';
-	let existings: Entity[] = [];
 	let registerBusy = false;
 </script>
 

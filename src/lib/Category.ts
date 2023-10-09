@@ -33,7 +33,7 @@ export const workCategory = [
 		title: 'Still Photography'
 	},
 	{
-		title: 'Architecture/Interior DDesign'
+		title: 'Architecture/Interior Design'
 	},
 	{
 		title: 'Window Display/Installation'

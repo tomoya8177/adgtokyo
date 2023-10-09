@@ -61,7 +61,7 @@ export default {
 	'Video Game': 'ビデオゲーム',
 	Other: 'その他',
 	'Still Photography': 'スチール写真',
-	'Architecture/Interior DDesign': '建築/インテリアデザイン',
+	'Architecture/Interior Design': '建築/インテリアデザイン',
 	'Window Display/Installation': 'ウィンドウディスプレイ/展示',
 	"Please click the button below if the page doesn't redirect you automatically.":
 		'自動的にリダイレクトされない場合は、下のボタンをクリックしてください。',

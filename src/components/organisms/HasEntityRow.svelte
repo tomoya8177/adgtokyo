@@ -17,7 +17,7 @@
 	export let onUpdate: (hasEntity: PropertyHasEntity) => Promise<void | false>;
 </script>
 
-<article style="display:flex;gap:0.3rem">
+<div class="row">
 	<div class="flex" style="flex:1">
 		{#if hasEntity.editing}
 			<div class="flex" style="flex:1">
@@ -69,9 +69,13 @@
 			/>
 		</div>
 	</div>
-</article>
+</div>
 
 <style>
+	.row {
+		margin-top: var(--pico-spacing);
+		border-bottom: 1px solid var(--pico-muted-border-color);
+	}
 	.flex {
 		display: flex;
 		justify-content: space-between;

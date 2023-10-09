@@ -1,3 +1,4 @@
+import { api } from './API';
 import type { Attachment } from './Attachments';
 import { DBObject } from './DBObject';
 import { Department } from './Department';
@@ -41,21 +42,33 @@ export class Entity extends DBObject {
 			.map((hasEntity) => {
 				hasEntity = new PropertyHasEntity(hasEntity);
 				hasEntity.property = properties.find((property) => property.id == hasEntity.propertyId);
+				if (!hasEntity.property) {
+					//this property is not there already.
+					api.delete('/api/PropertyHasEntity/' + hasEntity.id);
+					return false;
+				}
 				hasEntity.property = new Property(hasEntity.property);
 				hasEntity.department = departments.find(
 					(department) => department.id == hasEntity.property.departmentId
 				);
+				if (!hasEntity.department) {
+					//this department is not there already.
+					api.delete('/api/Property/' + hasEntity.property.id);
+					return false;
+				}
 				hasEntity.department = new Department(hasEntity.department);
 				hasEntity.work = works.find((work) => work.id == hasEntity.department.workId);
+				if (!hasEntity.work) {
+					//this department is not there already.
+					api.delete('/api/Department/' + hasEntity.department.id);
+					return false;
+				}
 				hasEntity.work = new Work(hasEntity.work);
 				hasEntity.work.build({ attachments: hasEntity.work.attachments });
 				if (hasEntity.work.attachments.length > 0) {
 					this.attachments = [...this.attachments, hasEntity.work.attachments[0]];
 				}
 
-				if (!hasEntity.work) {
-					return false;
-				}
 				hasEntity.distributions = distributions.filter(
 					(distribution) => distribution.workId == hasEntity.work.id
 				);

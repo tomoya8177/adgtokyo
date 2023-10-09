@@ -78,7 +78,7 @@
 	.grid {
 		margin-left: 1rem;
 		margin-bottom: var(--pico-spacing);
-		border-bottom: solid 1px var(--pico-card-border-color);
+		border-bottom: solid 1px var(--pico-muted-border-color);
 	}
 
 	.names {

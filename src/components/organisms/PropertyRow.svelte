@@ -32,6 +32,19 @@
 			{:else}
 				<PropertyKeyInput bind:property />
 			{/if}
+			<Button
+				icon="add"
+				className="outline"
+				label={_('Add Person / Business')}
+				onclick={async () => {
+					const hasEntity = await new PropertyHasEntity({
+						propertyId: property.id,
+						weight: property.hasEntities.length + 1
+					}).create();
+					hasEntity.editing = true;
+					property.hasEntities = [...property.hasEntities, hasEntity];
+				}}
+			/>
 		</div>
 		<div>
 			<EditControlButtons
@@ -89,19 +102,6 @@
 				}}
 			/>
 		{/each}
-		<Button
-			icon="add"
-			className="outline"
-			label={_('Add Person / Business')}
-			onclick={async () => {
-				const hasEntity = await new PropertyHasEntity({
-					propertyId: property.id,
-					weight: property.hasEntities.length + 1
-				}).create();
-				hasEntity.editing = true;
-				property.hasEntities = [...property.hasEntities, hasEntity];
-			}}
-		/>
 	</div>
 </article>
 

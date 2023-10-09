@@ -12,7 +12,7 @@
 </script>
 
 {#if hasEntity.entity}
-	<div style="margin-right:var(--pico-spacing)">
+	<div style="margin-right:var(--pico-spacing);margin-bottom:var(--pico-spacing)">
 		<EntityNameStaticSmall entity={hasEntity.entity} />
 	</div>
 {/if}

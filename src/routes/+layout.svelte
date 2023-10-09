@@ -33,6 +33,12 @@
 				});
 				user = await api.get('/api/User/' + profile.sub).then((res) => res.data);
 			} else {
+				if (!user.picture) {
+					await api.put('/api/User/' + profile.sub, {
+						picture: profile.picture
+					});
+					user.picture = profile.picture;
+				}
 				profile.nickname = user.nickname;
 				profile.picture = user.picture || profile.picture;
 			}

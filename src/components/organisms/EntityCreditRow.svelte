@@ -23,7 +23,7 @@
 
 <div
 	class="justified-flex"
-	style="border-bottom:1px solid var(--pico-card-border-color);margin-bottom:var(--pico-spacing);margin-left:0.5rem;"
+	style="border-bottom:1px solid var--pico-muted-border-color);margin-bottom:var(--pico-spacing);margin-left:0.5rem;"
 >
 	<div>
 		<div class="grid">
@@ -62,7 +62,7 @@
 			</div>
 			<div style="margin-left:1rem">
 				<div class="flex">
-					<div>
+					<div style="flex:1; display:flex">
 						<a class="contrast" href="/work/{hasEntity.work.id}">
 							{#if $LocalEnSwitch == 'local'}
 								{hasEntity.work.titleLocal}
@@ -70,17 +70,13 @@
 								{hasEntity.work.titleEn}
 							{/if}
 						</a>
+						{#if hasEntity.work.videoURL}
+							<span style="margin-left:var(--pico-spacing)">
+								<Icon icon="smart_display" />
+							</span>
+						{/if}
 					</div>
 
-					<!-- <div>
-						<small>
-							{#if $LocalEnSwitch == 'local'}
-								{hasEntity.work.formatLocal}
-							{:else}
-								{hasEntity.work.formatEn}
-							{/if}
-						</small>
-					</div> -->
 					<div>
 						{#if hasEntity.distributions && hasEntity.distributions.length}
 							{#each hasEntity.distributions as distribution}

@@ -1,10 +1,10 @@
 <script lang="ts">
+	import Icon from '$components/atoms/Icon.svelte';
+	import Searching from '$components/atoms/Searching.svelte';
 	import { api } from '$lib/frontend/class/API';
 	import { Entity } from '$lib/frontend/class/Entity';
 	import { _ } from '$lib/frontend/i18n';
 	import { search } from '$lib/frontend/search';
-	import Searching from '../../routes/search/[personOrBusiness]/[keywords]/Searching.svelte';
-	import Icon from '../atoms/Icon.svelte';
 	import PairOfInputs from '../atoms/PairOfInputs.svelte';
 	export let inputLocal: string;
 	export let inputEn: string;
