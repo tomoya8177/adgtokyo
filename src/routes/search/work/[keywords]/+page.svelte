@@ -3,7 +3,7 @@
 	import { Work } from '$lib/frontend/class/Work';
 	import { search } from '$lib/frontend/search';
 	import WorkCard from '../../../../components/organisms/WorkCard.svelte';
-	import NoResults from '../../[personOrBusiness]/[keywords]/NoResults.svelte';
+	import NoResults from '../../../../components/atoms/NoResults.svelte';
 	import Searching from '../../[personOrBusiness]/[keywords]/Searching.svelte';
 
 	$: results = search($page.params.keywords, 'work').then((works) => {

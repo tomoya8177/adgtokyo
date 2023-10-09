@@ -11,7 +11,6 @@ class I18N {
 		} else {
 			//get browser language
 			if (typeof navigator == 'undefined' || !navigator) {
-				console.log('no navigator');
 				this.locale = 'en';
 			} else {
 				const browserLanguage = navigator.language;

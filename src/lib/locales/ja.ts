@@ -80,5 +80,7 @@ export default {
 	'Please login/register to give a good job!': 'グッジョブをするにはログイン/登録してください！',
 	'Good Job!': 'グッジョブ！',
 	'Sign up': '新規登録',
-	'You need to be logged in.': 'ログインする必要があります。'
+	'You need to be logged in.': 'ログインする必要があります。',
+	'A virtual sanctuary for filmmakers. No studios, no clients. Just inspiration, collaboration, and innovation.':
+		'映画製作者のための仮想聖域。スタジオもクライアントもいません。インスピレーション、コラボレーション、イノベーションだけです。'
 };

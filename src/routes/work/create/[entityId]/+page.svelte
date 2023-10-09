@@ -1,5 +1,5 @@
 <script lang="ts">
-	import WorkTitleDistribution from './WorkTitleDistributionEdit.svelte';
+	import WorkTitleDistribution from '../../../../components/molecules/WorkTitleDistributionEdit.svelte';
 
 	import WorkTitleInput from '../../../../components/molecules/WorkTitleInput.svelte';
 	import { Work } from '$lib/frontend/class/Work';

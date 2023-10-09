@@ -1,5 +1,5 @@
 <script lang="ts">
-	import NoResults from './NoResults.svelte';
+	import NoResults from '../../../../components/atoms/NoResults.svelte';
 
 	import Searching from './Searching.svelte';
 

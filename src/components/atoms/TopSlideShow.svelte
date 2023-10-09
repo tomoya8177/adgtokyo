@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { _ } from '$lib/frontend/i18n';
 	import { onMount } from 'svelte';
 	import { fade } from 'svelte/transition';
 
@@ -10,7 +11,7 @@
 			let str = num.toString().padStart(3, '0');
 			return str;
 		});
-	let focus = '001';
+	let focus = numbers[Math.floor(Math.random() * numbers.length)];
 	onMount(() => {
 		//rotate the numbers every 4 seconds
 		setInterval(() => {
@@ -21,23 +22,55 @@
 				index += 1;
 			}
 			focus = numbers[index];
-		}, 5000);
+		}, 6000);
 	});
 </script>
 
-<div>
+<div class="container">
 	{#each numbers as num}
 		{#if num == focus}
-			<img src={`/images/${num}.jpg`} alt={num} transition:fade class="cover" />
+			<img
+				src={`/images/${num}.jpg`}
+				alt={num}
+				transition:fade={{ duration: 3000 }}
+				class="cover"
+			/>
 		{/if}
 	{/each}
+	<div class="foreground">
+		<div>
+			<h1>ADG Tokyo</h1>
+			<h5>
+				{_(
+					'A virtual sanctuary for filmmakers. No studios, no clients. Just inspiration, collaboration, and innovation.'
+				)}
+			</h5>
+		</div>
+	</div>
 </div>
 
 <style>
-	div {
+	.container {
 		position: relative;
 		height: 20rem;
 		overflow: hidden;
+		border-radius: var(--pico-border-radius);
+	}
+	.foreground {
+		position: absolute;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		top: 0;
+		left: 0;
+		padding: 2rem;
+		width: 100%;
+		height: 100%;
+		background-color: rgba(0, 0, 0, 0.5);
+		text-align: center;
+	}
+	.foreground * {
+		color: white;
 	}
 	img {
 		position: absolute;

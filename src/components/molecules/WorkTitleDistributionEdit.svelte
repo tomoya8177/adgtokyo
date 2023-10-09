@@ -1,5 +1,5 @@
 <script lang="ts">
-	import WorkTitleInput from '../../../../components/molecules/WorkTitleInput.svelte';
+	import WorkTitleInput from './WorkTitleInput.svelte';
 	import { Work } from '$lib/frontend/class/Work';
 	import { _ } from '$lib/frontend/i18n';
 	import { BottomNavButton, User, auth0 } from '$lib/frontend/store';
@@ -7,16 +7,16 @@
 	import { onMount } from 'svelte';
 	import { goto } from '$app/navigation';
 	import { History } from '$lib/frontend/class/History';
-	import Heading from '../../../../components/atoms/Heading.svelte';
-	import DepartmentTitleInput from '../../../../components/molecules/DepartmentTitleInput.svelte';
-	import PropertyKeyInput from '../../../../components/organisms/PropertyKeyInput.svelte';
+	import Heading from '../atoms/Heading.svelte';
+	import DepartmentTitleInput from './DepartmentTitleInput.svelte';
+	import PropertyKeyInput from '../organisms/PropertyKeyInput.svelte';
 	import { Property } from '$lib/frontend/class/Property';
 	import { Distribution } from '$lib/frontend/class/Distribution';
-	import DistributionRow from '../../../../components/organisms/DistributionRow.svelte';
-	import DistributionInput from '../../../../components/atoms/DistributionInput.svelte';
+	import DistributionRow from '../organisms/DistributionRow.svelte';
+	import DistributionInput from '../atoms/DistributionInput.svelte';
 	import { PropertyHasEntity } from '$lib/frontend/class/PropertyHasEntity';
 	import { page } from '$app/stores';
-	import Icon from '../../../../components/atoms/Icon.svelte';
+	import Icon from '../atoms/Icon.svelte';
 	import { search } from '$lib/frontend/search';
 	import { api } from '$lib/frontend/class/API';
 	export let work: Work;

@@ -9,7 +9,7 @@
 	import { History } from '$lib/frontend/class/History';
 	import LoginWarningModal from '../../../components/panels/LoginWarningModal.svelte';
 	import { Distribution } from '$lib/frontend/class/Distribution';
-	import WorkTitleDistributionEdit from './[entityId]/WorkTitleDistributionEdit.svelte';
+	import WorkTitleDistributionEdit from '../../../components/molecules/WorkTitleDistributionEdit.svelte';
 	let work = new Work({});
 	let distribution = new Distribution({
 		workId: work.id
