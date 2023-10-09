@@ -41,9 +41,7 @@
 		<div>
 			<h1>ADG Tokyo</h1>
 			<h5>
-				{_(
-					'A virtual sanctuary for filmmakers. No studios, no clients. Just inspiration, collaboration, and innovation.'
-				)}
+				{_('A virtual sanctuary for filmmakers. Inspire, collaborate, and innovate.')}
 			</h5>
 		</div>
 	</div>

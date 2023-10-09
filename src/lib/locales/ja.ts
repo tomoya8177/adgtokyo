@@ -81,8 +81,6 @@ export default {
 	'Good Job!': 'グッジョブ！',
 	'Sign up': '新規登録',
 	'You need to be logged in.': 'ログインする必要があります。',
-	'A virtual sanctuary for filmmakers. No studios, no clients. Just inspiration, collaboration, and innovation.':
-		'映画製作者のための仮想聖域。スタジオもクライアントもいません。インスピレーション、コラボレーション、イノベーションだけです。',
 	'Please contact support for claiming the entity ownership. D you want to proceed to the support form?':
 		'エンティティの所有権を主張するには、サポートに連絡してください。 サポートフォームに進みますか？',
 	'Claim this is me': 'これは私です'
