@@ -22,7 +22,7 @@
 				index += 1;
 			}
 			focus = numbers[index];
-		}, 6000);
+		}, 8000);
 	});
 </script>
 
