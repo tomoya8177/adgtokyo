@@ -13,7 +13,6 @@
 		});
 	let focus = numbers[Math.floor(Math.random() * numbers.length)];
 	onMount(() => {
-		//rotate the numbers every 4 seconds
 		setInterval(() => {
 			let index = numbers.indexOf(focus);
 			if (index == numbers.length - 1) {
