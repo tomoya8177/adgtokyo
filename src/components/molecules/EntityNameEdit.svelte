@@ -5,6 +5,7 @@
 	import type { Entity } from '$lib/frontend/class/Entity';
 	import PairOfInputs from '../atoms/PairOfInputs.svelte';
 	import TranslateButton from '../atoms/TranslateButton.svelte';
+	import { me } from '$lib/frontend/class/User';
 	export let entity: Entity;
 </script>
 
@@ -17,7 +18,7 @@
 	{_('Website')}
 	<input bind:value={entity.officialWebsiteURL} type="url" />
 </label>
-{#if $User.user.isPro && $User.user.entityId == entity.id}
+{#if me.isPro && me.entityId == entity.id}
 	<label for="bio-local">
 		{_('Bio')}
 		({_('Local')})

@@ -12,6 +12,7 @@
 	import { myPrompt } from '$lib/frontend/class/Prompt';
 	import { toast } from '$lib/frontend/toast';
 	import UserProfilePicture from '../atoms/UserProfilePicture.svelte';
+	import { me } from '$lib/frontend/class/User';
 	export let searchKeywords: string;
 	export let onKeywordsChange: (value: string) => void;
 	let searching = false;
@@ -40,7 +41,7 @@
 				<summary role="link" style="display: flex;">
 					{#if $User.authenticated}
 						<span class="hiddenWithMobile">
-							{$User.user.nickname}
+							{me.nickname}
 						</span>
 					{/if}
 					<Icon icon="menu" /></summary
@@ -49,10 +50,10 @@
 					{#if $User.authenticated}
 						<li style="display:flex">
 							{_('Logged in as:')}
-							{$User.user.nickname}
+							{me.nickname}
 						</li>
 
-						{#if $User.user.picture}
+						{#if me.picture}
 							<li>
 								<UserProfilePicture />
 							</li>
@@ -64,12 +65,12 @@
 								style="display:flex"
 								href={'#'}
 								on:click={async () => {
-									if (!$User.user) throw new Error('User not found');
+									if (!me) throw new Error('User not found');
 									const nickname = await myPrompt(
-										_('Enter new nickname. current nickname is :') + $User.user.nickname
+										_('Enter new nickname. current nickname is :') + me.nickname
 									);
 									if (!nickname) return;
-									await $User.user.update({
+									await me.update({
 										nickname
 									});
 									toast(_('Nickname updated'));

@@ -1,5 +1,4 @@
 <script lang="ts">
-	import Button from '../atoms/Button.svelte';
 	import Icon from '../atoms/Icon.svelte';
 	export let editing: boolean;
 	export let onSave: (() => void) | false = false;

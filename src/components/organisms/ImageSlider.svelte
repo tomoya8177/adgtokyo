@@ -1,8 +1,8 @@
 <script lang="ts">
 	import { _ } from '$lib/frontend/i18n';
-	import Button from '../atoms/Button.svelte';
+	import Button from '$components/UIComponents/Button.svelte';
 	import type { Attachment } from '$lib/frontend/class/Attachments';
-	import EditControlButtons from '../molecules/EditControlButtons.svelte';
+	import EditControlButtons from '$components/molecules/EditControlButtons.svelte';
 	import { myConfirm } from '$lib/frontend/class/Confirm';
 	export let images: Attachment[];
 	export let editing = false;
@@ -16,6 +16,7 @@
 			{#each images as attachment, index}
 				<div class="image">
 					<img
+						alt={attachment.name}
 						style="height:200px;width:auto;"
 						on:click={() => {
 							window.open(attachment.url);

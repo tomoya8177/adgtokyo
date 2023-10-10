@@ -1,16 +1,9 @@
 <script lang="ts">
-	import { goto } from '$app/navigation';
-	import { workCategory } from '$lib/Category';
-	import { Attachment } from '$lib/frontend/class/Attachments';
 	import { myConfirm } from '$lib/frontend/class/Confirm';
 	import type { Work } from '$lib/frontend/class/Work';
 	import { _ } from '$lib/frontend/i18n';
-
-	import { LocalEnSwitch, User } from '$lib/frontend/store';
-	import Button from '../atoms/Button.svelte';
 	import RichTextarea from '../atoms/RichTextarea.svelte';
 	import TranslateButton from '../atoms/TranslateButton.svelte';
-	import Uploader from '../atoms/Uploader.svelte';
 	import WorkTitleStatic from '../atoms/WorkTitleStatic.svelte';
 	import EditControlButtons from '../molecules/EditControlButtons.svelte';
 	import WorkTitleInput from '../molecules/WorkTitleInput.svelte';

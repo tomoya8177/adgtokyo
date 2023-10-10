@@ -1,20 +1,13 @@
 <script lang="ts">
 	import PropertyKeyInput from './PropertyKeyInput.svelte';
-
-	import HasEntityEdit from './HasEntityEdit.svelte';
-
 	import type { Property } from '$lib/frontend/class/Property';
 	import { PropertyHasEntity } from '$lib/frontend/class/PropertyHasEntity';
-	import { Work } from '$lib/frontend/class/Work';
 	import { _ } from '$lib/frontend/i18n';
-	import { LocalEnSwitch, User, auth0 } from '$lib/frontend/store';
-	import Button from '../atoms/Button.svelte';
-	import { Entity } from '$lib/frontend/class/Entity';
 	import EditControlButtons from '../molecules/EditControlButtons.svelte';
 	import HasEntityRow from './HasEntityRow.svelte';
 	import PropertyRowStatic from '../atoms/PropertyRowStatic.svelte';
 	import { myConfirm } from '$lib/frontend/class/Confirm';
-	let work = new Work({});
+	import Button from '$components/UIComponents/Button.svelte';
 	export let property: Property;
 	export let onDelete: () => void;
 	export let onUp: (() => void) | false;
@@ -104,19 +97,3 @@
 		{/each}
 	</div>
 </article>
-
-<style>
-	.flex {
-		display: flex;
-		gap: 0.4rem;
-		justify-content: space-between;
-		align-items: center;
-	}
-
-	.box {
-		border: solid 1px rgba(128, 128, 128, 0.5);
-		padding: 0.2rem;
-		margin-bottom: 0.2rem;
-		border-radius: 0.5rem;
-	}
-</style>

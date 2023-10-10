@@ -1,8 +1,7 @@
 <script lang="ts">
 	import { openPicker } from '$lib/frontend/Upload';
 	import { _ } from '$lib/frontend/i18n';
-	import Button from './Button.svelte';
-	import Icon from './Icon.svelte';
+	import Button from '$components/UIComponents/Button.svelte';
 	export let onUploadDone: (uploadedFiles: any) => void;
 	export let label = _('Upload');
 </script>

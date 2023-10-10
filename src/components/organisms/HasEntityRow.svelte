@@ -3,7 +3,6 @@
 	import { _ } from '$lib/frontend/i18n';
 	import { LocalEnSwitch } from '$lib/frontend/store';
 	import HasEntityEdit from './HasEntityEdit.svelte';
-	import Button from '../atoms/Button.svelte';
 	import EditControlButtons from '../molecules/EditControlButtons.svelte';
 	import HasEntityStatic from '../molecules/HasEntityStatic.svelte';
 	import { myConfirm } from '$lib/frontend/class/Confirm';
