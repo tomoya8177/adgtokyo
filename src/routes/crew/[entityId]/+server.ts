@@ -4,6 +4,7 @@ import { redirect } from '@sveltejs/kit';
 export const GET = async ({ params }) => {
 	const entity = (await db.query(`select * from Entity where id='${params.entityId}'`))[0];
 	if (!entity) {
+		console.log('koko?');
 		return new Response(
 			JSON.stringify({
 				entity: false

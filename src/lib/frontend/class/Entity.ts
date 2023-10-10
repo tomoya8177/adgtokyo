@@ -18,8 +18,7 @@ export class Entity extends DBObject {
 	editing: boolean = false;
 	imdbURL: string;
 	officialWebsiteURL: string;
-	hasEntities: PropertyHasEntity[];
-	filmographies: Filmography[];
+	filmographies: PropertyHasEntity[];
 	attachments: Attachment[];
 	constructor(data: any) {
 		data.table = 'Entity';
@@ -35,7 +34,6 @@ export class Entity extends DBObject {
 		this.descriptionEn = data.descriptionEn || '';
 		this.imdbURL = data.imdbURL || '';
 		this.officialWebsiteURL = data.officialWebsiteURL || '';
-		this.hasEntities = data.hasEntities || [];
 		this.attachments = data.attachments || [];
 		this.filmographies = data.filmographies || [];
 	}
@@ -83,7 +81,8 @@ export class Entity extends DBObject {
 		return this.slug || this.id.substring(0, 8) || '';
 	}
 	get popularCreditTitles(): { local: string; en: string }[] {
-		const titles = this.hasEntities.map((hasEntity) => {
+		const titles = this.filmographies.map((hasEntity) => {
+			if (!hasEntity.property) return { local: '', en: '' };
 			return { local: hasEntity.property.keyLocal, en: hasEntity.property.keyEn };
 		});
 		//remove duplicates, and sort by occurances desc

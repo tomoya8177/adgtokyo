@@ -13,6 +13,7 @@
 	import ImageSlider from '$components/organisms/ImageSlider.svelte';
 	import { myConfirm } from '$lib/frontend/class/Confirm';
 	export let data: PageData;
+	console.log({ data });
 	let entity = new Entity(data.entity);
 	entity.build(data);
 	onMount(() => {
@@ -56,7 +57,10 @@
 <hr />
 <Heading label={_('Filmography')} />
 {#each workCategory as category}
-	{@const filmographies = entity.filmographies.filter((has) => has.work.category == category.title)}
+	{@const filmographies = entity.filmographies.filter((has) => {
+		if (!has.work) return false;
+		return has.work.category == category.title;
+	})}
 	{#if filmographies.length}
 		<section>
 			<HeadingLabel label={_(category.title)} />

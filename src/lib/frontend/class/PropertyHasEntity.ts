@@ -1,7 +1,11 @@
 import { _ } from '../i18n';
 import { toast } from '../toast';
 import { DBObject } from './DBObject';
+import type { Department } from './Department';
+import type { Distribution } from './Distribution';
 import type { Entity } from './Entity';
+import type { Property } from './Property';
+import type { Work } from './Work';
 
 export class PropertyHasEntity extends DBObject {
 	entityId: string;
@@ -13,8 +17,13 @@ export class PropertyHasEntity extends DBObject {
 	editing: boolean = false;
 	weightId: string;
 	goodJobs: any[];
+	//property for filmography
+	department: Department | null;
+	property: Property | null = null;
+	work: Work | null = null;
+	distributions: Distribution[];
 
-	constructor(data) {
+	constructor(data: any) {
 		data.table = 'PropertyHasEntity';
 		super(data);
 		this.entity = data.entity || null;
@@ -25,6 +34,10 @@ export class PropertyHasEntity extends DBObject {
 		this.propertyId = data.propertyId || '';
 		this.weightId = data.weightId || '';
 		this.goodJobs = data.goodJobs || [];
+		this.department = data.department || null;
+		this.property = data.property || null;
+		this.work = data.work || null;
+		this.distributions = data.distributions || [];
 	}
 	validate: () => {} = (): boolean => {
 		if (!this.entityId) {

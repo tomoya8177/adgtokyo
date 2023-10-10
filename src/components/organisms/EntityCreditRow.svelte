@@ -9,11 +9,9 @@
 	import Icon from '../atoms/Icon.svelte';
 	import { goto } from '$app/navigation';
 	import Button from '../atoms/Button.svelte';
-	import { workCategory } from '$lib/Category';
 	import PairOfInputs from '../atoms/PairOfInputs.svelte';
 	import type { PropertyHasEntity } from '$lib/frontend/class/PropertyHasEntity';
 	import GoodJobButton from '../molecules/GoodJobButton.svelte';
-	import type { Filmography } from '$lib/frontend/class/Entity';
 	export let filmography: PropertyHasEntity;
 	export let editable = false;
 	export let onUp: (() => void) | false = false;
@@ -29,16 +27,20 @@
 	<div>
 		<div class="grid">
 			<div>
-				<PropertyRowStatic property={filmography.property} />
-				<small
-					><em>
-						{#if $LocalEnSwitch == 'local'}
-							{filmography.department.titleLocal}
-						{:else}
-							{filmography.department.titleEn}
-						{/if}
-					</em>
-				</small>
+				{#if filmography.property}
+					<PropertyRowStatic property={filmography.property} />
+				{/if}
+				{#if filmography.department}
+					<small
+						><em>
+							{#if $LocalEnSwitch == 'local'}
+								{filmography.department.titleLocal}
+							{:else}
+								{filmography.department.titleEn}
+							{/if}
+						</em>
+					</small>
+				{/if}
 				{#if !filmography.editing}
 					<HasEntitySubtextStatic hasEntity={filmography} />
 				{:else}
@@ -48,6 +50,7 @@
 							icon="edit"
 							label={_('Edit Work')}
 							onclick={() => {
+								if (!filmography.work) return;
 								goto(`/work/${filmography.work.id}/edit`, {
 									invalidateAll: true
 								});
@@ -63,20 +66,22 @@
 			</div>
 			<div style="margin-left:1rem">
 				<div class="flex">
-					<div style="flex:1; display:flex">
-						<a class="contrast" href="/work/{filmography.work.id}">
-							{#if $LocalEnSwitch == 'local'}
-								{filmography.work.titleLocal}
-							{:else}
-								{filmography.work.titleEn}
+					{#if filmography.work}
+						<div style="flex:1; display:flex">
+							<a class="contrast" href="/work/{filmography.work.id}">
+								{#if $LocalEnSwitch == 'local'}
+									{filmography.work.titleLocal}
+								{:else}
+									{filmography.work.titleEn}
+								{/if}
+							</a>
+							{#if filmography.work.videoURL}
+								<span style="margin-left:var(--pico-spacing)">
+									<Icon icon="smart_display" />
+								</span>
 							{/if}
-						</a>
-						{#if filmography.work.videoURL}
-							<span style="margin-left:var(--pico-spacing)">
-								<Icon icon="smart_display" />
-							</span>
-						{/if}
-					</div>
+						</div>
+					{/if}
 
 					<div>
 						{#if filmography.distributions && filmography.distributions.length}

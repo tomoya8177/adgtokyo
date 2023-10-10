@@ -19,6 +19,7 @@
 	import type { PropertyHasEntity } from '$lib/frontend/class/PropertyHasEntity';
 	export let data: PageData;
 	let entity = new Entity(data.entity);
+	console.log({ entity });
 	entity.build(data);
 	onMount(() => {
 		BottomNavButton.set({
@@ -29,7 +30,7 @@
 					await entityUpdate(entity);
 				}
 				const promises: Promise<any>[] = [];
-				entity.hasEntities.forEach((hasEntity) => {
+				entity.filmographies.forEach((hasEntity) => {
 					if (hasEntity.editing) {
 						promises.push(hasEntityUpdate(hasEntity));
 					}
@@ -91,38 +92,45 @@
 	<hr />
 	<Heading label={_('Filmography')} />
 	{#each workCategory as category}
-		{@const hasEntities = entity.hasEntities.filter((has) => has.work.category == category.title)}
-		{#if hasEntities.length}
+		{@const filmographies = entity.filmographies.filter((has) => {
+			if (!has.work) return false;
+			return has.work.category == category.title;
+		})}
+		{#if filmographies.length}
 			<HeadingLabel label={_(category.title)} />
 
-			{#each hasEntities as hasEntity, index}
+			{#each filmographies as filmography, index}
 				<EntityCreditRow
-					bind:hasEntity
+					bind:filmography
 					editable
 					onUpdate={hasEntityUpdate}
 					onDelete={() => {
-						entity.hasEntities = entity.hasEntities.filter((h) => h.id != hasEntity.id);
+						entity.filmographies = entity.filmographies.filter((h) => h.id != filmography.id);
 					}}
 					onUp={index != 0
 						? () => {
-								hasEntity.weight = index;
-								api.put('/api/WeightForEntity/' + hasEntity.weightId, { weight: hasEntity.weight });
-								const prev = hasEntities[index - 1];
+								filmography.weight = index;
+								api.put('/api/WeightForEntity/' + filmography.weightId, {
+									weight: filmography.weight
+								});
+								const prev = filmographies[index - 1];
 								prev.weight += 1;
 								api.put('/api/WeightForEntity/' + prev.weightId, { weight: prev.weight });
-								entity.hasEntities.sort((a, b) => (a.weight > b.weight ? 1 : -1));
+								entity.filmographies.sort((a, b) => (a.weight > b.weight ? 1 : -1));
 
 								//sort view
 						  }
 						: false}
-					onDown={index != hasEntities.length - 1
+					onDown={index != filmographies.length - 1
 						? () => {
-								hasEntity.weight = index + 2;
-								api.put('/api/WeightForEntity/' + hasEntity.weightId, { weight: hasEntity.weight });
-								const next = hasEntities[index + 1];
+								filmography.weight = index + 2;
+								api.put('/api/WeightForEntity/' + filmography.weightId, {
+									weight: filmography.weight
+								});
+								const next = filmographies[index + 1];
 								next.weight -= 1;
 								api.put('/api/WeightForEntity/' + next.weightId, { weight: next.weight });
-								entity.hasEntities.sort((a, b) => (a.weight > b.weight ? 1 : -1));
+								entity.filmographies.sort((a, b) => (a.weight > b.weight ? 1 : -1));
 						  }
 						: false}
 				/>
