@@ -55,18 +55,27 @@
 {/if}
 
 <hr />
-<Heading label={_('Filmography')} />
-{#each workCategory as category}
-	{@const filmographies = entity.filmographies.filter((has) => {
-		if (!has.work) return false;
-		return has.work.category == category.title;
-	})}
-	{#if filmographies.length}
-		<section>
-			<HeadingLabel label={_(category.title)} />
-			{#each filmographies as filmography}
-				<EntityCreditRow onUpdate={() => {}} bind:filmography />
-			{/each}
-		</section>
-	{/if}
-{/each}
+<div class="filmography">
+	<Heading label={_('Filmography')} />
+	{#each workCategory as category}
+		{@const filmographies = entity.filmographies.filter((has) => {
+			if (!has.work) return false;
+			return has.work.category == category.title;
+		})}
+
+		{#if filmographies.length}
+			<section>
+				<HeadingLabel label={_(category.title)} />
+				{#each filmographies as filmography}
+					<EntityCreditRow onUpdate={() => {}} bind:filmography />
+				{/each}
+			</section>
+		{/if}
+	{/each}
+</div>
+
+<style>
+	.filmography {
+		overflow: hidden;
+	}
+</style>

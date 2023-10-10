@@ -13,6 +13,7 @@
 	import HasEntityStatic from '$components/molecules/HasEntityStatic.svelte';
 	import { page } from '$app/stores';
 	import GoodJobButton from '$components/molecules/GoodJobButton.svelte';
+	import Heading from '$components/atoms/Heading.svelte';
 	export let data: PageData;
 	let work = new Work(data.work);
 	work.build(data);
@@ -50,31 +51,34 @@
 	</div>
 {/each}
 <hr />
-<h4>
-	{_('Crew List')}
-</h4>
-{#each work.departments as department, index}
-	<section>
-		<DepartmentHeaderStatic {department} />
-		{#each department.properties as property}
-			<div class="grid">
-				<div class="titles">
-					<PropertyRowStatic {property} />
+<div class="crewList">
+	<Heading label={_('Crew List')} />
+	{#each work.departments as department, index}
+		<section>
+			<DepartmentHeaderStatic {department} />
+			{#each department.properties as property}
+				<div class="grid">
+					<div class="titles">
+						<PropertyRowStatic {property} />
+					</div>
+					<div class="names">
+						{#each property.hasEntities as hasEntity}
+							<div class="justified-flex">
+								<HasEntityStatic {hasEntity} />
+								<GoodJobButton bind:filmography={hasEntity} bind:goodJobs={hasEntity.goodJobs} />
+							</div>
+						{/each}
+					</div>
 				</div>
-				<div class="names">
-					{#each property.hasEntities as hasEntity}
-						<div class="justified-flex">
-							<HasEntityStatic {hasEntity} />
-							<GoodJobButton bind:filmography={hasEntity} bind:goodJobs={hasEntity.goodJobs} />
-						</div>
-					{/each}
-				</div>
-			</div>
-		{/each}
-	</section>
-{/each}
+			{/each}
+		</section>
+	{/each}
+</div>
 
 <style>
+	.crewList {
+		overflow: hidden;
+	}
 	.grid {
 		margin-left: 1rem;
 		margin-bottom: var(--pico-spacing);
