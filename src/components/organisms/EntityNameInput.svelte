@@ -15,25 +15,21 @@
 		const keyword = `${inputLocal.length > 1 ? inputLocal : ''} ${
 			inputEn.length > 2 ? inputEn : ''
 		}`.trim();
-		console.log({ keyword });
 		if (!keyword) return;
 		searching = true;
 		const personResults = await search(keyword, 'person', 'AND');
 		const businessResults = await search(keyword, 'business', 'AND');
 		const mergedResults = [...personResults, ...businessResults];
-		console.log(mergedResults);
 		const promises = mergedResults.map(async (result) => {
 			return api.get('/crew/' + result.id).then((res) => res.data);
 		});
 		const results = await Promise.all(promises);
-		console.log({ results });
 		possibleDuplicates = results.map((result) => {
 			const entity = new Entity(result.entity);
 			entity.build(result);
 			return entity;
 		});
 		searching = false;
-		console.log({ possibleDuplicates });
 	};
 </script>
 
