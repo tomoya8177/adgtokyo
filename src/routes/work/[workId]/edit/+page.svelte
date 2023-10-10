@@ -1,26 +1,24 @@
 <script lang="ts">
-	import ImageSlider from '../../../../components/organisms/ImageSlider.svelte';
+	import ImageSlider from '$components/organisms/ImageSlider.svelte';
 
 	import { Department } from '$lib/frontend/class/Department';
 	import { Work } from '$lib/frontend/class/Work';
 
 	import { _ } from '$lib/frontend/i18n';
 	import { BottomNavButton, User } from '$lib/frontend/store';
-	import Button from '../../../../components/atoms/Button.svelte';
-	import WorkTitle from '../../../../components/organisms/WorkTitle.svelte';
+	import Button from '$components/atoms/Button.svelte';
+	import WorkTitle from '$components/organisms/WorkTitle.svelte';
 	import type { PageData } from './$types';
-	import DepartmentRow from '../../../../components/organisms/DepartmentRow.svelte';
+	import DepartmentRow from '$components/organisms/DepartmentRow.svelte';
 	import { onMount } from 'svelte';
 	import { Distribution } from '$lib/frontend/class/Distribution';
-	import DistributionRow from '../../../../components/organisms/DistributionRow.svelte';
+	import DistributionRow from '$components/organisms/DistributionRow.svelte';
 	import { Attachment } from '$lib/frontend/class/Attachments';
-	import Uploader from '../../../../components/atoms/Uploader.svelte';
-	import Heading from '../../../../components/atoms/Heading.svelte';
-	import LoginWarningModal from '../../../../components/panels/LoginWarningModal.svelte';
-	import { toast } from '$lib/frontend/toast';
+	import Uploader from '$components/atoms/Uploader.svelte';
+	import Heading from '$components/atoms/Heading.svelte';
+	import LoginWarningModal from '$components/panels/LoginWarningModal.svelte';
 	import { Property } from '$lib/frontend/class/Property';
 	import { PropertyHasEntity } from '$lib/frontend/class/PropertyHasEntity';
-	import { page } from '$app/stores';
 	import { goto } from '$app/navigation';
 	export let data: PageData;
 	let departmentButtonBusy = false;

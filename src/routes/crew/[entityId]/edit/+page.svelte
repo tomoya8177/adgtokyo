@@ -1,20 +1,20 @@
 <script lang="ts">
-	import EntityCreditRow from '../../../../components/organisms/EntityCreditRow.svelte';
-	import EntityNameEdit from '../../../../components/molecules/EntityNameEdit.svelte';
+	import EntityCreditRow from '$components/organisms/EntityCreditRow.svelte';
+	import EntityNameEdit from '$components/molecules/EntityNameEdit.svelte';
 	import { _ } from '$lib/frontend/i18n';
 	import { BottomNavButton, LocalEnSwitch, UpdatedData, User } from '$lib/frontend/store';
 	import { onMount } from 'svelte';
-	import EntityNameStatic from '../../../../components/atoms/EntityNameStatic.svelte';
+	import EntityNameStatic from '$components/atoms/EntityNameStatic.svelte';
 	import type { PageData } from './$types';
 	import { goto } from '$app/navigation';
-	import EditControlButtons from '../../../../components/molecules/EditControlButtons.svelte';
-	import Button from '../../../../components/atoms/Button.svelte';
+	import EditControlButtons from '$components/molecules/EditControlButtons.svelte';
+	import Button from '$components/atoms/Button.svelte';
 	import { api } from '$lib/frontend/class/API';
-	import Heading from '../../../../components/atoms/Heading.svelte';
+	import Heading from '$components/atoms/Heading.svelte';
 	import { myConfirm } from '$lib/frontend/class/Confirm';
-	import LoginWarningModal from '../../../../components/panels/LoginWarningModal.svelte';
+	import LoginWarningModal from '$components/panels/LoginWarningModal.svelte';
 	import { workCategory } from '$lib/Category';
-	import HeadingLabel from '../../../../components/atoms/HeadingLabel.svelte';
+	import HeadingLabel from '$components/atoms/HeadingLabel.svelte';
 	import { Entity } from '$lib/frontend/class/Entity';
 	import type { PropertyHasEntity } from '$lib/frontend/class/PropertyHasEntity';
 	export let data: PageData;

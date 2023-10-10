@@ -2,17 +2,17 @@
 	import { Work } from '$lib/frontend/class/Work';
 
 	import { _ } from '$lib/frontend/i18n';
-	import { BottomNavButton, LocalEnSwitch, UpdatedData, workOnFocus } from '$lib/frontend/store';
+	import { BottomNavButton, LocalEnSwitch } from '$lib/frontend/store';
 	import type { PageData } from './$types';
 	import { onMount } from 'svelte';
 	import { goto } from '$app/navigation';
-	import ImageSlider from '../../../components/organisms/ImageSlider.svelte';
-	import WorkTitleStatic from '../../../components/atoms/WorkTitleStatic.svelte';
-	import DepartmentHeaderStatic from '../../../components/atoms/DepartmentHeaderStatic.svelte';
-	import PropertyRowStatic from '../../../components/atoms/PropertyRowStatic.svelte';
-	import HasEntityStatic from '../../../components/molecules/HasEntityStatic.svelte';
+	import ImageSlider from '$components/organisms/ImageSlider.svelte';
+	import WorkTitleStatic from '$components/atoms/WorkTitleStatic.svelte';
+	import DepartmentHeaderStatic from '$components/atoms/DepartmentHeaderStatic.svelte';
+	import PropertyRowStatic from '$components/atoms/PropertyRowStatic.svelte';
+	import HasEntityStatic from '$components/molecules/HasEntityStatic.svelte';
 	import { page } from '$app/stores';
-	import GoodJobButton from '../../../components/molecules/GoodJobButton.svelte';
+	import GoodJobButton from '$components/molecules/GoodJobButton.svelte';
 	export let data: PageData;
 	let work = new Work(data.work);
 	work.build(data);
@@ -65,7 +65,7 @@
 					{#each property.hasEntities as hasEntity}
 						<div class="justified-flex">
 							<HasEntityStatic {hasEntity} />
-							<GoodJobButton {hasEntity} />
+							<GoodJobButton bind:filmography={hasEntity} bind:goodJobs={hasEntity.goodJobs} />
 						</div>
 					{/each}
 				</div>

@@ -13,7 +13,8 @@
 	import PairOfInputs from '../atoms/PairOfInputs.svelte';
 	import type { PropertyHasEntity } from '$lib/frontend/class/PropertyHasEntity';
 	import GoodJobButton from '../molecules/GoodJobButton.svelte';
-	export let hasEntity: any;
+	import type { Filmography } from '$lib/frontend/class/Entity';
+	export let filmography: PropertyHasEntity;
 	export let editable = false;
 	export let onUp: (() => void) | false = false;
 	export let onDown: (() => void) | false = false;
@@ -28,18 +29,18 @@
 	<div>
 		<div class="grid">
 			<div>
-				<PropertyRowStatic property={hasEntity.property} />
+				<PropertyRowStatic property={filmography.property} />
 				<small
 					><em>
 						{#if $LocalEnSwitch == 'local'}
-							{hasEntity.department.titleLocal}
+							{filmography.department.titleLocal}
 						{:else}
-							{hasEntity.department.titleEn}
+							{filmography.department.titleEn}
 						{/if}
 					</em>
 				</small>
-				{#if !hasEntity.editing}
-					<HasEntitySubtextStatic {hasEntity} />
+				{#if !filmography.editing}
+					<HasEntitySubtextStatic hasEntity={filmography} />
 				{:else}
 					<div>
 						<Button
@@ -47,15 +48,15 @@
 							icon="edit"
 							label={_('Edit Work')}
 							onclick={() => {
-								goto(`/work/${hasEntity.work.id}/edit`, {
+								goto(`/work/${filmography.work.id}/edit`, {
 									invalidateAll: true
 								});
 							}}
 						/>
 					</div>
 					<PairOfInputs
-						bind:local={hasEntity.subtextLocal}
-						bind:en={hasEntity.subtextEn}
+						bind:local={filmography.subtextLocal}
+						bind:en={filmography.subtextEn}
 						label={_('Memo')}
 					/>
 				{/if}
@@ -63,14 +64,14 @@
 			<div style="margin-left:1rem">
 				<div class="flex">
 					<div style="flex:1; display:flex">
-						<a class="contrast" href="/work/{hasEntity.work.id}">
+						<a class="contrast" href="/work/{filmography.work.id}">
 							{#if $LocalEnSwitch == 'local'}
-								{hasEntity.work.titleLocal}
+								{filmography.work.titleLocal}
 							{:else}
-								{hasEntity.work.titleEn}
+								{filmography.work.titleEn}
 							{/if}
 						</a>
-						{#if hasEntity.work.videoURL}
+						{#if filmography.work.videoURL}
 							<span style="margin-left:var(--pico-spacing)">
 								<Icon icon="smart_display" />
 							</span>
@@ -78,8 +79,8 @@
 					</div>
 
 					<div>
-						{#if hasEntity.distributions && hasEntity.distributions.length}
-							{#each hasEntity.distributions as distribution}
+						{#if filmography.distributions && filmography.distributions.length}
+							{#each filmography.distributions as distribution}
 								<div>
 									<small>
 										<DistributionRowStatic {distribution} />
@@ -97,23 +98,23 @@
 			<EditControlButtons
 				onDelete={async () => {
 					if (!(await myConfirm(_('Are you sure?')))) return;
-					await hasEntity.delete();
-					hasEntity.editing = false;
+					await filmography.delete();
+					filmography.editing = false;
 					if (onDelete) {
 						onDelete();
 					}
 				}}
 				onSave={async () => {
-					onUpdate(hasEntity);
-					hasEntity.editing = false;
+					onUpdate(filmography);
+					filmography.editing = false;
 				}}
 				{onUp}
 				{onDown}
-				bind:editing={hasEntity.editing}
+				bind:editing={filmography.editing}
 			/>
 		</div>
 	{:else}
-		<GoodJobButton {hasEntity} />
+		<GoodJobButton bind:goodJobs={filmography.goodJobs} bind:filmography />
 	{/if}
 </div>
 

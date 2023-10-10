@@ -5,7 +5,7 @@ import { Department } from './Department';
 import { Property } from './Property';
 import { PropertyHasEntity } from './PropertyHasEntity';
 import { Work } from './Work';
-
+export type Filmography = {};
 export class Entity extends DBObject {
 	nameLocal: string;
 	nameEn: string;
@@ -19,6 +19,7 @@ export class Entity extends DBObject {
 	imdbURL: string;
 	officialWebsiteURL: string;
 	hasEntities: PropertyHasEntity[];
+	filmographies: Filmography[];
 	attachments: Attachment[];
 	constructor(data: any) {
 		data.table = 'Entity';
@@ -36,11 +37,13 @@ export class Entity extends DBObject {
 		this.officialWebsiteURL = data.officialWebsiteURL || '';
 		this.hasEntities = data.hasEntities || [];
 		this.attachments = data.attachments || [];
+		this.filmographies = data.filmographies || [];
 	}
-	build({ works, hasEntities, properties, departments, distributions }) {
-		this.hasEntities = hasEntities
+	build({ works, hasEntities, properties, departments, distributions, goodJobs }) {
+		this.filmographies = hasEntities
 			.map((hasEntity) => {
 				hasEntity = new PropertyHasEntity(hasEntity);
+				hasEntity.goodJobs = goodJobs.filter((goodJob) => goodJob.hasEntityId == hasEntity.id);
 				hasEntity.property = properties.find((property) => property.id == hasEntity.propertyId);
 				if (!hasEntity.property) {
 					//this property is not there already.
@@ -96,5 +99,12 @@ export class Entity extends DBObject {
 				//just return top 3
 				.slice(0, 3)
 		);
+	}
+	get totalGoodJobs(): number {
+		let count = 0;
+		this.filmographies.forEach((hasEntity) => {
+			count += hasEntity.goodJobs.length;
+		});
+		return count;
 	}
 }

@@ -1,6 +1,6 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
 	import Icon from './Icon.svelte';
+
 	export let icon: string = '';
 	export let label: string = '';
 	export let onclick: () => void;

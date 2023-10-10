@@ -5,13 +5,24 @@
 	export let entity: Entity;
 </script>
 
-{#each entity.popularCreditTitles as title, index}
-	{#if $LocalEnSwitch == 'local'}
-		{title.local}
-	{:else}
-		{title.en}
-	{/if}
-	{#if index != entity.popularCreditTitles.length - 1}
-		<span> | </span>
-	{/if}
-{/each}
+<div>
+	{#each entity.popularCreditTitles as title, index}
+		{#if $LocalEnSwitch == 'local'}
+			<mark>
+				{title.local}
+			</mark>
+		{:else}
+			<mark>
+				{title.en}
+			</mark>
+		{/if}
+	{/each}
+</div>
+
+<style>
+	div {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.4rem;
+	}
+</style>

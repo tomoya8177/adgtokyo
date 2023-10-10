@@ -17,6 +17,10 @@ export const GET = async ({ params }) => {
 			.map((p) => p.id)
 			.join("','")}') order by weight`
 	);
+	const goodJobs = await db.query(
+		`select * from GoodJob where hasEntityId in ('${hasEntities.map((h) => h.id).join("','")}')`
+	);
+	work.goodJobNumber = goodJobs.length;
 	const entities = await db.query(
 		`select * from Entity where id in ('${hasEntities.map((h) => h.entityId).join("','")}')`
 	);
@@ -32,7 +36,8 @@ export const GET = async ({ params }) => {
 			hasEntities,
 			entities,
 			distributions,
-			attachments
+			attachments,
+			goodJobs
 		})
 	);
 };

@@ -1,6 +1,5 @@
 <script lang="ts">
 	import type { Distribution } from '$lib/frontend/class/Distribution';
-
 	import { _ } from '$lib/frontend/i18n';
 	import PairOfInputs from './PairOfInputs.svelte';
 	export let distribution: Distribution;

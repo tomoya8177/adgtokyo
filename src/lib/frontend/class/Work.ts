@@ -63,7 +63,8 @@ export class Work extends DBObject {
 		hasEntities,
 		entities,
 		distributions,
-		attachments
+		attachments,
+		goodJobs
 	}: {
 		departments: Department[];
 		properties: Property[];
@@ -72,6 +73,7 @@ export class Work extends DBObject {
 		distributions?: Distribution[];
 		attachments?: Attachment[];
 		editing?: boolean;
+		goodJobs: any[];
 	}) {
 		this.departments =
 			departments
@@ -86,6 +88,9 @@ export class Work extends DBObject {
 								.filter((h) => h.propertyId == property.id)
 								.map((hasEntity) => {
 									hasEntity.entity = entities?.find((e) => e.id == hasEntity.entityId) || null;
+									hasEntity.goodJobs = goodJobs.filter(
+										(goodJob) => goodJob.hasEntityId == hasEntity.id
+									);
 									return new PropertyHasEntity(hasEntity);
 								});
 							return new Property(property);
@@ -103,5 +108,16 @@ export class Work extends DBObject {
 	}
 	get thumbnailURL() {
 		return this.attachments[0]?.thumbnailURL || '';
+	}
+	get goodJobNumber() {
+		let count = 0;
+		this.departments.forEach((department) => {
+			department.properties.forEach((property) => {
+				property.hasEntities.forEach((hasEntity) => {
+					count += hasEntity.goodJobs.length;
+				});
+			});
+		});
+		return count;
 	}
 }

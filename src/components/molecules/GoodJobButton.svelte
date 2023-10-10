@@ -1,57 +1,34 @@
 <script lang="ts">
-	import EntityNameStaticSmall from './EntityNameStaticSmall.svelte';
-
-	import HasEntitySubtextStatic from './HasEntitySubtextStatic.svelte';
-
 	import type { PropertyHasEntity } from '$lib/frontend/class/PropertyHasEntity';
 	import Icon from '../atoms/Icon.svelte';
-	import { onMount } from 'svelte';
 	import { api } from '$lib/frontend/class/API';
 	import { me } from '$lib/frontend/class/User';
 	import { _ } from '$lib/frontend/i18n';
 	import { myConfirm } from '$lib/frontend/class/Confirm';
 	import { User, auth0 } from '$lib/frontend/store';
 
-	export let hasEntity: PropertyHasEntity;
-	let checked = false;
-	let count = 0;
-	let goodJobId = '';
-	onMount(async () => {
-		const goodJobs = await api
-			.get('/api/GoodJob?hasEntityId=' + hasEntity.id)
-			.then((res) => res.data);
-		if (goodJobs.length > 0) {
-			count = goodJobs.length;
-			checked = goodJobs.some((goodJob) => goodJob.userId == me.id);
-			if (checked) {
-				goodJobId = goodJobs.find((goodJob) => goodJob.userId == me.id).id;
-			}
-		}
-	});
+	export let filmography: PropertyHasEntity;
+	export let goodJobs: any[];
+	$: goodJob = goodJobs.find((goodJob) => goodJob.userId == me.id);
 </script>
 
 <a
-	class:secondary={!checked}
+	class:secondary={!goodJob}
 	data-tooltip={_('Good Job!')}
 	href={'#'}
 	on:click={async () => {
-		if (checked) {
-			api.delete('/api/GoodJob/' + goodJobId).then((res) => {
-				count -= 1;
-				checked = false;
-			});
+		if (goodJob) {
+			await api.delete('/api/GoodJob/' + goodJob.id);
+			goodJobs = goodJobs.filter((g) => g.id != goodJob.id);
 		} else {
 			if ($User.authenticated) {
-				api
+				const res = await api
 					.post('/api/GoodJob', {
-						hasEntityId: hasEntity.id,
+						hasEntityId: filmography.id,
 						userId: me.id
 					})
-					.then((res) => {
-						count += 1;
-						checked = true;
-						goodJobId = res.data.id;
-					});
+					.then((res) => res.data);
+				goodJobs = [...goodJobs, res];
 			} else {
 				if (await myConfirm(_('Please login/register to give a good job!'))) {
 					$auth0.login();
@@ -61,7 +38,7 @@
 	}}
 >
 	<Icon icon="thumb_up" />
-	{count}
+	{goodJobs.length}
 </a>
 
 <style>

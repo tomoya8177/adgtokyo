@@ -12,6 +12,7 @@ export class PropertyHasEntity extends DBObject {
 	propertyId: string;
 	editing: boolean = false;
 	weightId: string;
+	goodJobs: any[];
 
 	constructor(data) {
 		data.table = 'PropertyHasEntity';
@@ -23,6 +24,7 @@ export class PropertyHasEntity extends DBObject {
 		this.weight = data.weight || 1;
 		this.propertyId = data.propertyId || '';
 		this.weightId = data.weightId || '';
+		this.goodJobs = data.goodJobs || [];
 	}
 	validate: () => {} = (): boolean => {
 		if (!this.entityId) {

@@ -39,6 +39,10 @@ export const GET = async ({ params }) => {
 				.sort((a, b) => (a.weight > b.weight ? 1 : -1));
 			return hasEntities;
 		});
+	const goodJobs = await db.query(
+		`select * from GoodJob where hasEntityId in ('${hasEntities.map((h) => h.id).join("','")}')`
+	);
+
 	const properties: any[] = await db
 		.query(
 			`select * from Property where id in ('${hasEntities.map((h) => h.propertyId).join("','")}')`
@@ -99,7 +103,8 @@ export const GET = async ({ params }) => {
 			departments,
 			properties,
 			hasEntities,
-			works
+			works,
+			goodJobs
 		})
 	);
 };

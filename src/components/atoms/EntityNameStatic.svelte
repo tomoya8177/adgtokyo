@@ -5,26 +5,31 @@
 	import { _ } from '$lib/frontend/i18n';
 	import { LocalEnSwitch } from '$lib/frontend/store';
 	import Button from './Button.svelte';
-	import Icon from './Icon.svelte';
 	import PopularFilmography from './PopularFilmography.svelte';
+	import TotalGoodJobCount from './TotalGoodJobCount.svelte';
 
 	export let entity: Entity;
 </script>
 
 {#if $LocalEnSwitch == 'local'}
-	<h2>
-		{entity.nameLocal}
-	</h2>
+	<div style="display:flex;gap:1rem;align-items:center">
+		<h2>
+			{entity.nameLocal}
+		</h2>
+		<TotalGoodJobCount count={entity.totalGoodJobs} />
+	</div>
 	<PopularFilmography {entity} />
 	<p>
 		{@html entity.descriptionLocal}
 	</p>
 {:else}
-	<h2>
-		{entity.nameEn}
-	</h2>
+	<div style="display:flex;gap:1rem;align-items:center">
+		<h2>
+			{entity.nameEn}
+		</h2>
+		<TotalGoodJobCount count={entity.totalGoodJobs} />
+	</div>
 	<PopularFilmography {entity} />
-
 	<p>
 		{@html entity.descriptionEn}
 	</p>

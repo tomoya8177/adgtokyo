@@ -2,15 +2,15 @@
 	import { _ } from '$lib/frontend/i18n';
 	import { BottomNavButton, LocalEnSwitch, UpdatedData } from '$lib/frontend/store';
 	import { onMount } from 'svelte';
-	import EntityNameStatic from '../../../components/atoms/EntityNameStatic.svelte';
+	import EntityNameStatic from '$components/atoms/EntityNameStatic.svelte';
 	import type { PageData } from './$types';
 	import { goto } from '$app/navigation';
-	import EntityCreditRow from '../../../components/organisms/EntityCreditRow.svelte';
-	import Heading from '../../../components/atoms/Heading.svelte';
+	import EntityCreditRow from '$components/organisms/EntityCreditRow.svelte';
+	import Heading from '$components/atoms/Heading.svelte';
 	import { workCategory } from '$lib/Category';
-	import HeadingLabel from '../../../components/atoms/HeadingLabel.svelte';
+	import HeadingLabel from '$components/atoms/HeadingLabel.svelte';
 	import { Entity } from '$lib/frontend/class/Entity';
-	import ImageSlider from '../../../components/organisms/ImageSlider.svelte';
+	import ImageSlider from '$components/organisms/ImageSlider.svelte';
 	import { myConfirm } from '$lib/frontend/class/Confirm';
 	export let data: PageData;
 	let entity = new Entity(data.entity);
@@ -56,12 +56,12 @@
 <hr />
 <Heading label={_('Filmography')} />
 {#each workCategory as category}
-	{@const hasEntities = entity.hasEntities.filter((has) => has.work.category == category.title)}
-	{#if hasEntities.length}
+	{@const filmographies = entity.filmographies.filter((has) => has.work.category == category.title)}
+	{#if filmographies.length}
 		<section>
 			<HeadingLabel label={_(category.title)} />
-			{#each hasEntities as hasEntity}
-				<EntityCreditRow onUpdate={() => {}} bind:hasEntity />
+			{#each filmographies as filmography}
+				<EntityCreditRow onUpdate={() => {}} bind:filmography />
 			{/each}
 		</section>
 	{/if}
