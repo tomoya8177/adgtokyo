@@ -21,6 +21,7 @@
 				}
 				$BottomNavButton.busy = true;
 				const response = await work.create();
+				await distribution.create();
 				console.log({ response }, work.id);
 
 				await new Department({
