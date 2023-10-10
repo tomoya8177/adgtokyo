@@ -118,6 +118,7 @@
 	.container {
 		padding: var(--pico-spacing);
 		position: relative;
+		overflow: hidden;
 	}
 	.footer {
 		box-shadow: var(--pico-card-box-shadow);
