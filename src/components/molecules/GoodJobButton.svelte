@@ -45,7 +45,7 @@
 	a {
 		text-decoration: none;
 		display: flex;
-		padding-right: 2rem;
-		padding-left: 2rem;
+		padding-right: 1rem;
+		padding-left: 1rem;
 	}
 </style>

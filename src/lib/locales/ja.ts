@@ -78,7 +78,7 @@ export default {
 	'Entity needs to be registered': 'エンティティを登録する必要があります',
 	Theater: '演劇',
 	'Please login/register to give a good job!': 'グッジョブをするにはログイン/登録してください！',
-	'Good Job!': 'グッジョブ！',
+	'Good Job!': 'グッジョブ!',
 	'Sign up': '新規登録',
 	'You need to be logged in.': 'ログインする必要があります。',
 	'Please contact support for claiming the entity ownership. Do you want to proceed to the support form?':
