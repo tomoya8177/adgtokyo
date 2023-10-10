@@ -18,7 +18,10 @@
 						href={'#'}
 						on:click={async () => {
 							const bool = await $BottomNavButton.onClick();
-							if (bool === false) return;
+							if (bool === false) {
+								$BottomNavButton.busy = false;
+								return;
+							}
 							$BottomNavButton.busy = true;
 						}}
 						aria-busy={$BottomNavButton.busy}
