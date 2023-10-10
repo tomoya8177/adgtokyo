@@ -107,7 +107,7 @@
 	.header {
 		height: 3.5rem;
 		overflow: visible;
-		border-bottom: 1px solid var(--pico-card-border-color);
+		border-bottom: 1px solid var(--pico-muted-border-color);
 		box-shadow: var(--pico-card-box-shadow);
 		background-color: var(--my-background-color);
 	}
@@ -121,7 +121,7 @@
 	}
 	.footer {
 		box-shadow: var(--pico-card-box-shadow);
-		border-top: 1px solid var(--pico-card-border-color);
+		border-top: 1px solid var(--pico-muted-border-color);
 		height: 3.5rem;
 		overflow: hidden;
 	}
