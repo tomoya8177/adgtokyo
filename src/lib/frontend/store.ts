@@ -26,7 +26,7 @@ export const BottomNavButton = writable({
 	onClick: () => Promise<boolean | void> | boolean | void;
 });
 
-export const LocalEnSwitch = writable(cookies.get('localEng') || ('local' as 'local' | 'en'));
+export const LocalEnSwitch = writable(cookies.get('localEng') || ('en' as 'local' | 'en'));
 export const Toasts = writable([] as any[]);
 export const ConfirmMessage = writable({
 	open: false,
