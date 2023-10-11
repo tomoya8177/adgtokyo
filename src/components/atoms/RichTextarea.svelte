@@ -15,7 +15,7 @@
 			skin: window.matchMedia('(prefers-color-scheme: dark)').matches ? 'oxide-dark' : 'oxide',
 			content_css: window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'default',
 			toolbar:
-				'styles fontsize backcolor forecolor  numlist bullist link bold italic underline strikethrough hr align indent outdent',
+				'backcolor forecolor numlist bullist link bold italic underline strikethrough hr align indent outdent',
 			menubar: false
 		}}
 	/>

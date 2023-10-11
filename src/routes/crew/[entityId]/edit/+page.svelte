@@ -19,7 +19,6 @@
 	import Button from '$components/UIComponents/Button.svelte';
 	export let data: PageData;
 	let entity = new Entity(data.entity);
-	console.log({ entity });
 	entity.build(data);
 	onMount(() => {
 		BottomNavButton.set({

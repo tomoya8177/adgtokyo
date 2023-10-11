@@ -40,7 +40,7 @@
 				profile.nickname = user.nickname;
 				profile.picture = user.picture || profile.picture;
 			}
-			me.setProfile(profile);
+			me.setProfile({ ...profile, subscription: user.subscription, entityId: user.entityId });
 		}
 		loggingIn = false;
 	});

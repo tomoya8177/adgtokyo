@@ -4,6 +4,7 @@ import { DBObject } from './DBObject';
 import { Department } from './Department';
 import { Property } from './Property';
 import { PropertyHasEntity } from './PropertyHasEntity';
+import type { User } from './User';
 import { Work } from './Work';
 export type Filmography = {};
 export class Entity extends DBObject {
@@ -101,5 +102,8 @@ export class Entity extends DBObject {
 			count += hasEntity.goodJobs.length;
 		});
 		return count;
+	}
+	get isOwnedByUser(): Promise<User | false> {
+		return api.get('/api/User?entityId=' + this.id).then((res) => res.data[0] || false);
 	}
 }

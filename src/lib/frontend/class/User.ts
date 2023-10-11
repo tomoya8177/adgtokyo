@@ -21,6 +21,8 @@ export class User extends DBObject {
 		this.id = profile.sub;
 		this.nickname = profile.nickname;
 		this.picture = profile.picture;
+		this.subscription = profile.subscription;
+		this.entityId = profile.entityId;
 	}
 }
 

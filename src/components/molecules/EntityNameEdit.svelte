@@ -6,7 +6,11 @@
 	import PairOfInputs from '../atoms/PairOfInputs.svelte';
 	import TranslateButton from '../atoms/TranslateButton.svelte';
 	import { me } from '$lib/frontend/class/User';
+	import { onMount } from 'svelte';
 	export let entity: Entity;
+	onMount(() => {
+		console.log({ me });
+	});
 </script>
 
 <PairOfInputs bind:local={entity.nameLocal} bind:en={entity.nameEn} label={_('Name')} />

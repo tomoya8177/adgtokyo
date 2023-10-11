@@ -1,4 +1,6 @@
 <script lang="ts">
+	import OwnershipDisplay from './OwnershipDisplay.svelte';
+
 	import { _ } from '$lib/frontend/i18n';
 	import { BottomNavButton, LocalEnSwitch, UpdatedData } from '$lib/frontend/store';
 	import { onMount } from 'svelte';
@@ -13,7 +15,6 @@
 	import ImageSlider from '$components/organisms/ImageSlider.svelte';
 	import { myConfirm } from '$lib/frontend/class/Confirm';
 	export let data: PageData;
-	console.log({ data });
 	let entity = new Entity(data.entity);
 	entity.build(data);
 	onMount(() => {
@@ -32,20 +33,7 @@
 	<a href={`/crew/${entity.id}/edit`}>{_('Edit This Page')}</a>
 
 	|
-	<a
-		on:click={async () => {
-			if (
-				await myConfirm(
-					_(
-						'Please contact support for claiming the entity ownership. Do you want to proceed to the support form?'
-					)
-				)
-			) {
-				goto('https://adgtokyo.channel.io/home');
-			}
-		}}
-		href={'#'}>{_('Claim this is me')}</a
-	>
+	<OwnershipDisplay {entity} />
 </div>
 
 <EntityNameStatic {entity} />
