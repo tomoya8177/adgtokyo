@@ -85,5 +85,7 @@ export default {
 		'エンティティの所有権を主張するには、サポートに連絡してください。 サポートフォームに進みますか？',
 	'Claim this is me': 'これは私です',
 	'total Good Jobs': '合計グッジョブ',
-	'Checking Ownership': '所有権をチェックしています'
+	'Checking Ownership': '所有権をチェックしています',
+	Website: 'ウェブサイト',
+	Bio: '自己紹介'
 };
