@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { PropertyHasEntity } from '$lib/frontend/class/PropertyHasEntity';
-	import Icon from '../atoms/Icon.svelte';
+	import Icon from '$components/UIComponents/Icon.svelte';
 	import { api } from '$lib/frontend/class/API';
 	import { me } from '$lib/frontend/class/User';
 	import { _ } from '$lib/frontend/i18n';

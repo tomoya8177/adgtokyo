@@ -6,7 +6,7 @@
 	import EditControlButtons from '../molecules/EditControlButtons.svelte';
 	import HasEntityStatic from '../molecules/HasEntityStatic.svelte';
 	import { myConfirm } from '$lib/frontend/class/Confirm';
-	import PairOfInputs from '../atoms/PairOfInputs.svelte';
+	import PairOfInputs from '$components/UIComponents/PairOfInputs.svelte';
 
 	export let hasEntity: PropertyHasEntity;
 	export let onDelete: () => void;

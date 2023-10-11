@@ -1,8 +1,8 @@
 <script lang="ts">
 	import { page } from '$app/stores';
+	import LocalEngSwitch from '$components/UIComponents/LocalEngSwitch.svelte';
 	import { _ } from '$lib/frontend/i18n';
 	import { BottomNavButton, onBottomNavButtonClicked } from '$lib/frontend/store';
-	import LocalEngSwitch from '../atoms/LocalEngSwitch.svelte';
 	let mode = 'createWork';
 </script>
 

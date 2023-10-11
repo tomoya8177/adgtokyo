@@ -2,7 +2,7 @@
 	import type { Department } from '$lib/frontend/class/Department';
 	import { _ } from '$lib/frontend/i18n';
 	import { search } from '$lib/frontend/search';
-	import PairOfInputs from '../atoms/PairOfInputs.svelte';
+	import PairOfInputs from '$components/UIComponents/PairOfInputs.svelte';
 	export let department: Department;
 	let duplicates: Department[] = [];
 	let fixed = false;

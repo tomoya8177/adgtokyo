@@ -1,5 +1,5 @@
 <script lang="ts">
-	import TotalGoodJobCount from './TotalGoodJobCount.svelte';
+	import TotalGoodJobCount from '$components/UIComponents/TotalGoodJobCount.svelte';
 
 	import type { Work } from '$lib/frontend/class/Work';
 	import { _ } from '$lib/frontend/i18n';

@@ -11,9 +11,8 @@
 	import DepartmentHeaderStatic from '$components/atoms/DepartmentHeaderStatic.svelte';
 	import PropertyRowStatic from '$components/atoms/PropertyRowStatic.svelte';
 	import HasEntityStatic from '$components/molecules/HasEntityStatic.svelte';
-	import { page } from '$app/stores';
 	import GoodJobButton from '$components/molecules/GoodJobButton.svelte';
-	import Heading from '$components/atoms/Heading.svelte';
+	import Heading from '$components/UIComponents/Heading.svelte';
 	export let data: PageData;
 	let work = new Work(data.work);
 	work.build(data);

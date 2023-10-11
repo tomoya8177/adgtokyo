@@ -1,5 +1,4 @@
 import { api } from './API';
-import { me } from './User';
 
 export class DBObject {
 	table: string;
@@ -10,7 +9,7 @@ export class DBObject {
 	}
 	update: (data: any) => Promise<any> = async (data) => {
 		await api.post('/api/History', {
-			userId: me.id,
+			// userId: me.id,
 			action: 'update',
 			target: this.table,
 			targetId: this.id,
@@ -26,7 +25,7 @@ export class DBObject {
 	};
 	delete: () => Promise<any> = async () => {
 		await api.post('/api/History', {
-			userId: me.id,
+			// userId: me.id,
 			action: 'delete',
 			target: this.table,
 			targetId: this.id
@@ -43,7 +42,7 @@ export class DBObject {
 		const created = await api.post(`/api/${this.table}`, this).then((res) => res.data);
 		this.id = created.id;
 		await api.post('/api/History', {
-			userId: me.id,
+			// userId: me.id,
 			action: 'create',
 			target: this.table,
 			targetId: this.id

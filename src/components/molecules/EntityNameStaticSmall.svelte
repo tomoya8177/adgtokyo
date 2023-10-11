@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { LocalEnSwitch } from '$lib/frontend/store';
 	import type { Entity } from '$lib/frontend/class/Entity';
-	import Icon from '../atoms/Icon.svelte';
 	export let entity: Entity;
 </script>
 

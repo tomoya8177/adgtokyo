@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { _ } from '$lib/frontend/i18n';
-	import Icon from '$components/atoms/Icon.svelte';
+	import Icon from '$components/UIComponents/Icon.svelte';
 
 	export let url: string;
 </script>

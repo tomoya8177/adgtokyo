@@ -2,9 +2,9 @@
 	import { page } from '$app/stores';
 	import { Work } from '$lib/frontend/class/Work';
 	import { search } from '$lib/frontend/search';
-	import Searching from '$components/atoms/Searching.svelte';
+	import Searching from '$components/UIComponents/Searching.svelte';
 	import WorkCard from '$components/organisms/WorkCard.svelte';
-	import NoResults from '$components/atoms/NoResults.svelte';
+	import NoResults from '$components/UIComponents/NoResults.svelte';
 
 	$: results = search($page.params.keywords, 'work').then((works) => {
 		return works.map((work) => {

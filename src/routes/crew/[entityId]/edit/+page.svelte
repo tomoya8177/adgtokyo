@@ -9,11 +9,11 @@
 	import { goto } from '$app/navigation';
 	import EditControlButtons from '$components/molecules/EditControlButtons.svelte';
 	import { api } from '$lib/frontend/class/API';
-	import Heading from '$components/atoms/Heading.svelte';
+	import Heading from '$components/UIComponents/Heading.svelte';
 	import { myConfirm } from '$lib/frontend/class/Confirm';
 	import LoginWarningModal from '$components/panels/LoginWarningModal.svelte';
 	import { workCategory } from '$lib/Category';
-	import HeadingLabel from '$components/atoms/HeadingLabel.svelte';
+	import HeadingLabel from '$components/UIComponents/HeadingLabel.svelte';
 	import { Entity } from '$lib/frontend/class/Entity';
 	import type { PropertyHasEntity } from '$lib/frontend/class/PropertyHasEntity';
 	import Button from '$components/UIComponents/Button.svelte';

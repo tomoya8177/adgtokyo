@@ -1,17 +1,17 @@
 <script lang="ts">
 	import { _ } from '$lib/frontend/i18n';
 	import { LocalEnSwitch } from '$lib/frontend/store';
-	import PropertyRowStatic from '../atoms/PropertyRowStatic.svelte';
+	import PropertyRowStatic from '$components/atoms/PropertyRowStatic.svelte';
 	import DistributionRowStatic from './DistributionRowStatic.svelte';
-	import EditControlButtons from '../molecules/EditControlButtons.svelte';
-	import HasEntitySubtextStatic from '../molecules/HasEntitySubtextStatic.svelte';
+	import EditControlButtons from '$components/molecules/EditControlButtons.svelte';
+	import HasEntitySubtextStatic from '$components/molecules/HasEntitySubtextStatic.svelte';
 	import { myConfirm } from '$lib/frontend/class/Confirm';
-	import Icon from '../atoms/Icon.svelte';
+	import Icon from '$components/UIComponents/Icon.svelte';
 	import { goto } from '$app/navigation';
-	import Button from '../UIComponents/Button.svelte';
-	import PairOfInputs from '../atoms/PairOfInputs.svelte';
+	import Button from '$components/UIComponents/Button.svelte';
+	import PairOfInputs from '$components/UIComponents/PairOfInputs.svelte';
 	import type { PropertyHasEntity } from '$lib/frontend/class/PropertyHasEntity';
-	import GoodJobButton from '../molecules/GoodJobButton.svelte';
+	import GoodJobButton from '$components/molecules/GoodJobButton.svelte';
 	export let filmography: PropertyHasEntity;
 	export let editable = false;
 	export let onUp: (() => void) | false = false;

@@ -1,8 +1,7 @@
 <script lang="ts">
 	import type { Work } from '$lib/frontend/class/Work';
-	import { DateTime } from 'luxon';
 	import { LocalEnSwitch } from '$lib/frontend/store';
-	import SquareThumbnail from '../atoms/SquareThumbnail.svelte';
+	import SquareThumbnail from '$components/UIComponents/SquareThumbnail.svelte';
 	import { _ } from '$lib/frontend/i18n';
 
 	export let work: Work;
@@ -32,17 +31,6 @@
 					</mark>
 				</div>
 			{/if}
-			<!-- <div>
-				<small
-					><em>
-						{#if $LocalEnSwitch == 'local'}
-							{work.formatLocal}
-						{:else}
-							{work.formatEn}
-						{/if}
-					</em>
-				</small>
-			</div> -->
 		</div>
 		{#if attachment || work.descriptionLocal != '' || work.descriptionEn != ''}
 			<div class="justified-flex">

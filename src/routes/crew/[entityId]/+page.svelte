@@ -1,19 +1,18 @@
 <script lang="ts">
-	import OwnershipDisplay from './OwnershipDisplay.svelte';
+	import OwnershipDisplay from '$components/organisms/OwnershipDisplay.svelte';
 
 	import { _ } from '$lib/frontend/i18n';
-	import { BottomNavButton, LocalEnSwitch, UpdatedData } from '$lib/frontend/store';
+	import { BottomNavButton } from '$lib/frontend/store';
 	import { onMount } from 'svelte';
 	import EntityNameStatic from '$components/atoms/EntityNameStatic.svelte';
 	import type { PageData } from './$types';
 	import { goto } from '$app/navigation';
 	import EntityCreditRow from '$components/organisms/EntityCreditRow.svelte';
-	import Heading from '$components/atoms/Heading.svelte';
+	import Heading from '$components/UIComponents/Heading.svelte';
 	import { workCategory } from '$lib/Category';
-	import HeadingLabel from '$components/atoms/HeadingLabel.svelte';
+	import HeadingLabel from '$components/UIComponents/HeadingLabel.svelte';
 	import { Entity } from '$lib/frontend/class/Entity';
 	import ImageSlider from '$components/organisms/ImageSlider.svelte';
-	import { myConfirm } from '$lib/frontend/class/Confirm';
 	export let data: PageData;
 	let entity = new Entity(data.entity);
 	entity.build(data);
@@ -29,11 +28,15 @@
 	});
 </script>
 
-<div style="text-align:right">
-	<a href={`/crew/${entity.id}/edit`}>{_('Edit This Page')}</a>
-
-	|
-	<OwnershipDisplay {entity} />
+<div class="justified-flex">
+	<div />
+	<div style="display:flex; gap:0.4rem">
+		<div>
+			<a href={`/crew/${entity.id}/edit`}>{_('Edit This Page')}</a>
+		</div>
+		<div>|</div>
+		<OwnershipDisplay {entity} />
+	</div>
 </div>
 
 <EntityNameStatic {entity} />

@@ -8,7 +8,7 @@
 	import { Attachment } from '$lib/frontend/class/Attachments';
 	import WorkCard from '$components/organisms/WorkCard.svelte';
 	import TopSlideShow from '$components/atoms/TopSlideShow.svelte';
-	import Heading from '$components/atoms/Heading.svelte';
+	import Heading from '$components/UIComponents/Heading.svelte';
 	export let data: PageData;
 
 	let works = data.works.map((work) => {

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import Icon from '$components/atoms/Icon.svelte';
+	import Icon from '$components/UIComponents/Icon.svelte';
 	export let icon: string = '';
 	export let label: string = '';
 	export let onclick: () => void;

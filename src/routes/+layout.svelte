@@ -3,12 +3,12 @@
 	import { onMount } from 'svelte';
 	import { User, auth0 } from '$lib/frontend/store';
 	import { page } from '$app/stores';
-	import TopNav from '$components/organisms/TopNav.svelte';
+	import TopNav from '$components/panels/TopNav.svelte';
 	import { goto } from '$app/navigation';
-	import BottomNav from '$components/organisms/BottomNav.svelte';
-	import Toasts from '$components/organisms/Toasts.svelte';
+	import BottomNav from '$components/panels/BottomNav.svelte';
+	import Toasts from '$components/panels/Toasts.svelte';
 	import ConfirmModal from '$components/panels/ConfirmModal.svelte';
-	import { User as UserClass, me } from '$lib/frontend/class/User';
+	import { me } from '$lib/frontend/class/User';
 	import PromptModal from '$components/panels/PromptModal.svelte';
 	import { api } from '$lib/frontend/class/API';
 	let loggingIn = true;

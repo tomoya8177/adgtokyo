@@ -1,18 +1,16 @@
 <script lang="ts">
-	import LocaleSwitch from './LocaleSwitch.svelte';
+	import LocaleSwitch from '$components/UIComponents/LocaleSwitch.svelte';
 
-	import { api } from '$lib/frontend/class/API';
 	import { User, auth0 } from '$lib/frontend/store';
 	import { page } from '$app/stores';
-	import { slide } from 'svelte/transition';
-	import Icon from '../atoms/Icon.svelte';
-	import SearchBox from '../molecules/SearchBox.svelte';
-	import Logo from '../atoms/Logo.svelte';
+	import Icon from '$components/UIComponents/Icon.svelte';
+	import SearchBox from '$components/UIComponents/SearchBox.svelte';
 	import { _ } from '$lib/frontend/i18n';
 	import { myPrompt } from '$lib/frontend/class/Prompt';
 	import { toast } from '$lib/frontend/toast';
-	import UserProfilePicture from '../atoms/UserProfilePicture.svelte';
+	import UserProfilePicture from '$components/UIComponents/UserProfilePicture.svelte';
 	import { me } from '$lib/frontend/class/User';
+	import Logo from '$components/UIComponents/Logo.svelte';
 	export let searchKeywords: string;
 	export let onKeywordsChange: (value: string) => void;
 	let searching = false;
@@ -54,8 +52,8 @@
 						</li>
 
 						{#if me.picture}
-							<li>
-								<UserProfilePicture />
+							<li style="text-align:center">
+								<UserProfilePicture user={me} />
 							</li>
 						{:else}
 							<hr />

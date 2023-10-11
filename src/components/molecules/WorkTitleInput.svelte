@@ -2,7 +2,7 @@
 	import { workCategory } from '$lib/Category';
 	import type { Work } from '$lib/frontend/class/Work';
 	import { _ } from '$lib/frontend/i18n';
-	import PairOfInputs from '../atoms/PairOfInputs.svelte';
+	import PairOfInputs from '$components/UIComponents/PairOfInputs.svelte';
 	export let work: Work;
 </script>
 

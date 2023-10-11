@@ -1,10 +1,6 @@
 <script lang="ts">
-	import TranslateButton from './TranslateButton.svelte';
-
-	import { api } from '$lib/frontend/class/API';
+	import TranslateButton from '$components/UIComponents/TranslateButton.svelte';
 	import { _ } from '$lib/frontend/i18n';
-	import Icon from './Icon.svelte';
-
 	export let label: string;
 	export let local: string;
 	export let en: string;

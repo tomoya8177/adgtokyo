@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { Department } from '$lib/frontend/class/Department';
 	import { LocalEnSwitch } from '$lib/frontend/store';
-	import HeadingLabel from './HeadingLabel.svelte';
+	import HeadingLabel from '$components/UIComponents/HeadingLabel.svelte';
 
 	export let department: Department;
 </script>

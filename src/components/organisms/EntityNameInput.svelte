@@ -1,11 +1,11 @@
 <script lang="ts">
-	import Icon from '$components/atoms/Icon.svelte';
-	import Searching from '$components/atoms/Searching.svelte';
+	import Icon from '$components/UIComponents/Icon.svelte';
+	import Searching from '$components/UIComponents/Searching.svelte';
 	import { api } from '$lib/frontend/class/API';
 	import { Entity } from '$lib/frontend/class/Entity';
 	import { _ } from '$lib/frontend/i18n';
 	import { search } from '$lib/frontend/search';
-	import PairOfInputs from '../atoms/PairOfInputs.svelte';
+	import PairOfInputs from '$components/UIComponents/PairOfInputs.svelte';
 	export let inputLocal: string;
 	export let inputEn: string;
 	export let onExistingClicked: (entity: Entity) => void;

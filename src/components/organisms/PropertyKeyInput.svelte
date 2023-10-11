@@ -4,7 +4,7 @@
 	import type { Property } from '$lib/frontend/class/Property';
 	import { _ } from '$lib/frontend/i18n';
 	import { search } from '$lib/frontend/search';
-	import PairOfInputs from '../atoms/PairOfInputs.svelte';
+	import PairOfInputs from '$components/UIComponents/PairOfInputs.svelte';
 	export let property: Property;
 	let fixed = false;
 	let duplicates: Property[] = [];

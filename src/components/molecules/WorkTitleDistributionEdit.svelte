@@ -2,10 +2,10 @@
 	import WorkTitleInput from './WorkTitleInput.svelte';
 	import { Work } from '$lib/frontend/class/Work';
 	import { _ } from '$lib/frontend/i18n';
-	import Heading from '../atoms/Heading.svelte';
+	import Heading from '$components/UIComponents/Heading.svelte';
 	import type { Distribution } from '$lib/frontend/class/Distribution';
-	import DistributionInput from '../atoms/DistributionInput.svelte';
-	import Icon from '../atoms/Icon.svelte';
+	import DistributionInput from '$components/atoms/DistributionInput.svelte';
+	import Icon from '$components/UIComponents/Icon.svelte';
 	import { search } from '$lib/frontend/search';
 	import { api } from '$lib/frontend/class/API';
 	export let work: Work;

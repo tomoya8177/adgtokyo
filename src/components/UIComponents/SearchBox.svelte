@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { _ } from '$lib/frontend/i18n';
-	import Icon from '../atoms/Icon.svelte';
 	export let value = '';
 	export let onchange = (value: string) => {};
 </script>

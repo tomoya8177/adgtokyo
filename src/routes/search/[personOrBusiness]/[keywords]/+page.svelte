@@ -3,9 +3,9 @@
 	import { Entity } from '$lib/frontend/class/Entity';
 	import { _ } from '$lib/frontend/i18n';
 	import { search } from '$lib/frontend/search';
-	import Searching from '$components/atoms/Searching.svelte';
+	import Searching from '$components/UIComponents/Searching.svelte';
 	import EntityCard from '$components/organisms/EntityCard.svelte';
-	import NoResults from '$components/atoms/NoResults.svelte';
+	import NoResults from '$components/UIComponents/NoResults.svelte';
 
 	$: results = search($page.params.keywords, $page.params.personOrBusiness).then((entities) => {
 		return entities.map((entity) => {

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import Icon from '../atoms/Icon.svelte';
+	import Icon from '$components/UIComponents/Icon.svelte';
 	export let editing: boolean;
 	export let onSave: (() => void) | false = false;
 	export let onDelete: (() => void) | false = false;

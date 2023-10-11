@@ -6,7 +6,7 @@
 	import { Department } from '$lib/frontend/class/Department';
 	import { onMount } from 'svelte';
 	import { goto } from '$app/navigation';
-	import Heading from '$components/atoms/Heading.svelte';
+	import Heading from '$components/UIComponents/Heading.svelte';
 	import DepartmentTitleInput from '$components/molecules/DepartmentTitleInput.svelte';
 	import PropertyKeyInput from '$components/organisms/PropertyKeyInput.svelte';
 	import { Property } from '$lib/frontend/class/Property';

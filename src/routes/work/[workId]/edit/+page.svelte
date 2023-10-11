@@ -14,8 +14,8 @@
 	import { Distribution } from '$lib/frontend/class/Distribution';
 	import DistributionRow from '$components/organisms/DistributionRow.svelte';
 	import { Attachment } from '$lib/frontend/class/Attachments';
-	import Uploader from '$components/atoms/Uploader.svelte';
-	import Heading from '$components/atoms/Heading.svelte';
+	import Uploader from '$components/UIComponents/Uploader.svelte';
+	import Heading from '$components/UIComponents/Heading.svelte';
 	import LoginWarningModal from '$components/panels/LoginWarningModal.svelte';
 	import { Property } from '$lib/frontend/class/Property';
 	import { PropertyHasEntity } from '$lib/frontend/class/PropertyHasEntity';

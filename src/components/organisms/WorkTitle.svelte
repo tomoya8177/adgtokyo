@@ -2,11 +2,11 @@
 	import { myConfirm } from '$lib/frontend/class/Confirm';
 	import type { Work } from '$lib/frontend/class/Work';
 	import { _ } from '$lib/frontend/i18n';
-	import RichTextarea from '../atoms/RichTextarea.svelte';
-	import TranslateButton from '../atoms/TranslateButton.svelte';
-	import WorkTitleStatic from '../atoms/WorkTitleStatic.svelte';
-	import EditControlButtons from '../molecules/EditControlButtons.svelte';
-	import WorkTitleInput from '../molecules/WorkTitleInput.svelte';
+	import RichTextarea from '$components/UIComponents/RichTextarea.svelte';
+	import WorkTitleStatic from '$components/atoms/WorkTitleStatic.svelte';
+	import EditControlButtons from '$components/molecules/EditControlButtons.svelte';
+	import WorkTitleInput from '$components/molecules/WorkTitleInput.svelte';
+	import TranslateButton from '$components/UIComponents/TranslateButton.svelte';
 	export let work: Work;
 	export let onUpdate: (work: Work) => void;
 </script>
