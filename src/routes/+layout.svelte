@@ -40,10 +40,7 @@
 				profile.nickname = user.nickname;
 				profile.picture = user.picture || profile.picture;
 			}
-			me.id = profile.sub;
-			console.log({ user });
-			$User.user = new UserClass(user || {});
-			$User.profile = profile;
+			me.setProfile({ ...profile, subscription: user.subscription, entityId: user.entityId });
 		}
 		loggingIn = false;
 	});

@@ -3,10 +3,9 @@
 
 	import type { Work } from '$lib/frontend/class/Work';
 	import { _ } from '$lib/frontend/i18n';
+	import Button from '$components/UIComponents/Button.svelte';
 	import { LocalEnSwitch } from '$lib/frontend/store';
-	import Button from './Button.svelte';
-	import ImDbButton from './IMDbButton.svelte';
-	import Icon from './Icon.svelte';
+	import ImDbButton from '$components/UIComponents/IMDbButton.svelte';
 
 	export let work: Work;
 </script>

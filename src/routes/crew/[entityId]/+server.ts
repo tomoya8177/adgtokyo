@@ -1,3 +1,4 @@
+import { workCategory } from '$lib/Category.js';
 import { db } from '$lib/backend/db.js';
 import { redirect } from '@sveltejs/kit';
 
@@ -15,31 +16,37 @@ export const GET = async ({ params }) => {
 	const weights = await db.query(
 		`select * from WeightForEntity where entityId='${params.entityId}'`
 	);
-	const promises = [];
 	const hasEntities = await db
 		.query(`select * from PropertyHasEntity where entityId='${params.entityId}'`)
 		.then((hasEntities) => {
-			hasEntities = hasEntities
-				.map((hasEntity, index) => {
-					hasEntity.weight = weights.find((w) => w.attachedTo === hasEntity.id)?.weight;
-					hasEntity.weightId = weights.find((w) => w.attachedTo === hasEntity.id)?.id;
-					if (!hasEntity.weight) {
-						const id = crypto.randomUUID();
-						hasEntity.weight = index + 1;
-						hasEntity.weightId = id;
-						promises.push(
-							db.query(
-								`insert into WeightForEntity (id,entityId, attachedTo, weight) values ('${id}','${
-									params.entityId
-								}','${hasEntity.id}',${index + 1})`
-							)
-						);
-					}
-					return hasEntity;
-				})
-				.sort((a, b) => (a.weight > b.weight ? 1 : -1));
-			return hasEntities;
+			hasEntities = hasEntities.map((hasEntity, index) => {
+				const existing = weights.find((w) => w.attachedTo === hasEntity.id);
+				if (existing) {
+					hasEntity.weight = existing.weight;
+					hasEntity.weightId = existing.id;
+				} else {
+					const id = crypto.randomUUID();
+					hasEntity.weight = index + 1;
+					hasEntity.weightId = id;
+					const newWeight = {
+						id,
+						entityId: params.entityId,
+						attachedTo: hasEntity.id,
+						weight: index + 1
+					};
+					weights.push(newWeight);
+					hasEntity.weight = newWeight.weight;
+					hasEntity.weightId = newWeight.id;
+
+					db.query(
+						`insert into WeightForEntity (id,entityId, attachedTo, weight) values ('${newWeight.id}','${newWeight.entityId}','${newWeight.attachedTo}',${newWeight.weight})`
+					);
+				}
+				return hasEntity;
+			});
+			return hasEntities.sort((a, b) => (b.weight < a.weight ? 1 : -1));
 		});
+
 	const goodJobs = await db.query(
 		`select * from GoodJob where hasEntityId in ('${hasEntities.map((h) => h.id).join("','")}')`
 	);
@@ -65,7 +72,9 @@ export const GET = async ({ params }) => {
 				.join("','")}')`
 		)
 		.then((departments) => {
+			//filter duplicates
 			departments = departments
+				.filter((department, index, self) => self.findIndex((d) => d.id == department.id) == index)
 				.map((department) => {
 					department.weight = weights.find((w) => w.attachedTo === department.id)?.weight || 1;
 					return department;
@@ -73,7 +82,9 @@ export const GET = async ({ params }) => {
 				.sort((a, b) => b.weight - a.weight);
 			return departments;
 		});
-
+	const newWeights: {
+		[id: string]: number;
+	} = {};
 	const works = await db
 		.query(`select * from Work where id in ('${departments.map((d) => d.workId).join("','")}')`)
 		.then((works) => {
@@ -91,6 +102,46 @@ export const GET = async ({ params }) => {
 	);
 	works.forEach((work) => {
 		work.attachments = workAttachments.filter((a) => a.attachedTo == work.id);
+	});
+	const hasEntityGroupedByCategory: {
+		[categoryTitle: string]: any[];
+	} = {};
+	workCategory.forEach((category) => {
+		let index = 0;
+		works
+			.filter((work) => work.category == category.title)
+			.forEach((work) => {
+				departments
+					.filter((department) => department.workId == work.id)
+					.forEach((department) => {
+						properties
+							.filter((property) => property.departmentId == department.id)
+							.forEach((property) => {
+								index++;
+								hasEntities
+									.filter((hasEntity) => hasEntity.propertyId == property.id)
+									.forEach((hasEntity) => {
+										if (!hasEntityGroupedByCategory[category.title])
+											hasEntityGroupedByCategory[category.title] = [];
+										hasEntityGroupedByCategory[category.title].push(hasEntity);
+									});
+							});
+					});
+			});
+	});
+	Object.entries(hasEntityGroupedByCategory).forEach(([categoryTitle, hasEntities]) => {
+		hasEntities.sort((a, b) => (b.weight < a.weight ? 1 : -1));
+		hasEntities.forEach((hasEntity, index) => {
+			newWeights[hasEntity.id] = index + 1;
+		});
+	});
+	// update all hasEntities with new weight value
+	hasEntities.forEach((hasEntity) => {
+		if (hasEntity.weight == newWeights[hasEntity.id]) return;
+		hasEntity.weight = newWeights[hasEntity.id];
+		db.query(
+			`update WeightForEntity set weight=${hasEntity.weight} where id='${hasEntity.weightId}'`
+		);
 	});
 
 	const distributions = await db.query(

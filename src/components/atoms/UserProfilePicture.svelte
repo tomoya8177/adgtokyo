@@ -1,10 +1,10 @@
 <script lang="ts">
-	import { User } from '$lib/frontend/store';
+	import { me } from '$lib/frontend/class/User';
 	export let size = '4rem';
 </script>
 
 <div style="width:{size};height:{size}">
-	<img src={$User.profile.picture} alt={$User.profile.nickname} />
+	<img src={me.picture} alt={me.nickname} />
 </div>
 
 <style>

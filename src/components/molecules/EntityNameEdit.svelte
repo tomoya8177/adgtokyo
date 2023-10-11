@@ -5,7 +5,12 @@
 	import type { Entity } from '$lib/frontend/class/Entity';
 	import PairOfInputs from '../atoms/PairOfInputs.svelte';
 	import TranslateButton from '../atoms/TranslateButton.svelte';
+	import { me } from '$lib/frontend/class/User';
+	import { onMount } from 'svelte';
 	export let entity: Entity;
+	onMount(() => {
+		console.log({ me });
+	});
 </script>
 
 <PairOfInputs bind:local={entity.nameLocal} bind:en={entity.nameEn} label={_('Name')} />
@@ -17,7 +22,7 @@
 	{_('Website')}
 	<input bind:value={entity.officialWebsiteURL} type="url" />
 </label>
-{#if $User.user.isPro && $User.user.entityId == entity.id}
+{#if me.isPro && me.entityId == entity.id}
 	<label for="bio-local">
 		{_('Bio')}
 		({_('Local')})

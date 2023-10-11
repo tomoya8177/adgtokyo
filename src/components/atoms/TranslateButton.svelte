@@ -1,8 +1,6 @@
 <script lang="ts">
 	import { api } from '$lib/frontend/class/API';
 	import { _ } from '$lib/frontend/i18n';
-	import Icon from './Icon.svelte';
-
 	export let local: string;
 	export let en: string;
 	export let forTitle = true;

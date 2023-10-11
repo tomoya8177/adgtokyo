@@ -6,7 +6,7 @@
 
 	import { _ } from '$lib/frontend/i18n';
 	import { BottomNavButton, User } from '$lib/frontend/store';
-	import Button from '$components/atoms/Button.svelte';
+	import Button from '$components/UIComponents/Button.svelte';
 	import WorkTitle from '$components/organisms/WorkTitle.svelte';
 	import type { PageData } from './$types';
 	import DepartmentRow from '$components/organisms/DepartmentRow.svelte';
@@ -20,6 +20,7 @@
 	import { Property } from '$lib/frontend/class/Property';
 	import { PropertyHasEntity } from '$lib/frontend/class/PropertyHasEntity';
 	import { goto } from '$app/navigation';
+	import { me } from '$lib/frontend/class/User';
 	export let data: PageData;
 	let departmentButtonBusy = false;
 	let work = new Work(data.work);
@@ -137,7 +138,7 @@
 				return new Attachment({
 					filename: file.filename,
 					attachedTo: work.id,
-					userId: $User.profile.sub,
+					userId: me.sub,
 					url: file.url,
 					handle: file.handle
 				}).create();

@@ -1,11 +1,8 @@
 <script lang="ts">
 	import type { Department } from '$lib/frontend/class/Department';
 	import { Property } from '$lib/frontend/class/Property';
-	import type { Work } from '$lib/frontend/class/Work';
 	import { _ } from '$lib/frontend/i18n';
-	import { fade } from 'svelte/transition';
-	import Button from '../atoms/Button.svelte';
-
+	import Button from '../UIComponents/Button.svelte';
 	import DepartmentRowHeader from '../molecules/DepartmentRowHeader.svelte';
 	import PropertyRow from './PropertyRow.svelte';
 	import { PropertyHasEntity } from '$lib/frontend/class/PropertyHasEntity';
@@ -15,7 +12,7 @@
 	export let onDown: (() => void) | false;
 	export let onUpdate: (department: Department) => void;
 	export let onPropertyUpdate: (property: Property) => void;
-	export let onHasEntityUpdate: (hasEntity: PropertyHasEntity) => void;
+	export let onHasEntityUpdate: (hasEntity: PropertyHasEntity) => Promise<void>;
 	let creditTitleBusy = false;
 </script>
 

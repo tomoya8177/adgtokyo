@@ -1,10 +1,10 @@
 <script lang="ts">
-	import IMDbButton from './IMDbButton.svelte';
+	import IMDbButton from '$components/UIComponents/IMDbButton.svelte';
 
 	import type { Entity } from '$lib/frontend/class/Entity';
 	import { _ } from '$lib/frontend/i18n';
 	import { LocalEnSwitch } from '$lib/frontend/store';
-	import Button from './Button.svelte';
+	import Button from '$components/UIComponents/Button.svelte';
 	import PopularFilmography from './PopularFilmography.svelte';
 	import TotalGoodJobCount from './TotalGoodJobCount.svelte';
 

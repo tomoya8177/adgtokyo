@@ -4,6 +4,7 @@ import { DBObject } from './DBObject';
 import { Department } from './Department';
 import { Property } from './Property';
 import { PropertyHasEntity } from './PropertyHasEntity';
+import type { User } from './User';
 import { Work } from './Work';
 export type Filmography = {};
 export class Entity extends DBObject {
@@ -44,7 +45,6 @@ export class Entity extends DBObject {
 				hasEntity.goodJobs = goodJobs.filter((goodJob) => goodJob.hasEntityId == hasEntity.id);
 				hasEntity.property = properties.find((property) => property.id == hasEntity.propertyId);
 				if (!hasEntity.property) {
-					//this property is not there already.
 					api.delete('/api/PropertyHasEntity/' + hasEntity.id);
 					return false;
 				}
@@ -53,14 +53,12 @@ export class Entity extends DBObject {
 					(department) => department.id == hasEntity.property.departmentId
 				);
 				if (!hasEntity.department) {
-					//this department is not there already.
 					api.delete('/api/Property/' + hasEntity.property.id);
 					return false;
 				}
 				hasEntity.department = new Department(hasEntity.department);
 				hasEntity.work = works.find((work) => work.id == hasEntity.department.workId);
 				if (!hasEntity.work) {
-					//this department is not there already.
 					api.delete('/api/Department/' + hasEntity.department.id);
 					return false;
 				}
@@ -69,7 +67,6 @@ export class Entity extends DBObject {
 				if (hasEntity.work.attachments.length > 0) {
 					this.attachments = [...this.attachments, hasEntity.work.attachments[0]];
 				}
-
 				hasEntity.distributions = distributions.filter(
 					(distribution) => distribution.workId == hasEntity.work.id
 				);
@@ -105,5 +102,8 @@ export class Entity extends DBObject {
 			count += hasEntity.goodJobs.length;
 		});
 		return count;
+	}
+	get isOwnedByUser(): Promise<User | false> {
+		return api.get('/api/User?entityId=' + this.id).then((res) => res.data[0] || false);
 	}
 }

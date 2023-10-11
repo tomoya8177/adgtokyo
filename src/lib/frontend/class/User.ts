@@ -1,3 +1,4 @@
+import type { UserProfile } from 'auth0';
 import { DBObject } from './DBObject';
 
 export class User extends DBObject {
@@ -15,6 +16,13 @@ export class User extends DBObject {
 	}
 	get isPro(): boolean {
 		return this.subscription == 'pro';
+	}
+	setProfile(profile: UserProfile) {
+		this.id = profile.sub;
+		this.nickname = profile.nickname;
+		this.picture = profile.picture;
+		this.subscription = profile.subscription;
+		this.entityId = profile.entityId;
 	}
 }
 

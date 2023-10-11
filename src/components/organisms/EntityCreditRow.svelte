@@ -8,7 +8,7 @@
 	import { myConfirm } from '$lib/frontend/class/Confirm';
 	import Icon from '../atoms/Icon.svelte';
 	import { goto } from '$app/navigation';
-	import Button from '../atoms/Button.svelte';
+	import Button from '../UIComponents/Button.svelte';
 	import PairOfInputs from '../atoms/PairOfInputs.svelte';
 	import type { PropertyHasEntity } from '$lib/frontend/class/PropertyHasEntity';
 	import GoodJobButton from '../molecules/GoodJobButton.svelte';

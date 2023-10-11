@@ -3,8 +3,6 @@
 
 	import type { Department } from '$lib/frontend/class/Department';
 	import { _ } from '$lib/frontend/i18n';
-	import { LocalEnSwitch } from '$lib/frontend/store';
-	import Button from '../atoms/Button.svelte';
 	import DepartmentHeaderStatic from '../atoms/DepartmentHeaderStatic.svelte';
 	import EditControlButtons from './EditControlButtons.svelte';
 	import { myConfirm } from '$lib/frontend/class/Confirm';
