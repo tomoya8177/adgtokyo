@@ -2,6 +2,7 @@ import { api } from './API';
 import type { Attachment } from './Attachments';
 import { DBObject } from './DBObject';
 import { Department } from './Department';
+import { GoodJob } from './GoodJob';
 import { Property } from './Property';
 import { PropertyHasEntity } from './PropertyHasEntity';
 import type { User } from './User';
@@ -42,7 +43,9 @@ export class Entity extends DBObject {
 		this.filmographies = hasEntities
 			.map((hasEntity) => {
 				hasEntity = new PropertyHasEntity(hasEntity);
-				hasEntity.goodJobs = goodJobs.filter((goodJob) => goodJob.hasEntityId == hasEntity.id);
+				hasEntity.goodJobs = goodJobs
+					.filter((goodJob) => goodJob.hasEntityId == hasEntity.id)
+					.map((goodJob) => new GoodJob(goodJob));
 				hasEntity.property = properties.find((property) => property.id == hasEntity.propertyId);
 				if (!hasEntity.property) {
 					api.delete('/api/PropertyHasEntity/' + hasEntity.id);

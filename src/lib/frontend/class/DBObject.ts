@@ -8,8 +8,10 @@ export class DBObject {
 		this.id = data.id || crypto.randomUUID();
 	}
 	update: (data: any) => Promise<any> = async (data) => {
+		const { me } = await import('./User');
+
 		await api.post('/api/History', {
-			// userId: me.id,
+			userId: me.id,
 			action: 'update',
 			target: this.table,
 			targetId: this.id,
@@ -24,8 +26,9 @@ export class DBObject {
 		return await api.put(`/api/${this.table}/${this.id}`, data).then((res) => res.data);
 	};
 	delete: () => Promise<any> = async () => {
+		const { me } = await import('./User');
 		await api.post('/api/History', {
-			// userId: me.id,
+			userId: me.id,
 			action: 'delete',
 			target: this.table,
 			targetId: this.id
@@ -41,11 +44,13 @@ export class DBObject {
 	create: () => Promise<any> = async () => {
 		const created = await api.post(`/api/${this.table}`, this).then((res) => res.data);
 		this.id = created.id;
+		const { me } = await import('./User');
 		await api.post('/api/History', {
-			// userId: me.id,
+			userId: me.id,
 			action: 'create',
 			target: this.table,
-			targetId: this.id
+			targetId: this.id,
+			toValue: JSON.stringify(created)
 		});
 		if (typeof gtag != 'undefined') {
 			gtag('event', 'create', {

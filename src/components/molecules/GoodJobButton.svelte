@@ -6,10 +6,11 @@
 	import { _ } from '$lib/frontend/i18n';
 	import { myConfirm } from '$lib/frontend/class/Confirm';
 	import { User, auth0 } from '$lib/frontend/store';
+	import { GoodJob } from '$lib/frontend/class/GoodJob';
 
 	export let filmography: PropertyHasEntity;
-	export let goodJobs: any[];
-	$: goodJob = goodJobs.find((goodJob) => goodJob.userId == me.id);
+	export let goodJobs: GoodJob[];
+	$: goodJob = goodJobs.find((goodJob) => goodJob.userId == me.id) || (false as GoodJob | false);
 </script>
 
 <a
@@ -18,17 +19,19 @@
 	href={'#'}
 	on:click={async () => {
 		if (goodJob) {
-			await api.delete('/api/GoodJob/' + goodJob.id);
-			goodJobs = goodJobs.filter((g) => g.id != goodJob.id);
+			await goodJob.delete();
+			goodJobs = goodJobs.filter((g) => {
+				if (!goodJob) return false;
+				return g.id != goodJob.id;
+			});
 		} else {
 			if ($User.authenticated) {
-				const res = await api
-					.post('/api/GoodJob', {
-						hasEntityId: filmography.id,
-						userId: me.id
-					})
-					.then((res) => res.data);
-				goodJobs = [...goodJobs, res];
+				const newGoodJob = new GoodJob({
+					hasEntityId: filmography.id,
+					userId: me.id
+				});
+				await newGoodJob.create();
+				goodJobs = [...goodJobs, newGoodJob];
 			} else {
 				if (await myConfirm(_('Please login/register to give a good job!'))) {
 					$auth0.login();

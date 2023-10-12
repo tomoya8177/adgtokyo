@@ -5,6 +5,7 @@ import { Attachment } from './Attachments';
 import { DBObject } from './DBObject';
 import { Department } from './Department';
 import { Distribution } from './Distribution';
+import { GoodJob } from './GoodJob';
 import { Property } from './Property';
 import { PropertyHasEntity } from './PropertyHasEntity';
 
@@ -88,9 +89,9 @@ export class Work extends DBObject {
 								.filter((h) => h.propertyId == property.id)
 								.map((hasEntity) => {
 									hasEntity.entity = entities?.find((e) => e.id == hasEntity.entityId) || null;
-									hasEntity.goodJobs = goodJobs.filter(
-										(goodJob) => goodJob.hasEntityId == hasEntity.id
-									);
+									hasEntity.goodJobs = goodJobs
+										.filter((goodJob) => goodJob.hasEntityId == hasEntity.id)
+										.map((goodJob) => new GoodJob(goodJob));
 									return new PropertyHasEntity(hasEntity);
 								});
 							return new Property(property);

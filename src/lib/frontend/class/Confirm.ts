@@ -24,7 +24,6 @@ class Confirm {
 				unsubscribe();
 
 				// Resolve the promise with the final result
-				console.log(value.result);
 				ConfirmMessage.set({
 					open: false,
 					message: '',
