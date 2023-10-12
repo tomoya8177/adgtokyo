@@ -19,9 +19,9 @@ export async function POST({ request, params }) {
 	const id = crypto.randomUUID();
 	const body = await request.json();
 	if (!body.id) body.id = id;
-	const data = await createInsertData(params, body, id);
+	const data = await createInsertData(params, body);
 	const result = await db.query(`insert ${params.tableName} set ${data}`);
-	if (result.affectedRows > 0) {
+	if (result.length > 0) {
 		const rows = await db.query(`select * from ${params.tableName} where id='${body.id}'`);
 		return new Response(JSON.stringify(rows[0]));
 	}
@@ -47,5 +47,5 @@ export async function DELETE({ request, params, cookies }) {
 		}
 	}
 	const result = await db.query(`delete from ${params.tableName} where ${filter}`);
-	return new Response(JSON.stringify(result.affectedRows));
+	return new Response(JSON.stringify(result));
 }

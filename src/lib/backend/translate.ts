@@ -14,7 +14,6 @@ export async function translateText(text: string, target = 'en') {
 	// multiple texts.
 	let [translations] = await translate.translate(text, target);
 	let translationsArr = Array.isArray(translations) ? translations : [translations];
-	console.log('Translations:');
 
 	return translationsArr[0];
 }

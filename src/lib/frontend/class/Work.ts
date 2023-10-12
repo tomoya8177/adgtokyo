@@ -1,4 +1,3 @@
-import type { PageData } from '../../../routes/$types';
 import { _ } from '../i18n';
 import { toast } from '../toast';
 import { Attachment } from './Attachments';

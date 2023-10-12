@@ -12,7 +12,6 @@ class DB {
 	pool: mysql.Pool;
 	constructor() {
 		this.pool = mysql.createPool(dbConfig);
-		console.log('db created', this.pool);
 	}
 	query = async (sql: string): Promise<any[]> => {
 		console.log(sql);
@@ -29,4 +28,3 @@ class DB {
 	};
 }
 export const db = new DB();
-console.log({ db });

@@ -14,8 +14,9 @@ export async function GET({ params, cookies, request }) {
 export async function PUT({ request, params, cookies }) {
 	if (!(await checkApiKey(request.headers.get('Authorization')?.replace('Bearer ', '') || '')))
 		return new Response('not authorized', { status: 401 });
+	const body = await request.json();
 
-	const updates = await createUpdateQuery(request, params);
+	const updates = await createUpdateQuery(body, params);
 	if (!updates) return new Response(JSON.stringify(null));
 	const result = await db.query(
 		`update ${params.tableName} set ${updates} where id='${params.id}'`

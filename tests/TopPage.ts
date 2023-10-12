@@ -1,7 +1,8 @@
 import { workCategory } from '../src/lib/Category';
-import { expect, test } from '@playwright/test';
-test('Top page has everything in tact.', async ({ page }) => {
-	await page.goto('http://localhost:5173/');
+import { test, expect, type Page } from '@playwright/test';
+import openUserMenu from './actions/openUserMenu';
+
+export default async (page: Page) => {
 	// expect title to be there more than one time
 	await expect(
 		page.getByRole('heading', {
@@ -12,14 +13,10 @@ test('Top page has everything in tact.', async ({ page }) => {
 	//search box is there
 	await expect(page.locator('input[type=search]')).toBeVisible();
 	//menu button is there
-	const menuButton = page.getByRole('link', {
-		name: 'menu'
-	});
-	await expect(menuButton).toBeVisible();
-	//click the menu button
-	await menuButton.click();
-	//login button is there
-	await expect(page.locator('button:has-text("Login/Sign up")')).toBeVisible();
+	await openUserMenu(page);
+	const loginButton = page.locator('button:has-text("Login/Sign up")');
+	const logoutButton = page.locator('button:has-text("Logout")');
+	await expect(loginButton.or(logoutButton)).toBeVisible();
 
 	const RecentlyAddedWorksHeading = page.getByRole('heading', {
 		name: 'Recently Added Works'
@@ -46,4 +43,4 @@ test('Top page has everything in tact.', async ({ page }) => {
 	await expect(localButton).toBeVisible();
 	const engButton = page.locator('a:has-text("English")');
 	await expect(engButton).toBeVisible();
-});
+};
