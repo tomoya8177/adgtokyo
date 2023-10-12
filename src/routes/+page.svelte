@@ -35,8 +35,10 @@
 <section>
 	<TopSlideShow />
 </section>
-<Heading label={_('Recently Added Works')} />
+<section>
+	<Heading label={_('Recently Added Works')} />
 
-{#each works as work}
-	<WorkCard {work} />
-{/each}
+	{#each works as work}
+		<WorkCard {work} />
+	{/each}
+</section>

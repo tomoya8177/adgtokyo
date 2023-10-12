@@ -1,5 +1,6 @@
 import { handler } from './build/handler.js';
 import express from 'express';
+import 'dotenv/config';
 
 const app = express();
 
@@ -11,6 +12,6 @@ app.get('/healthcheck', (req, res) => {
 // let SvelteKit handle everything else, including serving prerendered pages and static assets
 app.use(handler);
 
-app.listen(4000, () => {
-	console.log('listening on port 4000');
+app.listen(process.env.RUN_APP_PORT, () => {
+	console.log('listening on port ' + process.env.RUN_APP_PORT);
 });
