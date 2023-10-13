@@ -40,3 +40,5 @@ export const ConfirmMessage = writable({
 export const UpdatedData = writable(null as any);
 export const workOnFocus = writable(null as any);
 export const entityOnFocus = writable(null as null | Work);
+export const loginModalOpen = writable(false);
+export const sidebarOpen = writable(false);

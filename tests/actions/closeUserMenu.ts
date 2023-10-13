@@ -1,14 +1,12 @@
 import { expect, type Page } from '@playwright/test';
 
 export default async (page: Page) => {
-	const menuButton = page.getByRole('link', {
-		name: 'menu'
-	});
-	await expect(menuButton).toBeVisible();
-	const userMenu = page.locator('ul[dir=rtl]');
+	const userMenu = page.locator('.sidebar');
 
 	if (await userMenu.isVisible()) {
-		await menuButton.click();
+		const closeButton = userMenu.getByRole('link', { name: 'close' });
+		await expect(closeButton).toBeVisible();
+		await closeButton.click();
 	}
 	//click the menu button
 };

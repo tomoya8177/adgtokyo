@@ -3,6 +3,7 @@ import { db } from '$lib/backend/db.js';
 import { createFiltersFromParams } from '$lib/backend/createFiltersFromParams.js';
 import { unlink } from 'fs/promises';
 import { checkApiKey } from '$lib/backend/checkApiKey.js';
+import type { ResultSetHeader } from 'mysql2/promise';
 
 export async function GET({ request, params }) {
 	if (!(await checkApiKey(request.headers.get('Authorization')?.replace('Bearer ', '') || '')))
@@ -21,7 +22,8 @@ export async function POST({ request, params }) {
 	if (!body.id) body.id = id;
 	const data = await createInsertData(params, body);
 	const result = await db.query(`insert ${params.tableName} set ${data}`);
-	if (result.length > 0) {
+	console.log({ result });
+	if (result.affectedRows > 0) {
 		const rows = await db.query(`select * from ${params.tableName} where id='${body.id}'`);
 		return new Response(JSON.stringify(rows[0]));
 	}

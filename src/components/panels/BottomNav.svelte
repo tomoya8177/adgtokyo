@@ -31,9 +31,6 @@
 				</div>
 			</li>
 		{/if}
-		<li>
-			<LocalEngSwitch />
-		</li>
 	</ul>
 </nav>
 

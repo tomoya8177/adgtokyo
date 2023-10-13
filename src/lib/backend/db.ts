@@ -1,5 +1,5 @@
 import { DBHost, DBName, DBPassword, DBUser } from '$env/static/private';
-import mysql from 'mysql2/promise';
+import mysql, { type ResultSetHeader } from 'mysql2/promise';
 const dbConfig = {
 	host: DBHost,
 	user: DBUser,
@@ -13,7 +13,7 @@ class DB {
 	constructor() {
 		this.pool = mysql.createPool(dbConfig);
 	}
-	query = async (sql: string): Promise<any[]> => {
+	query = async (sql: string): Promise<any[] | ResultSetHeader> => {
 		console.log(sql);
 		const connection = await this.pool.getConnection();
 		const [rows] = await connection.query({ sql });

@@ -30,6 +30,9 @@ export const cleanUpBody = (
 		if (field.Type.includes('tinyint')) {
 			body[field.Field] = fixBoolean(body[field.Field]);
 		}
+		if (field.Type == 'timestamp') {
+			body[field.Field] = Number(body[field.Field]);
+		}
 	}
 	return body;
 };

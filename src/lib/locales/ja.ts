@@ -87,5 +87,6 @@ export default {
 	'total Good Jobs': '合計グッジョブ',
 	'Checking Ownership': '所有権をチェックしています',
 	Website: 'ウェブサイト',
-	Bio: '自己紹介'
+	Bio: '自己紹介',
+	Language: '言語'
 };

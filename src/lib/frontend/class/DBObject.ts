@@ -43,6 +43,7 @@ export class DBObject {
 	};
 	create: () => Promise<any> = async () => {
 		const created = await api.post(`/api/${this.table}`, this).then((res) => res.data);
+		console.log({ created });
 		this.id = created.id;
 		const { me } = await import('./User');
 		await api.post('/api/History', {

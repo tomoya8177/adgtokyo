@@ -3,14 +3,9 @@ import openUserMenu from './actions/openUserMenu';
 
 export default async (page: Page) => {
 	await openUserMenu(page);
-	const menuButton = page.getByRole('link', {
-		name: 'menu'
-	});
-	await expect(menuButton).toBeVisible();
-	//click the menu button
-	await menuButton.click();
+
 	//login button is there
-	const loginButton = page.locator('button:has-text("Login/Sign up")');
+	const loginButton = page.getByRole('button', { name: 'Login/Sign up' });
 	await expect(loginButton).toBeVisible();
 
 	await loginButton.click();

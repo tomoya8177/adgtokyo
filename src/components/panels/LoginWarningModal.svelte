@@ -1,9 +1,10 @@
 <script lang="ts">
 	import { _ } from '$lib/frontend/i18n';
 	import { auth0 } from '$lib/frontend/store';
+	export let open = true;
 </script>
 
-<dialog open>
+<dialog {open}>
 	<article>
 		{_('You need to be logged in.')}
 		<footer>

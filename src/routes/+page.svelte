@@ -9,6 +9,7 @@
 	import WorkCard from '$components/organisms/WorkCard.svelte';
 	import TopSlideShow from '$components/atoms/TopSlideShow.svelte';
 	import Heading from '$components/UIComponents/Heading.svelte';
+	import { fade, slide } from 'svelte/transition';
 	export let data: PageData;
 
 	let works = data.works.map((work) => {
@@ -19,6 +20,7 @@
 			});
 		return new Work(work);
 	});
+	let selectedWorks: Work[] = [];
 	onMount(async () => {
 		BottomNavButton.set({
 			label: _('Create New Work'),
@@ -26,7 +28,15 @@
 				goto(`/work/create`);
 			}
 		});
+		//rotate works every 4 seconds
+		rotateWorks();
+		setInterval(rotateWorks, 8000);
 	});
+	let rotateIndex = 0;
+	const rotateWorks = () => {
+		rotateIndex++;
+		if (rotateIndex >= works.length) rotateIndex = 0;
+	};
 </script>
 
 <svelte:head>
@@ -38,7 +48,11 @@
 <section>
 	<Heading label={_('Recently Added Works')} />
 
-	{#each works as work}
-		<WorkCard {work} />
+	{#each works as work, index}
+		{#if index >= rotateIndex && index <= rotateIndex + 2}
+			<div transition:slide>
+				<WorkCard {work} />
+			</div>
+		{/if}
 	{/each}
 </section>

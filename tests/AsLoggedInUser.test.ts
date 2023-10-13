@@ -12,6 +12,8 @@ test.beforeEach(async ({ page }, testInfo) => {
 	testInfo.setTimeout(testInfo.timeout + 30000);
 });
 test('Top page', async ({ page }) => {
-	await UserMenu(page);
 	await TopPage(page);
+});
+test('User Menu', async ({ page }) => {
+	await UserMenu(page);
 });

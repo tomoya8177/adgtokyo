@@ -1,7 +1,7 @@
 <script lang="ts">
 	import Auth0 from '$lib/frontend/class/Auth0';
 	import { onMount } from 'svelte';
-	import { User, auth0 } from '$lib/frontend/store';
+	import { User, auth0, loginModalOpen, sidebarOpen } from '$lib/frontend/store';
 	import { page } from '$app/stores';
 	import TopNav from '$components/panels/TopNav.svelte';
 	import { goto } from '$app/navigation';
@@ -11,6 +11,9 @@
 	import { me } from '$lib/frontend/class/User';
 	import PromptModal from '$components/panels/PromptModal.svelte';
 	import { api } from '$lib/frontend/class/API';
+	import LoginWarningModal from '$components/panels/LoginWarningModal.svelte';
+	import UserMenu from '$components/panels/UserMenu.svelte';
+	import { fade, fly, slide } from 'svelte/transition';
 	let loggingIn = true;
 
 	onMount(async () => {
@@ -90,13 +93,49 @@
 		<div class=" footer">
 			<BottomNav />
 		</div>
+		{#if $sidebarOpen}
+			<div
+				class="sidebarBackground"
+				on:click={() => {
+					sidebarOpen.set(false);
+				}}
+				transition:fade
+			/>
+			<div class="sidebar" transition:fly={{ x: '20rem' }}>
+				<article>
+					<UserMenu />
+				</article>
+			</div>
+		{/if}
 	</div>
 {/if}
 <Toasts />
 <ConfirmModal />
 <PromptModal />
+<LoginWarningModal bind:open={$loginModalOpen} />
 
 <style>
+	.sidebarBackground {
+		position: fixed;
+		right: 0;
+		top: 0;
+		bottom: 0;
+		left: 0;
+		background-color: rgba(0, 0, 0, 0.5);
+	}
+	.sidebar {
+		position: fixed;
+		right: 0;
+		top: 0;
+		bottom: 0;
+		width: 20rem;
+		height: 100vh;
+		background-color: var(--my-background-color);
+		box-shadow: var(--pico-card-box-shadow);
+	}
+	.sidebar article {
+		height: 100%;
+	}
 	.height {
 		height: 100dvh;
 		overflow: visible;
