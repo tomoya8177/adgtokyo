@@ -13,6 +13,7 @@
 	onMount(async () => {
 		contentLoad = post.getContent(lang.locale);
 		post.getUser();
+		post = post;
 	});
 	export let onDelete: () => void = () => {};
 </script>
@@ -38,7 +39,7 @@
 							<mark>
 								{post.status}
 							</mark>
-						{:else}
+						{:else if post.user}
 							<div>
 								<UserIconNickname user={post.user} />
 							</div>
