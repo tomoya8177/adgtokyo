@@ -1,46 +1,43 @@
 <script lang="ts">
 	import { page } from '$app/stores';
-	import LocalEngSwitch from '$components/UIComponents/LocalEngSwitch.svelte';
 	import { _ } from '$lib/frontend/i18n';
-	import { BottomNavButton, onBottomNavButtonClicked } from '$lib/frontend/store';
-	let mode = 'createWork';
+	import { BottomInputValue, BottomNavButton } from '$lib/frontend/store';
 </script>
 
-<nav>
-	<ul />
-	<ul />
-	<ul>
-		{#if $BottomNavButton}
-			<li>
-				<div role="group">
-					<a
-						role="button"
-						href={'#'}
-						on:click={async () => {
-							const bool = await $BottomNavButton.onClick();
-							if (bool === false) {
-								$BottomNavButton.busy = false;
-								return;
-							}
-							$BottomNavButton.busy = true;
-						}}
-						aria-busy={$BottomNavButton.busy}
-					>
-						{$BottomNavButton.label}
-					</a>
-				</div>
-			</li>
-		{/if}
-	</ul>
-</nav>
+<div class="bottom justified-flex nav">
+	{#if $page.url.pathname.includes('openai')}
+		<div style="flex:1">
+			<input type="text" placeholder={_('Prompt')} bind:value={$BottomInputValue} />
+		</div>
+	{/if}
+	{#if $BottomNavButton}
+		<div role="group">
+			<a
+				role="button"
+				href={'#'}
+				on:click={async () => {
+					const bool = await $BottomNavButton.onClick();
+					if (bool === false) {
+						$BottomNavButton.busy = false;
+						return;
+					}
+					$BottomNavButton.busy = true;
+				}}
+				aria-busy={$BottomNavButton.busy}
+			>
+				{$BottomNavButton.label}
+			</a>
+		</div>
+	{/if}
+</div>
 
 <style>
 	.bottom {
 		position: fixed;
 		bottom: 0px;
-		width: 100%;
+		width: calc(100% - var(--pico-spacing) * 2);
 	}
-	nav {
+	.nav {
 		margin-right: var(--pico-spacing);
 		margin-left: var(--pico-spacing);
 	}

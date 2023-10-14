@@ -1,7 +1,7 @@
 <script lang="ts">
 	import Auth0 from '$lib/frontend/class/Auth0';
 	import { onMount } from 'svelte';
-	import { User, auth0, loginModalOpen, sidebarOpen } from '$lib/frontend/store';
+	import { User, aiChatOpen, auth0, loginModalOpen, sidebarOpen } from '$lib/frontend/store';
 	import { page } from '$app/stores';
 	import TopNav from '$components/panels/TopNav.svelte';
 	import { goto } from '$app/navigation';
@@ -14,6 +14,7 @@
 	import LoginWarningModal from '$components/panels/LoginWarningModal.svelte';
 	import UserMenu from '$components/panels/UserMenu.svelte';
 	import { fade, fly, slide } from 'svelte/transition';
+	import AiChatModal from '$components/panels/AIChatModal.svelte';
 	let loggingIn = true;
 
 	onMount(async () => {
@@ -113,6 +114,7 @@
 <ConfirmModal />
 <PromptModal />
 <LoginWarningModal bind:open={$loginModalOpen} />
+<AiChatModal bind:open={$aiChatOpen} />
 
 <style>
 	.sidebarBackground {

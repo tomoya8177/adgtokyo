@@ -1,6 +1,6 @@
 <script lang="ts">
 	import LocaleSwitch from '$components/UIComponents/LocaleSwitch.svelte';
-	import { User, auth0, sidebarOpen } from '$lib/frontend/store';
+	import { User, aiChatOpen, auth0, sidebarOpen } from '$lib/frontend/store';
 	import Icon from '$components/UIComponents/Icon.svelte';
 	import { _ } from '$lib/frontend/i18n';
 	import { myPrompt } from '$lib/frontend/class/Prompt';
@@ -54,6 +54,17 @@
 			</a>
 		</li>
 	{/if}
+	<li>
+		<a
+			href={'#'}
+			on:click={() => {
+				aiChatOpen.set(true);
+			}}
+		>
+			<Icon icon="chat" />
+			{_('Chat with AI')}
+		</a>
+	</li>
 	<li>
 		<a href="https://adgtokyo.channel.io/home">
 			<Icon icon="support_agent" />

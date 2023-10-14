@@ -1,4 +1,6 @@
 <script lang="ts">
+	import UserIconNickname from './UserIconNickname.svelte';
+
 	import { _ } from '$lib/frontend/i18n';
 	import { goto } from '$app/navigation';
 	import type { Entity } from '$lib/frontend/class/Entity';
@@ -13,8 +15,7 @@
 	{:then isOwnedByUser}
 		{#if isOwnedByUser}
 			<mark>
-				<UserProfilePicture user={isOwnedByUser} size="1.2rem" />
-				{isOwnedByUser.nickname}
+				<UserIconNickname user={isOwnedByUser} />
 			</mark>
 		{:else}
 			<a

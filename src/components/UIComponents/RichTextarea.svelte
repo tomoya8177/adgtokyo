@@ -11,11 +11,11 @@
 		bind:value
 		scriptSrc="/tinymce/tinymce.min.js"
 		conf={{
-			plugins: 'link lists',
+			plugins: 'link lists image',
 			skin: window.matchMedia('(prefers-color-scheme: dark)').matches ? 'oxide-dark' : 'oxide',
 			content_css: window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'default',
 			toolbar:
-				'backcolor forecolor numlist bullist link bold italic underline strikethrough hr align indent outdent',
+				'backcolor forecolor numlist bullist link bold italic underline strikethrough hr align indent outdent image',
 			menubar: false
 		}}
 	/>

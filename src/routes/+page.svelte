@@ -10,8 +10,10 @@
 	import TopSlideShow from '$components/atoms/TopSlideShow.svelte';
 	import Heading from '$components/UIComponents/Heading.svelte';
 	import { fade, slide } from 'svelte/transition';
+	import { Post } from '$lib/frontend/class/Post';
+	import PostCard from '$components/organisms/PostCard.svelte';
 	export let data: PageData;
-
+	let posts = data.posts.map((post) => new Post(post));
 	let works = data.works.map((work) => {
 		work.attachments = data.attachments
 			.filter((attachment) => attachment.attachedTo == work.id)
@@ -29,7 +31,7 @@
 			}
 		});
 		//rotate works every 4 seconds
-		rotateWorks();
+		//rotateWorks();
 		setInterval(rotateWorks, 8000);
 	});
 	let rotateIndex = 0;
@@ -44,6 +46,15 @@
 </svelte:head>
 <section>
 	<TopSlideShow />
+</section>
+<section>
+	<Heading label={_('Recently Added Posts')} />
+	{#each posts as post, index}
+		<PostCard {post} />
+	{/each}
+	<div style="text-align:right">
+		<a href="/post">{_('See All Posts')}</a>
+	</div>
 </section>
 <section>
 	<Heading label={_('Recently Added Works')} />

@@ -15,7 +15,6 @@ export const User = writable({
 
 export const auth0 = writable(null as any);
 
-export const onBottomNavButtonClicked = writable(null as any);
 export const BottomNavButton = writable({
 	label: '',
 	busy: false,
@@ -25,6 +24,7 @@ export const BottomNavButton = writable({
 	busy?: boolean;
 	onClick: () => Promise<boolean | void> | boolean | void;
 });
+export const BottomInputValue = writable('');
 
 export const LocalEnSwitch = writable(cookies.get('localEng') || ('en' as 'local' | 'en'));
 export const Toasts = writable([] as any[]);
@@ -42,3 +42,4 @@ export const workOnFocus = writable(null as any);
 export const entityOnFocus = writable(null as null | Work);
 export const loginModalOpen = writable(false);
 export const sidebarOpen = writable(false);
+export const aiChatOpen = writable(false);

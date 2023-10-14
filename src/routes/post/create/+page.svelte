@@ -1,14 +1,14 @@
 <script lang="ts">
+	import PostEditor from '$components/organisms/PostEditor.svelte';
 	import { goto } from '$app/navigation';
-	import RichTextarea from '$components/UIComponents/RichTextarea.svelte';
 	import { Content } from '$lib/frontend/class/Content';
 	import { Post } from '$lib/frontend/class/Post';
-	import { currentTimestamp } from '$lib/frontend/currentTimestamp';
+	import { me } from '$lib/frontend/class/User';
 	import { _, lang } from '$lib/frontend/i18n';
 	import { locales } from '$lib/frontend/locales';
-	import { User, loginModalOpen } from '$lib/frontend/store';
+	import { BottomNavButton, User, loginModalOpen } from '$lib/frontend/store';
 	import { onMount } from 'svelte';
-	import { get } from 'svelte/store';
+	import LocaleSelector from '$components/UIComponents/LocaleSelector.svelte';
 
 	let post = new Post({});
 	let content = new Content({
@@ -21,46 +21,42 @@
 			loginModalOpen.set(true);
 			return;
 		}
+		BottomNavButton.set({
+			label: _('Create'),
+			onClick: async () => {
+				$BottomNavButton.busy = true;
+
+				post.userId = me.id;
+				await post.create();
+				console.log({ post });
+				await content.create();
+
+				await Promise.all(
+					locales.map(async (locale) => {
+						if (locale.key != content.locale) {
+							await post.generateOtherLocaleContentFrom(content.locale);
+						}
+					})
+				);
+				$BottomNavButton.busy = false;
+				goto(`/post`, {
+					invalidateAll: true
+				});
+			}
+		});
 	});
 	let buttonBusy = false;
 </script>
 
-<label>
-	{_('Language')}
-	<select bind:value={content.locale}>
-		{#each locales as locale}
-			<option value={locale.key}>{_(locale.name)}</option>
-		{/each}
-	</select>
-</label>
-
-<label>
-	{_('Title')}
-	<input bind:value={content.title} />
-</label>
-<label for="dummy">
-	{_('Content')}
-	<RichTextarea bind:value={content.body} />
-</label>
-<label>
-	{_('Status')}
-	<select bind:value={post.status}>
-		<option value="draft">{_('Draft')}</option>
-		<option value="published">{_('Published')}</option>
-	</select>
-</label>
-{#if post.status == 'published'}
-	<p>Other languages will be generated upon saving this.</p>
-{/if}
+<LocaleSelector bind:content />
+<PostEditor bind:post bind:content />
 <button
 	aria-busy={buttonBusy}
 	on:click={async () => {
 		buttonBusy = true;
-		if (post.status == 'published' && wasDraft) {
-			post.publicAt = currentTimestamp();
-		}
+
+		post.userId = me.id;
 		await post.create();
-		console.log({ post });
 		await content.create();
 
 		await Promise.all(
