@@ -26,7 +26,12 @@
 			<figure>
 				<div>
 					{#each message.images || [] as image}
-						<img src={image.url} />
+						<img
+							src={image.url}
+							on:click={() => {
+								window.open(image.url);
+							}}
+						/>
 					{/each}
 				</div>
 			</figure>
@@ -44,6 +49,7 @@
 		max-width: 10rem;
 		max-height: 10rem;
 		border-radius: var(--pico-border-radius);
+		cursor: pointer;
 	}
 	.message {
 		margin: var(--pico-spacing);

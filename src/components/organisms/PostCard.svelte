@@ -6,11 +6,13 @@
 	import { me } from '$lib/frontend/class/User';
 	import { _, lang } from '$lib/frontend/i18n';
 	import { onMount } from 'svelte';
+	import UserIconNickname from './UserIconNickname.svelte';
 
 	export let post: Post;
 	let contentLoad: Promise<false | Content> = Promise.resolve(false);
 	onMount(async () => {
 		contentLoad = post.getContent(lang.locale);
+		post.getUser();
 	});
 	export let onDelete: () => void = () => {};
 </script>
@@ -26,7 +28,9 @@
 				<div class="justified-flex">
 					<div>
 						<a href={`/post/${post.id}`} class="contrast">
-							{content.title}
+							<strong>
+								{content.title}
+							</strong>
 						</a>
 					</div>
 					<div>
@@ -34,6 +38,10 @@
 							<mark>
 								{post.status}
 							</mark>
+						{:else}
+							<div>
+								<UserIconNickname user={post.user} />
+							</div>
 						{/if}
 					</div>
 				</div>

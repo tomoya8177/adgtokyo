@@ -29,6 +29,7 @@
 		BottomNavButton.set({
 			label: _('Update'),
 			onClick: async () => {
+				if (!$BottomNavButton) return;
 				$BottomNavButton.busy = true;
 
 				post.userId = me.id;

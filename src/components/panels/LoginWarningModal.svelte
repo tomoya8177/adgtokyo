@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { _ } from '$lib/frontend/i18n';
-	import { auth0 } from '$lib/frontend/store';
+	import { auth0, loginModalOpen } from '$lib/frontend/store';
 	export let open = true;
 </script>
 
@@ -15,6 +15,9 @@
 					await $auth0.login();
 
 					history.back();
+					setTimeout(() => {
+						loginModalOpen.set(false);
+					}, 100);
 				}}
 			>
 				{_('Cancel')}

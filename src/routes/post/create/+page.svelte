@@ -24,6 +24,7 @@
 		BottomNavButton.set({
 			label: _('Create'),
 			onClick: async () => {
+				if (!$BottomNavButton) return;
 				$BottomNavButton.busy = true;
 
 				post.userId = me.id;
@@ -48,27 +49,29 @@
 	let buttonBusy = false;
 </script>
 
-<LocaleSelector bind:content />
-<PostEditor bind:post bind:content />
-<button
-	aria-busy={buttonBusy}
-	on:click={async () => {
-		buttonBusy = true;
+{#if $User.authenticated}
+	<LocaleSelector bind:content />
+	<PostEditor bind:post bind:content />
+	<button
+		aria-busy={buttonBusy}
+		on:click={async () => {
+			buttonBusy = true;
 
-		post.userId = me.id;
-		await post.create();
-		await content.create();
+			post.userId = me.id;
+			await post.create();
+			await content.create();
 
-		await Promise.all(
-			locales.map(async (locale) => {
-				if (locale.key != content.locale) {
-					await post.generateOtherLocaleContentFrom(content.locale);
-				}
-			})
-		);
-		buttonBusy = false;
-		goto(`/post`, {
-			invalidateAll: true
-		});
-	}}>{_('Create')}</button
->
+			await Promise.all(
+				locales.map(async (locale) => {
+					if (locale.key != content.locale) {
+						await post.generateOtherLocaleContentFrom(content.locale);
+					}
+				})
+			);
+			buttonBusy = false;
+			goto(`/post`, {
+				invalidateAll: true
+			});
+		}}>{_('Create')}</button
+	>
+{/if}

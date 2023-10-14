@@ -2,10 +2,12 @@ import { locales } from '$lib/frontend/locales';
 import { api } from './API';
 import { Content } from './Content';
 import { DBObject } from './DBObject';
+import { User } from './User';
 
 export class Post extends DBObject {
 	status: string;
 	userId: string;
+	user?: User;
 	constructor(data: any) {
 		data.table = 'Post';
 		super(data);
@@ -79,6 +81,9 @@ export class Post extends DBObject {
 				}
 			})
 		);
+	}
+	async getUser() {
+		this.user = (await api.get('/api/User/' + this.userId).then((res) => res.data)) || new User({});
 	}
 	async getContent(locale: string) {
 		const content = await api
