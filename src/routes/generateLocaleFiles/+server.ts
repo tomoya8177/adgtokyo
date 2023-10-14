@@ -1,7 +1,7 @@
 import { api } from '$lib/frontend/class/API';
 import { locales } from '$lib/frontend/locales';
 import ja from '$lib/locales/ja';
-import * as fs from 'fs';
+import * as fs from 'file-system';
 
 export const GET = async () => {
 	const jaString = JSON.stringify(ja);
