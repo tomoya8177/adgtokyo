@@ -13,6 +13,7 @@
 	import UserProfilePicture from '$components/UIComponents/UserProfilePicture.svelte';
 	import { me } from '$lib/frontend/class/User';
 	import Logo from '$components/UIComponents/Logo.svelte';
+	import { goto } from '$app/navigation';
 	export let searchKeywords: string;
 	export let onKeywordsChange: (value: string) => void;
 	let searching = false;
@@ -26,7 +27,15 @@
 
 <nav>
 	<ul>
-		<li style="padding:var(--pico-spacing)">
+		<li>
+			<div
+				class="logoImage"
+				on:click={() => {
+					goto('/');
+				}}
+			/>
+		</li>
+		<li style="padding:var(--pico-spacing)" class="hiddenWithMobile">
 			<Logo />
 		</li>
 	</ul>
@@ -59,5 +68,17 @@
 	nav {
 		margin-right: var(--pico-spacing);
 		margin-left: var(--pico-spacing);
+	}
+	.logoImage {
+		width: 2rem;
+		height: 2rem;
+		background-image: url(/images/logo_light.png);
+		background-size: cover;
+		cursor: pointer;
+	}
+	@media only screen and (prefers-color-scheme: dark) {
+		.logoImage {
+			background-image: url(/images/logo_dark.png);
+		}
 	}
 </style>
