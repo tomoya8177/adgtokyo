@@ -6,6 +6,7 @@
 	import Searching from '$components/UIComponents/Searching.svelte';
 	import EntityCard from '$components/organisms/EntityCard.svelte';
 	import NoResults from '$components/UIComponents/NoResults.svelte';
+	import { onMount } from 'svelte';
 
 	$: results = search($page.params.keywords, $page.params.personOrBusiness).then((entities) => {
 		return entities.map((entity) => {

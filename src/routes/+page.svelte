@@ -12,9 +12,11 @@
 	import { fade, slide } from 'svelte/transition';
 	import { Post } from '$lib/frontend/class/Post';
 	import PostCard from '$components/organisms/PostCard.svelte';
+	import axios from 'axios';
 	export let data: PageData;
 	let posts = data.posts.map((post) => new Post(post));
 	console.log({ posts });
+	let searchKeywords: { keyword: string; label: string; category: string }[] = [];
 	let works = data.works.map((work) => {
 		work.attachments = data.attachments
 			.filter((attachment) => attachment.attachedTo == work.id)
@@ -34,6 +36,8 @@
 		//rotate works every 4 seconds
 		//rotateWorks();
 		setInterval(rotateWorks, 8000);
+		searchKeywords = await axios.get('/searchKeywords.json').then((res) => res.data);
+		console.log({ searchKeywords });
 	});
 	let rotateIndex = 0;
 	const rotateWorks = () => {
@@ -46,7 +50,7 @@
 	<title>ADG Tokyo</title>
 </svelte:head>
 <section>
-	<TopSlideShow />
+	<TopSlideShow {searchKeywords} />
 </section>
 <section>
 	<Heading label={_('Recently Added Posts')} />

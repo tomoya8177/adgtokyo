@@ -21,6 +21,8 @@
 	const emptySearchBox = (url: string) => {
 		if (!url.includes('/search')) {
 			searchKeywords = '';
+		} else {
+			searchKeywords = $page.params.keywords;
 		}
 	};
 </script>

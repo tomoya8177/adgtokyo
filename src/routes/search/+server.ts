@@ -67,5 +67,6 @@ export const POST = async ({ request }) => {
 			.filter((record) => record);
 	});
 	data = data.filter((record) => record.matchPoint > 0).sort((a, b) => b.matchPoint - a.matchPoint);
+	console.log(data);
 	return new Response(JSON.stringify(data));
 };

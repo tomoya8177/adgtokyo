@@ -1,9 +1,12 @@
 <script lang="ts">
+	import { goto } from '$app/navigation';
 	import { _ } from '$lib/frontend/i18n';
+	import { search } from '$lib/frontend/search';
 	import { onMount } from 'svelte';
 	import { fade } from 'svelte/transition';
-
+	export let searchKeywords: { keyword: string; label: string; category: string }[] = [];
 	//array of 1 - 21
+	let featuredKeywordIndex = 0;
 	let numbers = Array.from(Array(21).keys())
 		.map((i) => i + 1)
 		.map((num) => {
@@ -22,6 +25,15 @@
 			}
 			focus = numbers[index];
 		}, 8000);
+		setInterval(() => {
+			let index = featuredKeywordIndex;
+			if (index == searchKeywords.length - 1) {
+				index = 0;
+			} else {
+				index += 1;
+			}
+			featuredKeywordIndex = index;
+		}, 5000);
 	});
 </script>
 
@@ -42,6 +54,24 @@
 			<h5>
 				{_('A virtual sanctuary for filmmakers. Inspire, collaborate, and innovate.')}
 			</h5>
+			<div style="position:relative; display:flex; justify-content:center;">
+				{#each searchKeywords as keyword, index}
+					{#if index == featuredKeywordIndex}
+						<button
+							transition:fade
+							style="position: absolute; left: auto; right: auto; "
+							on:click={() => {
+								goto(`/search/${keyword.category}/${keyword.keyword}`);
+							}}
+						>
+							Search For:
+							<strong>
+								{keyword.label}
+							</strong>
+						</button>
+					{/if}
+				{/each}
+			</div>
 		</div>
 	</div>
 </div>
