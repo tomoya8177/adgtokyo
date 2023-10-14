@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
 	import { myConfirm } from '$lib/frontend/class/Confirm';
-	import { Content } from '$lib/frontend/class/Content';
+	import type { Content } from '$lib/frontend/class/Content';
 	import type { Post } from '$lib/frontend/class/Post';
 	import { me } from '$lib/frontend/class/User';
 	import { _, lang } from '$lib/frontend/i18n';
@@ -12,12 +12,9 @@
 	export let post: Post;
 	let content: Content;
 	onMount(async () => {
-		content =
-			(await post.getContent(lang.locale || 'en')) ||
-			new Content({
-				postId: post.id,
-				locale: lang.locale || 'en'
-			});
+		const res = await post.getContent(lang.locale);
+		if (!res) return;
+		content = res;
 		post.getUser();
 		post = post;
 	});
@@ -29,7 +26,7 @@
 		<header>
 			<div class="justified-flex">
 				<div>
-					<a href={`/post/${post.id}`} class="contrast">
+					<a href={`/post/${post.id}/${lang.locale}`} class="contrast">
 						<strong>
 							{content.title}
 						</strong>
@@ -51,7 +48,7 @@
 		<main>
 			<p>
 				{getExcerpt(content.body)}...
-				<a href={`/post/${post.id}`} class="contrast">
+				<a href={`/post/${post.id}/${lang.locale}`} class="contrast">
 					{_('Read More')}
 				</a>
 			</p>

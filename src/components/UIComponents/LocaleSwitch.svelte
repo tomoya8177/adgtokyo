@@ -3,6 +3,7 @@
 	import { cookies } from '$lib/frontend/cookies';
 	import { onMount } from 'svelte';
 	import { locales } from '$lib/frontend/locales';
+	import { page } from '$app/stores';
 	let locale: string;
 	onMount(() => {
 		locale = cookies.get('locale');
@@ -14,7 +15,11 @@
 	on:change={() => {
 		console.log(locale);
 		cookies.set('locale', locale);
-		location.reload();
+		if ($page.params.postId && $page.params.locale && $page.params.locale != locale) {
+			location.href = `/post/${$page.params.postId}/${locale}`;
+		} else {
+			location.reload();
+		}
 	}}
 >
 	{#each locales as loc}

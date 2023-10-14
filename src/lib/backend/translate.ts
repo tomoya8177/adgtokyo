@@ -17,5 +17,3 @@ export async function translateText(text: string, target = 'en') {
 
 	return translationsArr[0];
 }
-
-//translateText();

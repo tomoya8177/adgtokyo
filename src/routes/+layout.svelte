@@ -15,6 +15,7 @@
 	import UserMenu from '$components/panels/UserMenu.svelte';
 	import { fade, fly, slide } from 'svelte/transition';
 	import AiChatModal from '$components/panels/AIChatModal.svelte';
+	import Footer from '$components/panels/Footer.svelte';
 	let loggingIn = true;
 
 	onMount(async () => {
@@ -88,7 +89,13 @@
 		</div>
 		<div class="body">
 			<div class="container">
-				<slot />
+				<section>
+					<slot />
+				</section>
+				<!-- <section>
+					<hr />
+					<Footer />
+				</section> -->
 			</div>
 		</div>
 		<div class=" footer">

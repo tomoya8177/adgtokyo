@@ -14,6 +14,7 @@
 	import { me } from '$lib/frontend/class/User';
 	import Logo from '$components/UIComponents/Logo.svelte';
 	import { goto } from '$app/navigation';
+	import LogoImage from '$components/UIComponents/LogoImage.svelte';
 	export let searchKeywords: string;
 	export let onKeywordsChange: (value: string) => void;
 	let searching = false;
@@ -30,12 +31,7 @@
 <nav>
 	<ul>
 		<li>
-			<div
-				class="logoImage"
-				on:click={() => {
-					goto('/');
-				}}
-			/>
+			<LogoImage />
 		</li>
 		<li style="padding:var(--pico-spacing)" class="hiddenWithMobile">
 			<Logo />
@@ -70,17 +66,5 @@
 	nav {
 		margin-right: var(--pico-spacing);
 		margin-left: var(--pico-spacing);
-	}
-	.logoImage {
-		width: 2rem;
-		height: 2rem;
-		background-image: url(/images/logo_light.png);
-		background-size: cover;
-		cursor: pointer;
-	}
-	@media only screen and (prefers-color-scheme: dark) {
-		.logoImage {
-			background-image: url(/images/logo_dark.png);
-		}
 	}
 </style>
