@@ -2,6 +2,7 @@
 	import { _ } from '$lib/frontend/i18n';
 	import { cookies } from '$lib/frontend/cookies';
 	import { onMount } from 'svelte';
+	import { locales } from '$lib/frontend/locales';
 	let locale: string;
 	onMount(() => {
 		locale = cookies.get('locale');
@@ -16,6 +17,7 @@
 		location.reload();
 	}}
 >
-	<option value="ja">{_('Japanese')}</option>
-	<option value="en">{_('English')}</option>
+	{#each locales as loc}
+		<option value={loc.key}>{_(loc.name)}</option>
+	{/each}
 </select>

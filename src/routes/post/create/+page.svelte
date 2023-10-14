@@ -32,13 +32,7 @@
 				console.log({ post });
 				await content.create();
 
-				await Promise.all(
-					locales.map(async (locale) => {
-						if (locale.key != content.locale) {
-							await post.generateOtherLocaleContentFrom(content.locale);
-						}
-					})
-				);
+				await post.generateOtherLocaleContentFrom(content.locale);
 				$BottomNavButton.busy = false;
 				goto(`/post`, {
 					invalidateAll: true

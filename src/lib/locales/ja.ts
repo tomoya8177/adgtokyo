@@ -107,5 +107,17 @@ export default {
 	'Data Language': 'データ言語',
 	Post: '投稿',
 	'New Post': '新規投稿',
-	'Read More': '続きを読む'
+	'Read More': '続きを読む',
+	French: 'フランス語',
+	German: 'ドイツ語',
+	Italian: 'イタリア語',
+	Spanish: 'スペイン語',
+	Vietnamese: 'ベトナム語',
+	Thai: 'タイ語',
+	Indonesian: 'インドネシア語',
+	Russian: 'ロシア語',
+	Chinese: '中国語',
+	Turkish: 'トルコ語',
+	Korean: '韓国語',
+	Hindi: 'ヒンディー語'
 };

@@ -47,13 +47,8 @@
 					});
 					return;
 				}
-				await Promise.all(
-					locales.map(async (locale) => {
-						if (locale.key != content.locale) {
-							await post.updateOtherLocaleContentFrom(content.locale);
-						}
-					})
-				);
+				await post.updateOtherLocaleContentFrom(content.locale);
+
 				buttonBusy = false;
 				goto(`/post/${post.id}`, {
 					invalidateAll: true
