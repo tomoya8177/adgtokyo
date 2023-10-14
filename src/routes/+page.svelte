@@ -14,6 +14,7 @@
 	import PostCard from '$components/organisms/PostCard.svelte';
 	export let data: PageData;
 	let posts = data.posts.map((post) => new Post(post));
+	console.log({ posts });
 	let works = data.works.map((work) => {
 		work.attachments = data.attachments
 			.filter((attachment) => attachment.attachedTo == work.id)

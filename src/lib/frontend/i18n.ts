@@ -16,9 +16,14 @@ class I18N {
 				const browserLanguage = navigator.language;
 				if (browserLanguage) {
 					this.locale = browserLanguage;
+				} else {
+					this.locale = 'en';
 				}
 			}
 		}
+		if (this.locale.length > 2) this.locale = this.locale.substring(0, 2);
+		//if zh, then zh_CN
+		if (this.locale == 'zh') this.locale = 'zh_CN';
 		this.load();
 	}
 	load() {

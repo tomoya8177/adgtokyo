@@ -1,4 +1,5 @@
 import { locales } from '$lib/frontend/locales';
+import { toast } from '../toast';
 import { api } from './API';
 import { Content } from './Content';
 import { DBObject } from './DBObject';
@@ -14,24 +15,16 @@ export class Post extends DBObject {
 		this.status = data.status || 'draft';
 		this.userId = data.userId || '';
 	}
+
 	async generateOtherLocaleContentFrom(originalLocale: string) {
 		const originalContent = await this.getContent(originalLocale);
+		if (!originalContent) return;
 		await Promise.all(
 			locales.map(async (locale) => {
 				if (locale.key == originalLocale) return;
-				const title = await api
-					.post('/translate', {
-						text: originalContent.title,
-						target: locale.key
-					})
-					.then((res) => res.data.translation);
-				const body = await api
-					.post('/translate', {
-						text: originalContent.body,
-						target: locale.key
-					})
-					.then((res) => res.data.translation);
+				const { title, body } = await originalContent.getTranslation(locale.key);
 				console.log({ title, body });
+				toast(locale.name + ' content created');
 				const newContent = new Content({
 					postId: this.id,
 					locale: locale.key,
@@ -48,19 +41,10 @@ export class Post extends DBObject {
 		await Promise.all(
 			locales.map(async (locale) => {
 				if (locale.key == originalLocale) return;
-				const title = await api
-					.post('/translate', {
-						text: originalContent.title,
-						target: locale.key
-					})
-					.then((res) => res.data.translation);
-				const body = await api
-					.post('/translate', {
-						text: originalContent.body,
-						target: locale.key
-					})
-					.then((res) => res.data.translation);
+				const { title, body } = await originalContent.getTranslation(locale.key);
+
 				console.log({ title, body });
+				toast(locale.name + ' content updated');
 				const contentToUpdate = await this.getContent(locale.key);
 				if (!contentToUpdate) {
 					//create new content
@@ -89,6 +73,7 @@ export class Post extends DBObject {
 		const content = await api
 			.get('/api/Content?postId=' + this.id + '&locale=' + locale)
 			.then((res) => res.data[0]);
+		if (!content) alert('No content found for locale ' + locale);
 		if (!content) return false;
 		return new Content(content);
 	}

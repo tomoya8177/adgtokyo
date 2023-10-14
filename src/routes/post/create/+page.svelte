@@ -29,7 +29,6 @@
 
 				post.userId = me.id;
 				await post.create();
-				console.log({ post });
 				await content.create();
 
 				await post.generateOtherLocaleContentFrom(content.locale);

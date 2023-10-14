@@ -18,6 +18,7 @@ export default async (page: Page) => {
 	const loginButton = page.getByRole('button', { name: 'Login/Sign up' });
 	const logoutButton = page.locator('button:has-text("Logout")');
 	await expect(loginButton.or(logoutButton)).toBeVisible();
+	await closeUserMenu(page);
 
 	const RecentlyAddedWorksHeading = page.getByRole('heading', {
 		name: 'Recently Added Works'
@@ -37,6 +38,19 @@ export default async (page: Page) => {
 		const oneOfCategories = workCategory.some((c) => c.title == category);
 		expect(oneOfCategories).toBeTruthy();
 	}
+	const recentPostsHeading = page.getByRole('heading', { name: 'Recently Added Posts' });
+	await expect(recentPostsHeading).toBeVisible();
+	const postContainer = page.locator('section').filter({ has: recentPostsHeading });
+	const posts = postContainer.locator('article');
+	const postCount = await posts.count();
+	expect(postCount).toBeGreaterThan(0);
+	for (let i = 0; i < postCount; ++i) {
+		const post = posts.nth(i);
+		const title = await post.locator('strong').innerText();
+		expect(title).toBeTruthy();
+		const body = await post.locator('main').innerText();
+		expect(body).toBeTruthy();
+	}
 	//bottom nav content
 	const createNewWorkButton = page.locator('a:has-text("Create New Work")');
 	await expect(createNewWorkButton).toBeVisible();
@@ -45,11 +59,10 @@ export default async (page: Page) => {
 	const engButton = page.locator('a:has-text("English")');
 	await expect(engButton).toBeVisible();
 
-	await closeUserMenu(page);
 	//goto one work and come back
 	const firstArticle = articles.first();
 	const firstArticleTitle = await firstArticle.locator('strong').innerText();
-	const firstArticleLink = await firstArticle.getByRole('link', { name: firstArticleTitle });
+	const firstArticleLink = firstArticle.getByRole('link', { name: firstArticleTitle });
 	await firstArticleLink.click();
 	await page.waitForURL('**/work/*');
 	//make sure the title is the same
@@ -59,6 +72,21 @@ export default async (page: Page) => {
 	await expect(workTitle).toBeVisible();
 	//go back to the top page by clicking the logo
 	const logo = page.getByRole('link', { name: 'ADG Tokyo', exact: true });
+	await logo.click();
+	await page.waitForURL('**/');
+
+	//go to one post and come back
+	const firstPost = posts.first();
+	const firstPostTitle = await firstPost.locator('strong').innerText();
+	const firstPostLink = firstPost.getByRole('link', { name: firstPostTitle });
+	await firstPostLink.click();
+	await page.waitForURL('**/post/*');
+	//make sure the title is the same
+	const postTitle = page.getByRole('heading', {
+		name: firstPostTitle
+	});
+	await expect(postTitle).toBeVisible();
+	//go back to the top page by clicking the logo
 	await logo.click();
 	await page.waitForURL('**/');
 };

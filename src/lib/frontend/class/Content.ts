@@ -1,3 +1,4 @@
+import { api } from './API';
 import { DBObject } from './DBObject';
 
 export class Content extends DBObject {
@@ -12,5 +13,20 @@ export class Content extends DBObject {
 		this.title = data.title || '';
 		this.body = data.body || '';
 		this.locale = data.locale || 'en';
+	}
+	async getTranslation(locale: string): Promise<{ title: string; body: string }> {
+		const title = await api
+			.post('/translate', {
+				text: this.title,
+				target: locale
+			})
+			.then((res) => res.data.translation);
+		const body = await api
+			.post('/openai', {
+				prompt: `Translate below blog post to ${locale}. Keep the HTML tags in place so that it doesn't change the formatting.:
+			${this.body}`
+			})
+			.then((res) => res.data.content);
+		return { title, body };
 	}
 }
