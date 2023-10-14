@@ -15,14 +15,13 @@
 		<div style="white-space:nowrap">
 			{#each images as attachment, index}
 				<div class="image">
-					<img
-						alt={attachment.name}
-						style="height:200px;width:auto;"
-						on:click={() => {
-							window.open(attachment.url);
-						}}
-						src={attachment.thumbnailURL}
-					/>
+					<a href={attachment.url} target="_blank">
+						<img
+							alt={attachment.filename}
+							style="height:200px;width:auto;"
+							src={attachment.thumbnailURL}
+						/>
+					</a>
 					{#if !isStatic}
 						<div style="position:absolute;top:0px;right:0px">
 							<EditControlButtons

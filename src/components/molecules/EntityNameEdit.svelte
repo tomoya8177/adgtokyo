@@ -4,12 +4,8 @@
 	import type { Entity } from '$lib/frontend/class/Entity';
 	import PairOfInputs from '$components/UIComponents/PairOfInputs.svelte';
 	import { me } from '$lib/frontend/class/User';
-	import { onMount } from 'svelte';
 	import TranslateButton from '$components/UIComponents/TranslateButton.svelte';
 	export let entity: Entity;
-	onMount(() => {
-		console.log({ me });
-	});
 </script>
 
 <PairOfInputs bind:local={entity.nameLocal} bind:en={entity.nameEn} label={_('Name')} />

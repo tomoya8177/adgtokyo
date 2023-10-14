@@ -18,6 +18,7 @@
 	<article>
 		<header>
 			<a
+				href={'#'}
 				aria-label="Close"
 				class="close"
 				on:click={() => {

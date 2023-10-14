@@ -26,12 +26,9 @@
 			<figure>
 				<div>
 					{#each message.images || [] as image}
-						<img
-							src={image.url}
-							on:click={() => {
-								window.open(image.url);
-							}}
-						/>
+						<a href={image.url} target="_blank">
+							<img src={image.url} alt={image.url} />
+						</a>
 					{/each}
 				</div>
 			</figure>
@@ -59,8 +56,5 @@
 	}
 	.message.user {
 		text-align: right;
-	}
-	article {
-		max-height: none;
 	}
 </style>

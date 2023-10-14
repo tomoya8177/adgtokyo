@@ -2,7 +2,6 @@
 	import { PUBLIC_TINYMCE_API_KEY } from '$env/static/public';
 	import Editor from '@tinymce/tinymce-svelte';
 	export let value: string;
-	export let id: string = 'id';
 </script>
 
 <main>

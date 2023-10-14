@@ -1,7 +1,6 @@
 <script lang="ts">
 	export let icon: string;
 	export let size: string = '1.5rem';
-	export let position: string = 'relative';
 	export let color: string = '';
 </script>
 

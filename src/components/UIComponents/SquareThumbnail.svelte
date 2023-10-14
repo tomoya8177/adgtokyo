@@ -5,6 +5,7 @@
 
 <span style="width: {size}; height: {size};">
 	<img
+		alt="thumbnail"
 		src={url}
 		style="object-fit: cover; width: 100%; height: 100%; position: relative; top: -50%; left: -50%; transform: translate(50%, 50%);"
 	/>

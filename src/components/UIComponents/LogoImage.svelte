@@ -1,8 +1,11 @@
 <script lang="ts">
+	import { goto } from '$app/navigation';
+
 	export let size = '2rem';
 </script>
 
 <div
+	aria-hidden="true"
 	style:width={size}
 	style:height={size}
 	class="logoImage"

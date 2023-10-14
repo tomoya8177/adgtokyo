@@ -103,6 +103,7 @@
 		</div>
 		{#if $sidebarOpen}
 			<div
+				aria-hidden="true"
 				class="sidebarBackground"
 				on:click={() => {
 					sidebarOpen.set(false);

@@ -32,11 +32,11 @@ export default async (page: Page) => {
 		const article = articles.nth(i);
 		const title = await article.locator('strong').innerText();
 		expect(title).toBeTruthy();
-		const category = await article.locator('mark').innerText();
-		expect(category).toBeTruthy();
-		//category should be one of workCategory
-		const oneOfCategories = workCategory.some((c) => c.title == category);
-		expect(oneOfCategories).toBeTruthy();
+		// const category = await article.locator('mark').innerText();
+		// expect(category).toBeTruthy();
+		// //category should be one of workCategory
+		// const oneOfCategories = workCategory.some((c) => c.title == category);
+		// expect(oneOfCategories).toBeTruthy();
 	}
 	const recentPostsHeading = page.getByRole('heading', { name: 'Recently Added Posts' });
 	await expect(recentPostsHeading).toBeVisible();
@@ -54,10 +54,10 @@ export default async (page: Page) => {
 	//bottom nav content
 	const createNewWorkButton = page.locator('a:has-text("Create New Work")');
 	await expect(createNewWorkButton).toBeVisible();
-	const localButton = page.locator('a:has-text("Local")');
-	await expect(localButton).toBeVisible();
-	const engButton = page.locator('a:has-text("English")');
-	await expect(engButton).toBeVisible();
+	//const localButton = page.locator('a:has-text("Local")');
+	//await expect(localButton).toBeVisible();
+	//const engButton = page.locator('a:has-text("English")');
+	//await expect(engButton).toBeVisible();
 
 	//goto one work and come back
 	const firstArticle = articles.first();

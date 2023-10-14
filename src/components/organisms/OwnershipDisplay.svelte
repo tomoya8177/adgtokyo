@@ -5,7 +5,6 @@
 	import { goto } from '$app/navigation';
 	import type { Entity } from '$lib/frontend/class/Entity';
 	import { myConfirm } from '$lib/frontend/class/Confirm';
-	import UserProfilePicture from '$components/UIComponents/UserProfilePicture.svelte';
 	export let entity: Entity;
 </script>
 
@@ -41,11 +40,5 @@
 		display: flex;
 		gap: 0.4rem;
 		align-items: center;
-	}
-	.small-profile-picture {
-		width: 1.2em;
-		height: 1.2em;
-		border-radius: 50%;
-		margin-right: 0.2rem;
 	}
 </style>
