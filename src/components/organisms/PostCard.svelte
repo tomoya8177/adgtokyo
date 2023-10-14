@@ -7,6 +7,7 @@
 	import { _, lang } from '$lib/frontend/i18n';
 	import { onMount } from 'svelte';
 	import UserIconNickname from './UserIconNickname.svelte';
+	import { getExcerpt } from '$lib/frontend/getExcerpt';
 
 	export let post: Post;
 	let contentLoad: Promise<false | Content> = Promise.resolve(false);
@@ -49,7 +50,10 @@
 			</header>
 			<main>
 				<p>
-					{@html content.body}
+					{getExcerpt(content.body)}...
+					<a href={`/post/${post.id}`} class="contrast">
+						{_('Read More')}
+					</a>
 				</p>
 			</main>
 			{#if post.userId == me.id}

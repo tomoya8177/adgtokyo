@@ -106,5 +106,6 @@ export default {
 	'Generate Image': '画像を生成する',
 	'Data Language': 'データ言語',
 	Post: '投稿',
-	'New Post': '新規投稿'
+	'New Post': '新規投稿',
+	'Read More': '続きを読む'
 };
