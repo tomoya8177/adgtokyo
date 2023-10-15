@@ -12,7 +12,7 @@
 	export let onDown: (() => void) | false;
 	export let onUpdate: (department: Department) => void;
 	export let onPropertyUpdate: (property: Property) => void;
-	export let onHasEntityUpdate: (hasEntity: PropertyHasEntity) => Promise<void>;
+	export let onHasEntityUpdate: (hasEntity: PropertyHasEntity) => Promise<boolean>;
 	let creditTitleBusy = false;
 </script>
 
@@ -68,10 +68,11 @@
 					weight: department.properties.length + 1,
 					departmentId: department.id
 				}).create();
-				const hasEntity = await new PropertyHasEntity({
+				const hasEntity = new PropertyHasEntity({
 					propertyId: property.id,
-					weight: 1
-				}).create();
+					weight: 1,
+					anew: true
+				});
 				hasEntity.editing = true;
 				property.hasEntities = [hasEntity];
 				property.editing = true;

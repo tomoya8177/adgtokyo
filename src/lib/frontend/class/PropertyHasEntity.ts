@@ -22,7 +22,7 @@ export class PropertyHasEntity extends DBObject {
 	property: Property | null = null;
 	work: Work | null = null;
 	distributions: Distribution[];
-
+	anew: boolean;
 	constructor(data: any) {
 		data.table = 'PropertyHasEntity';
 		super(data);
@@ -38,6 +38,7 @@ export class PropertyHasEntity extends DBObject {
 		this.property = data.property || null;
 		this.work = data.work || null;
 		this.distributions = data.distributions || [];
+		this.anew = data.anew || false;
 	}
 	validate: () => {} = (): boolean => {
 		if (!this.entityId) {

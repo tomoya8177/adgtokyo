@@ -1,6 +1,11 @@
 import { api } from './class/API';
 
-export const search = async (keywords: string, category: string, AND: any = false) => {
+export const search = async (
+	keywords: string,
+	category: string,
+	AND: any = false,
+	justNames: boolean = false
+) => {
 	let results = [];
 	if (keywords) {
 		keywords = keywords
@@ -15,7 +20,8 @@ export const search = async (keywords: string, category: string, AND: any = fals
 			.post('/search', {
 				keywords,
 				category,
-				AND
+				AND,
+				justNames
 			})
 			.then((res) => res.data);
 	}

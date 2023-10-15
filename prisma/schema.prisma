@@ -1,0 +1,160 @@
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model ApiKey {
+  id     String  @id @db.VarChar(45)
+  apiKey String? @db.VarChar(128)
+}
+
+model Attachment {
+  id         String  @id @db.VarChar(45)
+  handle     String? @db.VarChar(45)
+  attachedTo String? @db.VarChar(45)
+  mimetype   String? @db.VarChar(45)
+  filename   String? @db.VarChar(500)
+  userId     String? @db.VarChar(45)
+  url        String? @db.VarChar(500)
+  weight     Int?    @db.SmallInt
+}
+
+model Content {
+  id     String  @id @db.VarChar(45)
+  postId String? @db.VarChar(45)
+  post   Post?   @relation(fields: [postId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  title  String? @db.VarChar(200)
+  body   String? @db.Text
+  locale String? @db.VarChar(45)
+}
+
+model Department {
+  id         String  @id @db.VarChar(45)
+  workId     String  @db.VarChar(45)
+  work       Work    @relation(fields: [workId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  titleLocal String? @db.VarChar(200)
+  titleEn    String? @db.VarChar(200)
+  weight     Int?    @db.SmallInt
+  properties Property[]
+}
+
+model Distribution {
+  id          String  @id @db.VarChar(45)
+  year        String? @db.VarChar(45)
+  regionLocal String? @db.VarChar(100)
+  regionEn    String? @db.VarChar(100)
+  workId      String  @db.VarChar(45)
+  work        Work    @relation(fields: [workId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  weight      Int?    @db.SmallInt
+}
+
+model Entity {
+  id                 String  @id @db.VarChar(45)
+  nameLocal          String? @db.VarChar(500)
+  nameEn             String? @db.VarChar(500)
+  slug               String? @db.VarChar(200)
+  category           String? @db.VarChar(45)
+  descriptionLocal   String? @db.Text
+  descriptionEn      String? @db.Text
+  imdbURL            String? @db.VarChar(500)
+  officialWebsiteURL String? @db.VarChar(500)
+  owner              User? 
+  filmographies      PropertyHasEntity[] 
+}
+
+model GoodJob {
+  id          String  @id @db.VarChar(45)
+  hasEntityId String? @db.VarChar(45)
+  hasEntity   PropertyHasEntity? @relation(fields: [hasEntityId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  userId      String? @db.VarChar(45)
+  owner        User?   @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+}
+
+model History {
+  id                  String    @id @db.VarChar(45)
+  action              String?   @db.VarChar(45)
+  target              String?   @db.VarChar(45)
+  userId              String?   @db.VarChar(45)
+  owner               User?     @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  workId              String    @db.VarChar(45)
+  propertyId          String    @db.VarChar(45)
+  entityId            String    @db.VarChar(45)
+  propertyHasEntityId String    @db.VarChar(45)
+  createdAt           DateTime? @default(now()) @db.DateTime(0)
+  fromValue           String?   @db.Text
+  toValue             String?   @db.Text
+  departmentId        String    @db.VarChar(45)
+  targetId            String?   @db.VarChar(45)
+}
+
+model Post {
+  id        String    @id @db.VarChar(45)
+  status    String?   @db.VarChar(45)
+  createdAt DateTime? @default(now()) @db.DateTime(0)
+  publicAt  DateTime? @default(now()) @db.DateTime(0)
+  userId    String?   @default("") @db.VarChar(45)
+  author    User?     @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  contents  Content[]
+}
+
+model Property {
+  id           String  @id @db.VarChar(45)
+  keyLocal     String? @db.VarChar(45)
+  keyEn        String? @db.VarChar(45)
+  status       String? @db.VarChar(45)
+  departmentId String  @db.VarChar(45)
+  department   Department @relation(fields: [departmentId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  weight       Int?    @db.SmallInt
+  propertyHasEntities PropertyHasEntity[]
+}
+
+model PropertyHasEntity {
+  entityId     String  @db.VarChar(45)
+  entity       Entity  @relation(fields: [entityId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  propertyId   String  @db.VarChar(45)
+  property     Property @relation(fields: [propertyId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  status       String? @db.VarChar(45)
+  id           String  @id @db.VarChar(45)
+  subtextLocal String? @db.VarChar(200)
+  subtextEn    String? @db.VarChar(200)
+  weight       Int?    @db.SmallInt
+  goodJobs     GoodJob[]
+}
+
+model User {
+  id           String  @id @db.VarChar(45)
+  nickname     String? @db.VarChar(45)
+  picture      String? @db.VarChar(500)
+  subscription String? @db.VarChar(45)
+  entityId     String? @unique @db.VarChar(45)
+  entity       Entity? @relation(fields: [entityId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  goodJobs     GoodJob[]
+  posts        Post[]
+  histories    History[]
+}
+
+model WeightForEntity {
+  id         String  @id @db.VarChar(45)
+  weight     Int?    @db.SmallInt
+  entityId   String? @db.VarChar(45)
+  attachedTo String? @db.VarChar(45)
+}
+
+model Work {
+  id                 String    @id @db.VarChar(45)
+  titleEn            String?   @db.VarChar(500)
+  titleLocal         String?   @db.VarChar(500)
+  descriptionLocal   String?   @db.Text
+  formatLocal        String?   @db.VarChar(500)
+  formatEn           String?   @db.VarChar(500)
+  slug               String?   @db.VarChar(200)
+  status             String?   @db.VarChar(45)
+  descriptionEn      String?   @db.Text
+  createdAt          DateTime? @default(now()) @db.Timestamp(0)
+  videoURL           String?   @db.VarChar(500)
+  officialWebsiteURL String?   @db.VarChar(500)
+  imdbURL            String?   @db.VarChar(500)
+  category           String?   @db.VarChar(100)
+  departments        Department[]
+  distributions      Distribution[]
+}

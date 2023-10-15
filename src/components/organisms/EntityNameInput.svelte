@@ -17,8 +17,8 @@
 		}`.trim();
 		if (!keyword) return;
 		searching = true;
-		const personResults = await search(keyword, 'person', 'AND');
-		const businessResults = await search(keyword, 'business', 'AND');
+		const personResults = await search(keyword, 'person', 'AND', true);
+		const businessResults = await search(keyword, 'business', 'AND', true);
 		const mergedResults = [...personResults, ...businessResults];
 		const promises = mergedResults.map(async (result) => {
 			return api.get('/crew/' + result.id).then((res) => res.data);
