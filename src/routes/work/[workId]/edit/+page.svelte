@@ -71,11 +71,16 @@
 	});
 	const hasEntityUpdate = async (hasEntity: PropertyHasEntity): Promise<boolean> => {
 		if (!hasEntity.validate()) return false;
-		await hasEntity.update({
-			subtextLocal: hasEntity.subtextLocal,
-			subtextEn: hasEntity.subtextEn,
-			entityId: hasEntity.entityId
-		});
+		if (hasEntity.anew) {
+			await hasEntity.create();
+			hasEntity.anew = false;
+		} else {
+			await hasEntity.update({
+				subtextLocal: hasEntity.subtextLocal,
+				subtextEn: hasEntity.subtextEn,
+				entityId: hasEntity.entityId
+			});
+		}
 		hasEntity.editing = false;
 		return true;
 	};
@@ -255,10 +260,11 @@
 				weight: 1
 			}).create();
 			property.editing = true;
-			const hasEntity = await new PropertyHasEntity({
+			const hasEntity = new PropertyHasEntity({
 				propertyId: property.id,
-				weight: 1
-			}).create();
+				weight: 1,
+				anew: true
+			});
 
 			hasEntity.editing = true;
 			property.hasEntities = [hasEntity];

@@ -30,6 +30,7 @@
 		BottomNavButton.set({
 			label: _('Proceed'),
 			onClick: async () => {
+				if (!$BottomNavButton) return;
 				if (!work.validate() || !department.validate() || !property.validate()) {
 					return false;
 				}

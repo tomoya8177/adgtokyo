@@ -12,7 +12,7 @@
 	export let onDelete: () => void;
 	export let onUp: (() => void) | false;
 	export let onDown: (() => void) | false;
-	export let onUpdate: (hasEntity: PropertyHasEntity) => Promise<void | false>;
+	export let onUpdate: (hasEntity: PropertyHasEntity) => Promise<boolean>;
 </script>
 
 <div class="row">

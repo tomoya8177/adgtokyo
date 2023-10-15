@@ -32,6 +32,3 @@
 		<option value="published">{_('Published')}</option>
 	</select>
 </label>
-{#if post.status == 'published'}
-	<p>Other languages will be generated upon saving this.</p>
-{/if}

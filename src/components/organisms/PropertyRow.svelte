@@ -13,7 +13,7 @@
 	export let onUp: (() => void) | false;
 	export let onDown: (() => void) | false;
 	export let onUpdate: (property: Property) => void;
-	export let onHasEntityUpdate: (hasEntity: PropertyHasEntity) => Promise<void>;
+	export let onHasEntityUpdate: (hasEntity: PropertyHasEntity) => Promise<boolean>;
 </script>
 
 <article>
@@ -30,10 +30,11 @@
 				className="outline"
 				label={_('Add Person / Business')}
 				onclick={async () => {
-					const hasEntity = await new PropertyHasEntity({
+					const hasEntity = new PropertyHasEntity({
 						propertyId: property.id,
-						weight: property.hasEntities.length + 1
-					}).create();
+						weight: property.hasEntities.length + 1,
+						anew: true
+					});
 					hasEntity.editing = true;
 					property.hasEntities = [...property.hasEntities, hasEntity];
 				}}

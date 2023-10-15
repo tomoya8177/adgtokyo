@@ -1,10 +1,11 @@
 import { db } from '$lib/backend/db.js';
 
 export const POST = async ({ request }) => {
-	const { category, keywords, AND } = (await request.json()) as {
+	const { category, keywords, AND, justNames } = (await request.json()) as {
 		category: string;
 		keywords: string;
 		AND: any;
+		justNames: boolean;
 	};
 	let data: any[] = [];
 	switch (category) {
@@ -25,7 +26,7 @@ export const POST = async ({ request }) => {
 			data = await db.query('select * from Property where 1');
 			break;
 	}
-	if (category == 'person' || category == 'business') {
+	if (!justNames && (category == 'person' || category == 'business')) {
 		const promises = data.map(async (entity) => {
 			const hasEntities = await db.query(
 				`select * from PropertyHasEntity where entityId='${entity.id}'`
