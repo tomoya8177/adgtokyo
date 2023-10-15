@@ -132,6 +132,7 @@
 		bottom: 0;
 		left: 0;
 		background-color: rgba(0, 0, 0, 0.5);
+		z-index: 2;
 	}
 	.sidebar {
 		position: fixed;
@@ -142,9 +143,11 @@
 		height: 100vh;
 		background-color: var(--my-background-color);
 		box-shadow: var(--pico-card-box-shadow);
+		z-index: 2;
 	}
 	.sidebar article {
-		height: 100%;
+		height: 100vh;
+		border-radius: 0px;
 	}
 	.height {
 		height: 100dvh;

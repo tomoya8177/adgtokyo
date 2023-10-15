@@ -31,6 +31,14 @@
 			{_('Logged in as:')}
 			{me.nickname}
 		</li>
+		{#if me.entityId}
+			<li>
+				<a href={`/entity/${me.entityId}`}>
+					<Icon icon="person" />
+					{_('My Page')}
+				</a>
+			</li>
+		{/if}
 		<li>
 			<a
 				href={'#'}

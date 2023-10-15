@@ -29,4 +29,8 @@ export class Content extends DBObject {
 			.then((res) => res.data.content);
 		return { title, body };
 	}
+	get excerpt(): string {
+		const excerpt = this.body.replace(/<[^>]*>?/gm, '').slice(0, 200);
+		return excerpt;
+	}
 }

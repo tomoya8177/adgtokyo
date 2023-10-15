@@ -7,7 +7,6 @@
 	import { _, lang } from '$lib/frontend/i18n';
 	import { onMount } from 'svelte';
 	import UserIconNickname from './UserIconNickname.svelte';
-	import { getExcerpt } from '$lib/frontend/getExcerpt';
 
 	export let post: Post;
 	let content: Content;
@@ -47,7 +46,8 @@
 		</header>
 		<main>
 			<p>
-				{getExcerpt(content.body)}...
+				{content.excerpt}
+				<span style="padding:0rem 0.2rem;"> ... </span>
 				<a href={`/post/${post.id}/${lang.locale}`} class="contrast">
 					{_('Read More')}
 				</a>
