@@ -12,10 +12,8 @@
 
 	let post: Post;
 	let content: Content;
-	onMount(async () => {
-		let response = await api
-			.get(`/post/${$page.params.postId}/${$page.params.locale}`)
-			.then((res) => res.data);
+	const load = async (locale) => {
+		let response = await api.get(`/post/${$page.params.postId}/${locale}`).then((res) => res.data);
 		post = new Post(response.post);
 		await post.getUser();
 		post = post;
@@ -29,6 +27,8 @@
 			});
 			return;
 		}
+	};
+	onMount(async () => {
 		BottomNavButton.set({
 			label: _('Edit This Page'),
 			onClick: () => {
@@ -36,6 +36,7 @@
 			}
 		});
 	});
+	$: load($page.params.locale);
 </script>
 
 <svelte:head>
