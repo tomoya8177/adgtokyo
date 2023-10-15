@@ -1,4 +1,7 @@
+import axios from 'axios';
 import { api } from './class/API';
+import { History } from './class/History';
+import { me } from './class/User';
 
 export const search = async (keywords: string, category: string, AND: any = false) => {
 	let results = [];
@@ -18,6 +21,11 @@ export const search = async (keywords: string, category: string, AND: any = fals
 				AND
 			})
 			.then((res) => res.data);
+		await api.post('/api/History', {
+			action: 'search',
+			target: keywords,
+			userId: me.id
+		});
 	}
 	return results;
 };

@@ -33,7 +33,7 @@
 		</li>
 		{#if me.entityId}
 			<li>
-				<a href={`/entity/${me.entityId}`}>
+				<a href={`/crew/${me.entityId}`}>
 					<Icon icon="person" />
 					{_('My Page')}
 				</a>
