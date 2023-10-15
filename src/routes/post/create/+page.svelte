@@ -30,8 +30,7 @@
 				post.userId = me.id;
 				await post.create();
 				await content.create();
-
-				await post.generateOtherLocaleContentFrom(content.locale);
+				if (post.status == 'published') await post.generateOtherLocaleContentFrom(content.locale);
 				$BottomNavButton.busy = false;
 				goto(`/post`, {
 					invalidateAll: true

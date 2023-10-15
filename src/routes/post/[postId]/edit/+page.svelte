@@ -40,14 +40,8 @@
 					title: content.title,
 					body: content.body
 				});
-				if (!updateOtherLocales) {
-					$BottomNavButton.busy = false;
-					goto(`/post/${post.id}`, {
-						invalidateAll: true
-					});
-					return;
-				}
-				await post.updateOtherLocaleContentFrom(content.locale);
+
+				if (updateOtherLocales) await post.updateOtherLocaleContentFrom(content.locale);
 
 				buttonBusy = false;
 				goto(`/post/${post.id}`, {
