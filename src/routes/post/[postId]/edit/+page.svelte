@@ -34,7 +34,8 @@
 
 				post.userId = me.id;
 				await post.update({
-					status: post.status
+					status: post.status,
+					publicOn: post.publicOn
 				});
 				await content.update({
 					title: content.title,

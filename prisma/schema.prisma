@@ -58,7 +58,6 @@ model Entity {
   descriptionEn      String? @db.Text
   imdbURL            String? @db.VarChar(500)
   officialWebsiteURL String? @db.VarChar(500)
-  owner              User? 
   filmographies      PropertyHasEntity[] 
 }
 
@@ -91,7 +90,7 @@ model Post {
   id        String    @id @db.VarChar(45)
   status    String?   @db.VarChar(45)
   createdAt DateTime? @default(now()) @db.DateTime(0)
-  publicAt  DateTime? @default(now()) @db.DateTime(0)
+  publicOn  DateTime? @db.Date
   userId    String?   @default("") @db.VarChar(45)
   author    User?     @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   contents  Content[]
@@ -127,7 +126,6 @@ model User {
   picture      String? @db.VarChar(500)
   subscription String? @db.VarChar(45)
   entityId     String? @unique @db.VarChar(45)
-  entity       Entity? @relation(fields: [entityId], references: [id], onDelete: NoAction, onUpdate: NoAction)
   goodJobs     GoodJob[]
   posts        Post[]
   histories    History[]

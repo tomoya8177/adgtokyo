@@ -9,7 +9,9 @@ export const load = async () => {
 			`/api/Attachment?attachedTo=in:'${works.map((work) => work.id).join("','")}'&orderBy=weight`
 		)
 		.then((res) => res.data);
-	const posts = await api.get('/api/Post?orderBy=createdAt&order=desc').then((res) => res.data);
+	const posts = await api
+		.get('/api/Post?orderBy=publicOn&order=desc&limit=3')
+		.then((res) => res.data);
 	return {
 		works,
 		attachments,

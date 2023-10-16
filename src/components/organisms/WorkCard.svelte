@@ -13,13 +13,13 @@
 		<div class="justified-flex" style="margin-bottom:var(--pico-spacing)">
 			<div>
 				<a href={'/work/' + work.id} class="contrast">
-					<strong>
+					<h3>
 						{#if $LocalEnSwitch == 'local'}
 							{work.titleLocal}
 						{:else}
 							{work.titleEn}
 						{/if}
-					</strong>
+					</h3>
 				</a>
 			</div>
 			{#if work.category}

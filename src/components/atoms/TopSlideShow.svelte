@@ -50,10 +50,10 @@
 	{/each}
 	<div class="foreground">
 		<div>
-			<h1>ADG Tokyo</h1>
-			<h5>
+			<!-- <h1>ADG Tokyo</h1> -->
+			<h1>
 				{_('A virtual sanctuary for filmmakers. Inspire, collaborate, and innovate.')}
-			</h5>
+			</h1>
 			<div style="position:relative; display:flex; justify-content:center;">
 				{#each searchKeywords as keyword, index}
 					{#if index == featuredKeywordIndex}

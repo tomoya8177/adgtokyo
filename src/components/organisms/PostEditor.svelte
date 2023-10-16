@@ -10,6 +10,7 @@
 	export let content: Content;
 	let wasDraft = post.status == 'draft';
 	onMount(() => {
+		console.log({ post });
 		if (!$User.authenticated) {
 			loginModalOpen.set(true);
 			return;
@@ -31,4 +32,8 @@
 		<option value="draft">{_('Draft')}</option>
 		<option value="published">{_('Published')}</option>
 	</select>
+</label>
+<label>
+	{_('Publish Date')}
+	<input type="date" bind:value={post.publicOn} />
 </label>

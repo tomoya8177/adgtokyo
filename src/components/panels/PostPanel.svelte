@@ -7,9 +7,10 @@
 	import type { Content } from '$lib/frontend/class/Content';
 	import type { Post } from '$lib/frontend/class/Post';
 	import { me } from '$lib/frontend/class/User';
-	import { _ } from '$lib/frontend/i18n';
+	import { _, lang } from '$lib/frontend/i18n';
 	import { locales } from '$lib/frontend/locales';
 	import { onMount } from 'svelte';
+	import { DateTime } from 'luxon';
 	export let post: Post;
 	export let content: Content;
 	onMount(() => {
@@ -24,21 +25,28 @@
 	<section>
 		<div class="justified-flex">
 			<div>
-				<h3>
+				<h1>
 					{content.title}
-				</h3>
+				</h1>
 			</div>
-			{#if post.userId == me.id}
-				<div>
+			<div>
+				{#if post.userId == me.id}
 					<mark>
 						{post.status}
 					</mark>
-				</div>
-			{:else if post.user}
-				<div>
-					<UserIconNickname user={post.user} />
-				</div>
-			{/if}
+				{:else if post.user}
+					<div>
+						<UserIconNickname user={post.user} />
+					</div>
+				{/if}
+				{#if post.publicOn}
+					<div>
+						{DateTime.fromISO(post.publicOn)
+							.setLocale(lang.locale.substring(0, 2))
+							.toLocaleString()}
+					</div>
+				{/if}
+			</div>
 		</div>
 	</section>
 	<section>

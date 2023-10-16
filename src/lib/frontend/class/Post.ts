@@ -4,16 +4,19 @@ import { api } from './API';
 import { Content } from './Content';
 import { DBObject } from './DBObject';
 import { User } from './User';
+import { DateTime } from 'luxon';
 
 export class Post extends DBObject {
 	status: string;
 	userId: string;
 	user?: User;
+	publicOn: string;
 	constructor(data: any) {
 		data.table = 'Post';
 		super(data);
 		this.status = data.status || 'draft';
 		this.userId = data.userId || '';
+		this.publicOn = DateTime.fromISO(data.publicOn).toISODate() || DateTime.now().toISODate(); //
 	}
 
 	async generateOtherLocaleContentFrom(originalLocale: string) {

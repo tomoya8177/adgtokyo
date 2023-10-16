@@ -8,7 +8,6 @@
 	import { me } from '$lib/frontend/class/User';
 	import { _ } from '$lib/frontend/i18n';
 	import { BottomNavButton } from '$lib/frontend/store';
-	import { onMount } from 'svelte';
 
 	let post: Post;
 	let content: Content;
@@ -26,16 +25,15 @@
 				}
 			});
 			return;
+		} else {
+			BottomNavButton.set({
+				label: _('Edit This Page'),
+				onClick: () => {
+					goto(`/post/${$page.params.postId}/edit`);
+				}
+			});
 		}
 	};
-	onMount(async () => {
-		BottomNavButton.set({
-			label: _('Edit This Page'),
-			onClick: () => {
-				goto(`/post/${$page.params.postId}/edit`);
-			}
-		});
-	});
 	$: load($page.params.locale);
 </script>
 

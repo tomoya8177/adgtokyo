@@ -7,6 +7,7 @@
 	import { _, lang } from '$lib/frontend/i18n';
 	import { onMount } from 'svelte';
 	import UserIconNickname from './UserIconNickname.svelte';
+	import { DateTime } from 'luxon';
 
 	export let post: Post;
 	let content: Content;
@@ -26,9 +27,9 @@
 			<div class="justified-flex">
 				<div>
 					<a href={`/post/${post.id}/${lang.locale}`} class="contrast">
-						<strong>
+						<h3>
 							{content.title}
-						</strong>
+						</h3>
 					</a>
 				</div>
 				<div>
@@ -39,6 +40,13 @@
 					{:else if post.user}
 						<div>
 							<UserIconNickname user={post.user} />
+						</div>
+					{/if}
+					{#if post.publicOn}
+						<div>
+							{DateTime.fromISO(post.publicOn)
+								.setLocale(lang.locale.substring(0, 2))
+								.toLocaleString()}
 						</div>
 					{/if}
 				</div>
