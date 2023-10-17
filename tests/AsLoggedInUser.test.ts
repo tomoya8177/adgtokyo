@@ -5,6 +5,8 @@ import TopPage from './TopPage';
 import Login from './Login';
 import UserMenu from './UserMenu';
 
+// test.describe.configure({ mode: 'parallel' });
+
 test.beforeEach(async ({ page }, testInfo) => {
 	await page.goto('http://localhost:' + process.env.RUN_APP_PORT + '/');
 	await Login(page);

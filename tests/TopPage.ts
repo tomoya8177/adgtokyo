@@ -6,8 +6,9 @@ import closeUserMenu from './actions/closeUserMenu';
 export default async (page: Page) => {
 	// expect title to be there more than one time
 	await expect(
-		page.getByRole('heading', {
-			name: 'ADG Tokyo'
+		page.getByRole('link', {
+			name: 'ADG Tokyo',
+			exact: true
 		})
 	).toBeVisible();
 	//top navigation bar is there
@@ -27,8 +28,8 @@ export default async (page: Page) => {
 	expect(postCount).toBeGreaterThan(0);
 	for (let i = 0; i < postCount; ++i) {
 		const post = posts.nth(i);
-		const title = await post.locator('strong').innerText();
-		expect(title).toBeTruthy();
+		const title = post.getByRole('heading');
+		await expect(title).toBeVisible();
 		const body = await post.locator('main').innerText();
 		expect(body).toBeTruthy();
 	}
@@ -44,8 +45,8 @@ export default async (page: Page) => {
 	expect(articleCount).toBeGreaterThan(0);
 	for (let i = 0; i < articleCount; ++i) {
 		const article = articles.nth(i);
-		const title = await article.locator('strong').innerText();
-		expect(title).toBeTruthy();
+		const title = article.getByRole('heading');
+		await expect(title).toBeVisible();
 	}
 	//bottom nav content
 	const createNewWorkButton = page.locator('a:has-text("Create New Work")');
@@ -55,13 +56,14 @@ export default async (page: Page) => {
 	//const engButton = page.locator('a:has-text("English")');
 	//await expect(engButton).toBeVisible();
 	const firstPost = posts.first();
-	const firstPostTitle = await firstPost.locator('strong').innerText();
-	const firstPostLink = firstPost.getByRole('link', { name: firstPostTitle });
-	await firstPostLink.click();
+	const firstPostTitle = firstPost.getByRole('heading');
+	await expect(firstPostTitle).toBeVisible();
+	const firstPostTitleText = await firstPostTitle.innerText();
+	await firstPostTitle.click();
 	await page.waitForURL('**/post/*/*');
 	//make sure the title is the same
 	const postTitle = page.getByRole('heading', {
-		name: firstPostTitle
+		name: firstPostTitleText
 	});
 	await expect(postTitle).toBeVisible();
 	//go back to the top page by clicking the logo
@@ -71,14 +73,13 @@ export default async (page: Page) => {
 
 	//goto one work and come back
 	const firstArticle = articles.first();
-	console.log({ firstArticle });
-	const firstArticleTitle = await firstArticle.locator('strong').innerText();
-	const firstArticleLink = firstArticle.getByRole('link', { name: firstArticleTitle });
-	await firstArticleLink.click();
+	const firstArticleTitle = firstArticle.getByRole('heading');
+	const firstArticleTitleText = await firstArticleTitle.innerText();
+	await firstArticleTitle.click();
 	await page.waitForURL('**/work/*');
 	//make sure the title is the same
 	const workTitle = page.getByRole('heading', {
-		name: firstArticleTitle
+		name: firstArticleTitleText
 	});
 	await expect(workTitle).toBeVisible();
 	//go back to the top page by clicking the logo
