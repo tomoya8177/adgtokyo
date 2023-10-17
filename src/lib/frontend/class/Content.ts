@@ -22,11 +22,17 @@ export class Content extends DBObject {
 			})
 			.then((res) => res.data.translation);
 		const body = await api
-			.post('/openai', {
-				prompt: `Translate below blog post to ${locale}. Keep the HTML tags in place so that it doesn't change the formatting.:
-			${this.body}`
+			.post('/translate', {
+				text: this.body,
+				target: locale
 			})
-			.then((res) => res.data.content);
+			.then((res) => res.data.translation);
+		// const body = await api
+		// 	.post('/openai', {
+		// 		prompt: `Translate below blog post to ${locale}. Keep the HTML tags in place so that it doesn't change the formatting.:
+		// 	${this.body}`
+		// 	})
+		// 	.then((res) => res.data.content);
 		return { title, body };
 	}
 	get excerpt(): string {

@@ -1,4 +1,5 @@
 import { locales } from '$lib/frontend/locales';
+import { writable } from 'svelte/store';
 import { toast } from '../toast';
 import { api } from './API';
 import { Content } from './Content';
@@ -11,6 +12,8 @@ export class Post extends DBObject {
 	userId: string;
 	user?: User;
 	publicOn: string;
+	translatingLocales: number = 0;
+	translatedLolaes: number = 0;
 	constructor(data: any) {
 		data.table = 'Post';
 		super(data);
@@ -22,10 +25,17 @@ export class Post extends DBObject {
 	async generateOtherLocaleContentFrom(originalLocale: string) {
 		const originalContent = await this.getContent(originalLocale);
 		if (!originalContent) return;
+		this.translatingLocales = 0;
+		this.translatedLolaes = 0;
+
 		await Promise.all(
 			locales.map(async (locale) => {
 				if (locale.key == originalLocale) return;
+				this.translatingLocales++;
 				const { title, body } = await originalContent.getTranslation(locale.key);
+				this.translatedLolaes += 0.5;
+				this.updateProgress();
+
 				console.log({ title, body });
 				toast(locale.name + ' content created');
 				const newContent = new Content({
@@ -35,16 +45,25 @@ export class Post extends DBObject {
 					body
 				});
 				await newContent.create();
+				this.translatedLolaes += 0.5;
+				this.updateProgress();
 			})
 		);
 	}
 	async updateOtherLocaleContentFrom(originalLocale: string) {
 		const originalContent = await this.getContent(originalLocale);
 		if (!originalContent) return;
+		this.translatingLocales = 0;
+		this.translatedLolaes = 0;
+		this.updateProgress();
+
 		await Promise.all(
 			locales.map(async (locale) => {
 				if (locale.key == originalLocale) return;
+				this.translatingLocales++;
 				const { title, body } = await originalContent.getTranslation(locale.key);
+				this.translatedLolaes += 0.5;
+				this.updateProgress();
 
 				console.log({ title, body });
 				toast(locale.name + ' content updated');
@@ -66,6 +85,8 @@ export class Post extends DBObject {
 						body
 					});
 				}
+				this.translatedLolaes += 0.5;
+				this.updateProgress();
 			})
 		);
 	}
@@ -80,4 +101,11 @@ export class Post extends DBObject {
 		if (!content) return false;
 		return new Content(content);
 	}
+	updateProgress() {
+		this.translatingProgress.set(this.translatedLolaes / this.translatingLocales);
+	}
+	translatingProgress = writable(0);
+	// get translationProgress(): number {
+	// 	return this.translatedLolaes / this.translatingLocales || 1;
+	// }
 }

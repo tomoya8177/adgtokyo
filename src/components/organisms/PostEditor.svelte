@@ -9,6 +9,13 @@
 	export let post: Post;
 	export let content: Content;
 	let wasDraft = post.status == 'draft';
+	let progress = 0;
+	post.translatingProgress.subscribe((val) => {
+		console.log(val);
+		//if NaN, return
+		if (isNaN(val)) return;
+		if (typeof val == 'number') progress = Math.round(val * 100);
+	});
 	onMount(() => {
 		console.log({ post });
 		if (!$User.authenticated) {
@@ -37,3 +44,5 @@
 	{_('Publish Date')}
 	<input type="date" bind:value={post.publicOn} />
 </label>
+<progress value={progress} max="100" />
+{progress}

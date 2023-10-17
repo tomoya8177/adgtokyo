@@ -14,17 +14,11 @@ export const POST = async ({ request }) => {
 			data = await db.query('select * from Work where 1');
 			break;
 		case 'person':
+		case 'business':
 			//data = await db.query("select * from Entity where category='person'");
 			data = await prisma.entity.findMany({
 				where: {
-					category: 'person'
-				}
-			});
-			break;
-		case 'business':
-			data = await prisma.entity.findMany({
-				where: {
-					category: 'business'
+					category
 				},
 				include: {
 					filmographies: {
@@ -34,7 +28,6 @@ export const POST = async ({ request }) => {
 					}
 				}
 			});
-			// data = await db.query("select * from Entity where category='business'");
 			break;
 		case 'department':
 			data = await db.query('select * from Department where 1');
