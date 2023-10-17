@@ -1,4 +1,5 @@
 import { db } from '$lib/backend/db.js';
+import prisma from '$lib/backend/prisma.js';
 
 export const POST = async ({ request }) => {
 	const { category, keywords, AND, justNames } = (await request.json()) as {
@@ -13,11 +14,27 @@ export const POST = async ({ request }) => {
 			data = await db.query('select * from Work where 1');
 			break;
 		case 'person':
-			data = await db.query("select * from Entity where category='person'");
-
+			//data = await db.query("select * from Entity where category='person'");
+			data = await prisma.entity.findMany({
+				where: {
+					category: 'person'
+				}
+			});
 			break;
 		case 'business':
-			data = await db.query("select * from Entity where category='business'");
+			data = await prisma.entity.findMany({
+				where: {
+					category: 'business'
+				},
+				include: {
+					filmographies: {
+						include: {
+							property: true
+						}
+					}
+				}
+			});
+			// data = await db.query("select * from Entity where category='business'");
 			break;
 		case 'department':
 			data = await db.query('select * from Department where 1');
@@ -26,6 +43,7 @@ export const POST = async ({ request }) => {
 			data = await db.query('select * from Property where 1');
 			break;
 	}
+	console.log({ data });
 	if (!justNames && (category == 'person' || category == 'business')) {
 		const promises = data.map(async (entity) => {
 			const hasEntities = await db.query(
