@@ -23,10 +23,25 @@ export const POST = async ({ request }) => {
 				include: {
 					filmographies: {
 						include: {
-							property: true
+							property: true,
+							goodJobs: true
 						}
 					}
 				}
+			});
+			data = data.map((entity) => {
+				entity.credits = [];
+				entity.totalGoodJobs = 0;
+				entity.filmographies.forEach((filmography) => {
+					console.log({ filmography });
+					entity.credits.push(filmography.property.keyLocal);
+					entity.credits.push(filmography.property.keyEn);
+					entity.totalGoodJobs += filmography.goodJobs.length;
+				});
+				entity.credits = entity.credits
+					.filter((value, index, self) => self.indexOf(value) === index)
+					.join(', ');
+				return entity;
 			});
 			break;
 		case 'department':
@@ -37,28 +52,6 @@ export const POST = async ({ request }) => {
 			break;
 	}
 	console.log({ data });
-	if (!justNames && (category == 'person' || category == 'business')) {
-		const promises = data.map(async (entity) => {
-			const hasEntities = await db.query(
-				`select * from PropertyHasEntity where entityId='${entity.id}'`
-			);
-			const properties = await db.query(
-				`select * from Property where id in ('${hasEntities
-					.map((hasEntity) => hasEntity.propertyId)
-					.join("','")}')`
-			);
-			const credits: string[] = [];
-			properties.forEach((property) => {
-				credits.push(property.keyLocal);
-				credits.push(property.keyEn);
-			});
-			entity.credits = credits
-				.filter((value, index, self) => self.indexOf(value) === index)
-				.join(', ');
-			return entity;
-		});
-		data = await Promise.all(promises);
-	}
 
 	data = data.map((record) => ({ ...record, matchPoint: 0 }));
 	keywords.split(' ').forEach((keyword: string) => {
@@ -78,7 +71,14 @@ export const POST = async ({ request }) => {
 			})
 			.filter((record) => record);
 	});
-	data = data.filter((record) => record.matchPoint > 0).sort((a, b) => b.matchPoint - a.matchPoint);
+	data = data
+		.filter((record) => record.matchPoint > 0)
+		.map((record) => {
+			if (category === 'person' || category == 'business')
+				record.matchPoint = record.matchPoint * (record.totalGoodJobs || 1);
+			return record;
+		})
+		.sort((a, b) => b.matchPoint - a.matchPoint);
 	console.log(data);
 	return new Response(JSON.stringify(data));
 };

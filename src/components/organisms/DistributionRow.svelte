@@ -14,7 +14,7 @@
 	export let onDistributionUpdate: (distribution: Distribution) => void;
 </script>
 
-<article>
+<article class="card">
 	<div class="justified-flex">
 		<div style="flex:1">
 			{#if !distribution.editing}

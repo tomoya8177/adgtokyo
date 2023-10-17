@@ -3,18 +3,19 @@
 	import { LocalEnSwitch } from '$lib/frontend/store';
 
 	export let entity: Entity;
+	export let simple = false;
 </script>
 
 <div>
 	{#each entity.popularCreditTitles as title, index}
 		{#if $LocalEnSwitch == 'local'}
-			<mark>
+			<svelte:element this={simple ? 'span' : 'mark'}>
 				{title.local}
-			</mark>
+			</svelte:element>
 		{:else}
-			<mark>
+			<svelte:element this={simple ? 'span' : 'mark'}>
 				{title.en}
-			</mark>
+			</svelte:element>
 		{/if}
 	{/each}
 </div>

@@ -8,7 +8,7 @@
 	let attachment = work.attachments[0];
 </script>
 
-<article>
+<article class="card">
 	<main>
 		<div class="justified-flex" style="margin-bottom:var(--pico-spacing)">
 			<div>

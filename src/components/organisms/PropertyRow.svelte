@@ -16,7 +16,7 @@
 	export let onHasEntityUpdate: (hasEntity: PropertyHasEntity) => Promise<boolean>;
 </script>
 
-<article>
+<article class="card">
 	<div class="justified-flex">
 		<div style="flex:1">
 			<!--TITLE-->

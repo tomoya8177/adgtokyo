@@ -6,6 +6,8 @@
 	import { _ } from '$lib/frontend/i18n';
 	import { search } from '$lib/frontend/search';
 	import PairOfInputs from '$components/UIComponents/PairOfInputs.svelte';
+	import { entityOnFocus } from '$lib/frontend/store';
+	import PopularFilmography from '$components/atoms/PopularFilmography.svelte';
 	export let inputLocal: string;
 	export let inputEn: string;
 	export let onExistingClicked: (entity: Entity) => void;
@@ -20,13 +22,13 @@
 		const personResults = await search(keyword, 'person', 'AND', true);
 		const businessResults = await search(keyword, 'business', 'AND', true);
 		const mergedResults = [...personResults, ...businessResults];
-		const promises = mergedResults.map(async (result) => {
-			return api.get('/crew/' + result.id).then((res) => res.data);
-		});
-		const results = await Promise.all(promises);
-		possibleDuplicates = results.map((result) => {
-			const entity = new Entity(result.entity);
-			entity.build(result);
+		// const promises = mergedResults.map(async (result) => {
+		// 	return api.get('/crew/' + result.id).then((res) => res.data);
+		// });
+		// const results = await Promise.all(promises);
+		possibleDuplicates = mergedResults.map((result) => {
+			const entity = new Entity(result);
+			// entity.build(result);
 			return entity;
 		});
 		searching = false;
@@ -58,11 +60,12 @@
 			>
 				<Icon icon={option.category} />
 				<span>
-					<small>
+					<small style="display:flex; gap:0.4rem">
 						{option.nameLocal}
-						{option.nameEn}
-						(ID:
-						{option.username} )
+						/{option.nameEn}
+						<!--(ID:
+						{option.username} ) -->
+						<PopularFilmography simple entity={option} />
 					</small>
 				</span>
 			</a>

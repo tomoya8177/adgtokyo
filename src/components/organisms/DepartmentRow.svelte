@@ -16,7 +16,7 @@
 	let creditTitleBusy = false;
 </script>
 
-<article>
+<article class="card">
 	<DepartmentRowHeader {onUp} {onDown} bind:department {onDelete} {onUpdate} />
 	<div>
 		{#each department.properties as property, index}

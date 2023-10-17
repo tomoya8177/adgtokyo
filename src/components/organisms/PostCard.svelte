@@ -22,7 +22,7 @@
 </script>
 
 {#if content}
-	<article>
+	<article class="card">
 		<header>
 			<div class="justified-flex">
 				<div>

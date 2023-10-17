@@ -30,6 +30,36 @@
 		--pico-mark-background-color: #014063;
 	}
 }
+@media only screen and (prefers-color-scheme: dark) {
+	:root:not([data-theme]) {
+		background: rgb(2, 0, 36);
+		background: -moz-linear-gradient(
+			354deg,
+			rgb(24, 28, 37) 0%,
+			/* rgb(32, 38, 50) 35%, */ rgb(32, 38, 50) 100%
+		);
+		background: -webkit-linear-gradient(
+			354deg,
+			rgb(24, 28, 37) 0%,
+			/* rgb(32, 38, 50) 35%, */ rgb(32, 38, 50) 100%
+		);
+		background: linear-gradient(
+			354deg,
+			rgb(24, 28, 37) 0%,
+			/* rgb(32, 38, 50) 35%, */ rgb(32, 38, 50) 100%
+		);
+		filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#020024",endColorstr="#08758b",GradientType=1);
+	}
+	article.card {
+		background-color: rgba(0, 0, 0, 0);
+		border: rgb(72, 83, 107) 1px solid;
+	}
+	article.card header,
+	article.card footer {
+		background-color: rgba(0, 0, 0, 0);
+		border: none;
+	}
+}
 
 /* Red color for dark color scheme (Forced) */
 /* Enabled if forced with data-theme="dark" */

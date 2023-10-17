@@ -5,6 +5,6 @@
 	export let entity: Entity;
 </script>
 
-<article>
+<article class="card">
 	<EntityNameStaticSmall {entity} />
 </article>
