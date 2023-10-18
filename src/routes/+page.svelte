@@ -13,6 +13,7 @@
 	import { Post } from '$lib/frontend/class/Post';
 	import PostCard from '$components/organisms/PostCard.svelte';
 	import axios from 'axios';
+	import Footer from '$components/panels/Footer.svelte';
 	export let data: PageData;
 	let posts = data.posts.map((post) => new Post(post));
 	console.log({ posts });

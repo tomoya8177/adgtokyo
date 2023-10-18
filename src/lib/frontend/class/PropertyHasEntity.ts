@@ -4,7 +4,7 @@ import { DBObject } from './DBObject';
 import type { Department } from './Department';
 import type { Distribution } from './Distribution';
 import type { Entity } from './Entity';
-import type { Property } from './Property';
+import { Property } from './Property';
 import type { Work } from './Work';
 
 export class PropertyHasEntity extends DBObject {

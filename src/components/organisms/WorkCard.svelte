@@ -10,7 +10,7 @@
 
 <article class="card">
 	<main>
-		<div class="justified-flex" style="margin-bottom:var(--pico-spacing)">
+		<div style="margin-bottom:var(--pico-spacing)">
 			<div>
 				<a href={'/work/' + work.id} class="contrast">
 					<h3>

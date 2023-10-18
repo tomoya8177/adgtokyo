@@ -22,9 +22,9 @@
 </script>
 
 {#if content}
-	<article class="card">
+	<article>
 		<header>
-			<div class="justified-flex">
+			<div>
 				<div>
 					<a href={`/post/${post.id}/${lang.locale}`} class="contrast">
 						<h3>

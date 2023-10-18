@@ -45,6 +45,7 @@
 	<ul>
 		<li style="display:flex;align-items:center">
 			<a
+				data-testid="navMenu"
 				href={'#'}
 				style="display:flex;text-decoration:none;align-items:center"
 				on:click={() => {

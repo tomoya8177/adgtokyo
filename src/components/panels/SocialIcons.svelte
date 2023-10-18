@@ -1,7 +1,11 @@
 <script lang="ts">
 	import { _ } from '$lib/frontend/i18n';
+	import { onMount } from 'svelte';
 	export let url: string;
 	export let title: string;
+	onMount(() => {
+		window.Sharer.init();
+	});
 </script>
 
 <section>
@@ -26,4 +30,9 @@
 </section>
 
 <style>
+	button {
+		background-color: rgba(0, 0, 0, 0);
+		border: none;
+		font-size: 1.4rem;
+	}
 </style>

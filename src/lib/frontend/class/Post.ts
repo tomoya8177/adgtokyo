@@ -14,12 +14,14 @@ export class Post extends DBObject {
 	publicOn: string;
 	translatingLocales: number = 0;
 	translatedLolaes: number = 0;
+	content: Content;
 	constructor(data: any) {
 		data.table = 'Post';
 		super(data);
 		this.status = data.status || 'draft';
 		this.userId = data.userId || '';
 		this.publicOn = DateTime.fromISO(data.publicOn).toISODate() || DateTime.now().toISODate(); //
+		this.content = data.content || new Content({});
 	}
 
 	async generateOtherLocaleContentFrom(originalLocale: string) {

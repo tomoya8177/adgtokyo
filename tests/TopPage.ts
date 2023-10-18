@@ -17,7 +17,9 @@ export default async (page: Page) => {
 	//menu button is there
 	await openUserMenu(page);
 	const loginButton = page.getByRole('button', { name: 'Login/Sign up' });
-	const logoutButton = page.locator('button:has-text("Logout")');
+	const logoutButton = page.getByRole('button', {
+		name: 'Logout'
+	});
 	await expect(loginButton.or(logoutButton)).toBeVisible();
 	await closeUserMenu(page);
 	const recentPostsHeading = page.getByRole('heading', { name: 'Recently Added Posts' });

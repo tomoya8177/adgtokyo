@@ -78,7 +78,6 @@ model History {
   action              String?   @db.VarChar(45)
   target              String?   @db.VarChar(45)
   userId              String?   @db.VarChar(45)
-  owner               User?     @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   workId              String    @db.VarChar(45)
   propertyId          String    @db.VarChar(45)
   entityId            String    @db.VarChar(45)
@@ -132,7 +131,6 @@ model User {
   entityId     String? @unique @db.VarChar(45)
   goodJobs     GoodJob[]
   posts        Post[]
-  histories    History[]
 }
 
 model WeightForEntity {

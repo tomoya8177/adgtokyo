@@ -13,6 +13,7 @@
 	{#if $BottomNavButton}
 		<div role="group">
 			<a
+				style="border-radius:10rem;box-shadow:var(--pico-button-box-shadow);"
 				role="button"
 				href={'#'}
 				on:click={async () => {

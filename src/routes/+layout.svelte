@@ -67,57 +67,40 @@
 	};
 </script>
 
-{#if loggingIn}
-	<div
-		style="
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  width: 100%;
-  height: 100vh;
-				display: flex;
-					justify-content:center;
-					align-items:center;
-					"
-	>
-		<span aria-busy={true}>Loading...</span>
+<div class="height">
+	<div class=" header">
+		<TopNav bind:searchKeywords {onKeywordsChange} />
 	</div>
-{:else}
-	<div class="height">
-		<div class=" header">
-			<TopNav bind:searchKeywords {onKeywordsChange} />
+	<div class="body">
+		<div class="container">
+			<section>
+				<slot />
+			</section>
+			<section>
+				<hr />
+				<Footer />
+			</section>
 		</div>
-		<div class="body">
-			<div class="container">
-				<section>
-					<slot />
-				</section>
-				<!-- <section>
-					<hr />
-					<Footer />
-				</section> -->
-			</div>
-		</div>
-		<div class=" footer">
-			<BottomNav />
-		</div>
-		{#if $sidebarOpen}
-			<div
-				aria-hidden="true"
-				class="sidebarBackground"
-				on:click={() => {
-					sidebarOpen.set(false);
-				}}
-				transition:fade
-			/>
-			<div class="sidebar" transition:fly={{ x: '20rem' }}>
-				<article>
-					<UserMenu />
-				</article>
-			</div>
-		{/if}
 	</div>
-{/if}
+	<div class=" footer">
+		<BottomNav />
+	</div>
+	{#if $sidebarOpen}
+		<div
+			aria-hidden="true"
+			class="sidebarBackground"
+			on:click={() => {
+				sidebarOpen.set(false);
+			}}
+			transition:fade
+		/>
+		<div class="sidebar" transition:fly={{ x: '20rem' }}>
+			<article>
+				<UserMenu />
+			</article>
+		</div>
+	{/if}
+</div>
 <Toasts />
 <ConfirmModal />
 <PromptModal />
@@ -161,17 +144,18 @@
 		background-color: var(--my-background-color);
 	}
 	.body {
-		height: calc(100dvh - 7rem);
+		height: calc(100dvh - 3.5rem);
 		overflow-y: auto;
+		padding-bottom: 3.5rem;
 	}
 	.container {
 		padding: var(--pico-spacing);
 		position: relative;
 	}
 	.footer {
-		box-shadow: var(--pico-card-box-shadow);
+		/* box-shadow: var(--pico-card-box-shadow);
 		border-top: 1px solid var(--pico-muted-border-color);
 		height: 3.5rem;
-		overflow: hidden;
+		overflow: hidden; */
 	}
 </style>

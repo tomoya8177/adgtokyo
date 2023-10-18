@@ -36,17 +36,17 @@
 		background: -moz-linear-gradient(
 			354deg,
 			rgb(24, 28, 37) 0%,
-			/* rgb(32, 38, 50) 35%, */ rgb(32, 38, 50) 100%
+			/* rgb(32, 38, 50) 35%, */ rgb(42, 49, 64) 100%
 		);
 		background: -webkit-linear-gradient(
 			354deg,
 			rgb(24, 28, 37) 0%,
-			/* rgb(32, 38, 50) 35%, */ rgb(32, 38, 50) 100%
+			/* rgb(32, 38, 50) 35%, */ rgb(42, 49, 64) 100%
 		);
 		background: linear-gradient(
 			354deg,
 			rgb(24, 28, 37) 0%,
-			/* rgb(32, 38, 50) 35%, */ rgb(32, 38, 50) 100%
+			/* rgb(32, 38, 50) 35%, */ rgb(42, 49, 64) 100%
 		);
 		filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#020024",endColorstr="#08758b",GradientType=1);
 	}
