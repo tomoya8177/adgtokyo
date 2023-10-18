@@ -1,5 +1,6 @@
 import { db } from '$lib/backend/db.js';
 import prisma from '$lib/backend/prisma.js';
+import { Prisma } from '@prisma/client';
 
 export const POST = async ({ request }) => {
 	const { category, keywords, AND, justNames } = (await request.json()) as {
@@ -37,14 +38,14 @@ export const POST = async ({ request }) => {
 			data = data.map((entity) => {
 				entity.credits = [];
 				entity.totalGoodJobs = 0;
-				entity.filmographies.forEach((filmography) => {
+				entity.filmographies.forEach((filmography: any) => {
 					console.log({ filmography });
 					entity.credits.push(filmography.property.keyLocal);
 					entity.credits.push(filmography.property.keyEn);
 					entity.totalGoodJobs += filmography.goodJobs.length;
 				});
 				entity.credits = entity.credits
-					.filter((value, index, self) => self.indexOf(value) === index)
+					.filter((value: string, index: number, self: string[]) => self.indexOf(value) === index)
 					.join(', ');
 				return entity;
 			});
