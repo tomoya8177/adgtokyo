@@ -11,7 +11,12 @@ export const POST = async ({ request }) => {
 	let data: any[] = [];
 	switch (category) {
 		case 'work':
-			data = await db.query('select * from Work where 1');
+			data = await prisma.work.findMany({
+				include: {
+					distributions: true
+				}
+			});
+			//			data = await db.query('select * from Work where 1');
 			break;
 		case 'person':
 		case 'business':

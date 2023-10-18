@@ -22,6 +22,7 @@
 			return api.get('/work/' + result.id).then((res) => res.data);
 		});
 		const results = await Promise.all(promises);
+		console.log({ results });
 		possibleDuplicates = results.map((result) => {
 			const work = new Work(result.work);
 			work.build(result);
@@ -35,6 +36,11 @@
 
 <Heading label={_('Work')} />
 <WorkTitleInput bind:work />
+{#if searching}
+	<span aria-busy={true}>
+		{_('Searching...')}
+	</span>
+{/if}
 {#if possibleDuplicates.length > 0}
 	<div>
 		{_('Possible duplicates')}:
@@ -42,13 +48,19 @@
 	{#each possibleDuplicates as option}
 		<div class="justified-flex">
 			<div style="display:flex">
-				<Icon icon="movie" />
 				<span>
+					{option.titleLocal}
+					/
+					{option.titleEn}
 					<small>
-						{option.titleLocal}
-						{option.titleEn}
-						(ID:
-						{option.id} )
+						(
+
+						{#each option.distributions as distribution}
+							{distribution.year}
+							{distribution.regionLocal}
+							{distribution.regionEn}
+						{/each}
+						)
 					</small>
 				</span>
 			</div>
