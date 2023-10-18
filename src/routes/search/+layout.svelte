@@ -15,7 +15,7 @@
 </script>
 
 <svelte:head>
-	<title>{_('Search Results')} | ADG</title>
+	<title>{$page.params.keywords} | {_('Search Results')} | ADG</title>
 </svelte:head>
 <div role="group" style="width:100%">
 	<a

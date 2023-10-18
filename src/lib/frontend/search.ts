@@ -33,6 +33,5 @@ export const search = async (
 			userId: me.id
 		});
 	}
-	console.log({ results });
 	return results;
 };

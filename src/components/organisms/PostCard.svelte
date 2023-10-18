@@ -54,7 +54,7 @@
 		</header>
 		<main>
 			<p>
-				{content.excerpt}
+				{@html content.excerpt}
 				<span style="padding:0rem 0.2rem;"> ... </span>
 				<a href={`/post/${post.id}/${lang.locale}`} class="contrast">
 					{_('Read More')}

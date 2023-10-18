@@ -11,7 +11,6 @@
 	$: results = search($page.params.keywords, $page.params.personOrBusiness).then((entities) => {
 		return entities.map((entity) => {
 			entity = new Entity(entity);
-			console.log(entity);
 			return entity;
 		});
 	});

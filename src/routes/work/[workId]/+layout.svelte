@@ -9,7 +9,7 @@
 <svelte:head>
 	<title>
 		{work.titleLocal}
-		/
+		|
 		{work.titleEn}
 
 		| ADG Tokyo</title

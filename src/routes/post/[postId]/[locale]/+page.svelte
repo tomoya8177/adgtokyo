@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { goto } from '$app/navigation';
+	import { goto, invalidate } from '$app/navigation';
 	import { page } from '$app/stores';
 	import PostPanel from '$components/panels/PostPanel.svelte';
 	import { api } from '$lib/frontend/class/API';
@@ -7,29 +7,24 @@
 	import { me } from '$lib/frontend/class/User';
 	import { _ } from '$lib/frontend/i18n';
 	import { BottomNavButton } from '$lib/frontend/store';
+	import { onMount } from 'svelte';
 	import type { PageData } from './$types';
+	import { myConfirm } from '$lib/frontend/class/Confirm';
 	export let data: PageData;
 	let post: Post = data.post;
-
-	const load = async (locale) => {
-		if (post.userId != me.id) {
-			BottomNavButton.set({
-				label: _('New Post'),
-				onClick: () => {
-					goto('/post/create');
-				}
-			});
-			return;
-		} else {
-			BottomNavButton.set({
-				label: _('Edit This Page'),
-				onClick: () => {
+	onMount(() => {
+		BottomNavButton.set({
+			label: _('Edit This Page'),
+			onClick: () => {
+				if (post.userId != me.id) {
+					myConfirm(_('You are not the author of this post.'));
+					return false;
+				} else {
 					goto(`/post/${$page.params.postId}/edit`);
 				}
-			});
-		}
-	};
-	$: load($page.params.locale);
+			}
+		});
+	});
 </script>
 
 <svelte:head>
