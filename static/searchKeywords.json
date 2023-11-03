@@ -5,6 +5,11 @@
 		"category": "person"
 	},
 	{
+		"keyword": "Director",
+		"label": "Director",
+		"category": "person"
+	},
+	{
 		"keyword": "Production Designer",
 		"label": "Production Designer",
 		"category": "person"
