@@ -3,6 +3,7 @@
 	import Icon from '$components/UIComponents/Icon.svelte';
 
 	export let count: number;
+	export let withLabel = true;
 </script>
 
 <div style="display:flex;gap:0.2rem">
@@ -10,5 +11,7 @@
 	<span>
 		{count}
 	</span>
-	<small>{_('total Good Jobs')}</small>
+	{#if withLabel}
+		<small>{_('total Good Jobs')}</small>
+	{/if}
 </div>
