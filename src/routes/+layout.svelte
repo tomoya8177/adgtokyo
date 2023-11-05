@@ -10,12 +10,13 @@
 	import ConfirmModal from '$components/panels/ConfirmModal.svelte';
 	import { me } from '$lib/frontend/class/User';
 	import PromptModal from '$components/panels/PromptModal.svelte';
-	import { api } from '$lib/frontend/class/API';
+	import { api, apiClass } from '$lib/frontend/class/API';
 	import LoginWarningModal from '$components/panels/LoginWarningModal.svelte';
 	import UserMenu from '$components/panels/UserMenu.svelte';
 	import { fade, fly, slide } from 'svelte/transition';
 	import AiChatModal from '$components/panels/AIChatModal.svelte';
 	import Footer from '$components/panels/Footer.svelte';
+	import axios from 'axios';
 	let loggingIn = true;
 
 	onMount(async () => {
@@ -23,6 +24,17 @@
 		await $auth0.init();
 		$User.authenticated = await $auth0.check();
 		if ($User.authenticated) {
+			const token = await $auth0.getTokenSilently();
+			console.log({ token });
+			apiClass.setToken(token);
+			const response = await axios
+				.get('/app/external', {
+					headers: {
+						Authorization: `Bearer ${token}`
+					}
+				})
+				.then((res) => res.data);
+			console.log({ response });
 			const profile = await $auth0.getUser();
 			if (!profile) {
 				return;

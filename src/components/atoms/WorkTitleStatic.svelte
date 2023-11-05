@@ -13,7 +13,7 @@
 {#if $LocalEnSwitch == 'local'}
 	<div style="display:flex;gap:1rem;align-items:center">
 		<h2>
-			{work.titleLocal}
+			{work.titleLocal || work.titleEn}
 		</h2>
 		<TotalGoodJobCount count={work.goodJobNumber} />
 	</div>
@@ -30,7 +30,7 @@
 {:else}
 	<div style="display:flex;gap:1rem;align-items:center">
 		<h2>
-			{work.titleEn}
+			{work.titleEn || work.titleLocal}
 		</h2>
 		<TotalGoodJobCount count={work.goodJobNumber} />
 	</div>

@@ -6,8 +6,8 @@ import { checkApiKey } from '$lib/backend/checkApiKey.js';
 import type { ResultSetHeader } from 'mysql2/promise';
 
 export async function GET({ request, params }) {
-	if (!(await checkApiKey(request.headers.get('Authorization')?.replace('Bearer ', '') || '')))
-		return new Response('not authorized', { status: 401 });
+	// if (!(await checkApiKey(request.headers.get('Authorization')?.replace('Bearer ', '') || '')))
+	// 	return new Response('not authorized', { status: 401 });
 	const filter = await createFiltersFromParams(request, params);
 	const query = `select * from ${params.tableName} where ${filter}`;
 	const rows = await db.query(query);
@@ -15,14 +15,13 @@ export async function GET({ request, params }) {
 }
 
 export async function POST({ request, params }) {
-	if (!(await checkApiKey(request.headers.get('Authorization')?.replace('Bearer ', '') || '')))
-		return new Response('not authorized', { status: 401 });
+	// if (!(await checkApiKey(request.headers.get('Authorization')?.replace('Bearer ', '') || '')))
+	// 	return new Response('not authorized', { status: 401 });
 	const id = crypto.randomUUID();
 	const body = await request.json();
 	if (!body.id) body.id = id;
 	const data = await createInsertData(params, body);
 	const result = await db.query(`insert ${params.tableName} set ${data}`);
-	console.log({ result });
 	if (result.affectedRows > 0) {
 		const rows = await db.query(`select * from ${params.tableName} where id='${body.id}'`);
 		return new Response(JSON.stringify(rows[0]));
@@ -43,9 +42,7 @@ export async function DELETE({ request, params, cookies }) {
 		for (let i = 0; i < rows.length; i++) {
 			//elete local file without Deno
 			const filePath = './static/documentsForAI/' + rows[i].filename;
-			console.log({ filePath });
 			const res = await unlink(filePath);
-			console.log({ res });
 		}
 	}
 	const result = await db.query(`delete from ${params.tableName} where ${filter}`);

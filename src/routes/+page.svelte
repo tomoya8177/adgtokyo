@@ -16,7 +16,6 @@
 	import Footer from '$components/panels/Footer.svelte';
 	export let data: PageData;
 	let posts = data.posts.map((post) => new Post(post));
-	console.log({ posts });
 	let searchKeywords: { keyword: string; label: string; category: string }[] = [];
 	let works = data.works.map((work) => {
 		work.attachments = data.attachments

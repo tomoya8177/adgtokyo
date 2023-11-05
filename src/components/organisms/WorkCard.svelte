@@ -15,9 +15,9 @@
 				<a href={'/work/' + work.id} class="contrast">
 					<h3>
 						{#if $LocalEnSwitch == 'local'}
-							{work.titleLocal}
+							{work.titleLocal || work.titleEn}
 						{:else}
-							{work.titleEn}
+							{work.titleEn || work.titleLocal}
 						{/if}
 					</h3>
 				</a>

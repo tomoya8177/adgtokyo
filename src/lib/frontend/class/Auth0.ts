@@ -10,10 +10,14 @@ export default class Auth0 {
 			domain: PUBLIC_AUTH0_DOMAIN,
 			clientId: PUBLIC_AUTH0_CLIENT_ID,
 			authorizationParams: {
+				audience: 'https://adgtokyo.com',
 				redirect_uri: window.location.origin + '/loginCallback'
 			}
 		});
 	};
+	async getTokenSilently() {
+		return await this.client.getTokenSilently();
+	}
 	handleRedirectCallback: () => Promise<void> = async () => {
 		await this.client.handleRedirectCallback();
 	};
@@ -32,6 +36,7 @@ export default class Auth0 {
 	};
 	getUser: () => Promise<any> = async () => {
 		const user = await this.client.getUser();
+		console.log({ user });
 		return user;
 	};
 	changeEmail: (email: string) => Promise<void> = async (email: string) => {
