@@ -31,12 +31,10 @@ export default class Auth0 {
 	};
 	check: () => Promise<boolean> = async () => {
 		const response = await this.client.isAuthenticated();
-		console.log(response);
 		return response;
 	};
 	getUser: () => Promise<any> = async () => {
 		const user = await this.client.getUser();
-		console.log({ user });
 		return user;
 	};
 	changeEmail: (email: string) => Promise<void> = async (email: string) => {

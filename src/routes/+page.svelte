@@ -37,7 +37,6 @@
 		//rotateWorks();
 		setInterval(rotateWorks, 8000);
 		searchKeywords = await axios.get('/searchKeywords.json').then((res) => res.data);
-		console.log({ searchKeywords });
 	});
 	let rotateIndex = 0;
 	const rotateWorks = () => {

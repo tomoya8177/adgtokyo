@@ -25,7 +25,6 @@
 		$User.authenticated = await $auth0.check();
 		if ($User.authenticated) {
 			const token = await $auth0.getTokenSilently();
-			console.log({ token });
 			apiClass.setToken(token);
 			const response = await axios
 				.get('/app/external', {
@@ -34,7 +33,6 @@
 					}
 				})
 				.then((res) => res.data);
-			console.log({ response });
 			const profile = await $auth0.getUser();
 			if (!profile) {
 				return;
