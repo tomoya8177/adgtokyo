@@ -2,39 +2,16 @@
 
 https://adgtokyo.com
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).
 
-## Creating a project
 
-If you're seeing this, you've probably already done this step. Congrats!
+## About
 
-```bash
-# create a new project in the current directory
-npm create svelte@latest
+At ADG Tokyo, we envision a future where filmmakers from all around the world come together to showcase their talents and experiences. Just as our founders, Ayako, Daisuke, and Goro, once sought a platform to connect and share their cinematic journey, we aim to provide a space where every filmmaker can easily demonstrate their skills and build connections.
 
-# create a new project in my-app
-npm create svelte@latest my-app
-```
+ 
 
-## Developing
+Our mission is to empower filmmakers, whether they're seasoned professionals or aspiring talents, by offering a digital stage to display their work, find collaborators, and form meaningful connections. Just as Ayako landed her dream job with ADG Tokyo, we aspire to help countless filmmakers achieve their goals.
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+ 
 
-```bash
-npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
-
-## Building
-
-To create a production version of your app:
-
-```bash
-npm run build
-```
-
-You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
+Through our platform, we want to transform the way the film industry operates, making it easier for individuals to discover and collaborate with like-minded creatives. We believe that by uniting our global cinematic community, we can accomplish remarkable achievements in storytelling and filmmaking. ADG Tokyo is more than a website; it's a catalyst for the future of filmmaking, enabling dreams to come to life and connections to flourish, all in the spirit of bringing incredible stories to the world.
