@@ -79,6 +79,15 @@
 			{_('Support')}
 		</a>
 	</li>
+	<li>
+		<!-- link to github -->
+		<a href="https://github.com/tomoya8177/adgtokyo" target="_blank">
+			<span style="margin:0rem 0.2rem">
+				<i class="fa-brands fa-github" />
+			</span>
+			{_('GitHub')}
+		</a>
+	</li>
 </ul>
 <section style="padding-right:1rem;padding-left:1rem">
 	{_('Select UI Language')}<br />
